@@ -1,1 +1,66 @@
-<p>banner works!</p>
+
+<div *ngIf="heading=='Home';else banner_area">
+    <section class="banner mb-0" >
+        <div class="container-fluid">
+          <div class="row banner-caption">
+            <div class="col-md-11 m-md-auto m-lg-0 col-lg-5">
+              <div class="banner__content__wrapper">
+                <h1
+                  class="slidea mt-2"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                >
+                  Get Your Medical Marijuana Card in Palmdale From 420 Doctor
+                </h1>
+                <p data-aos="fade-up" data-aos-duration="2000">
+                  Talk to a California medical board licensed doctor & get your medical marijuana recommendation Palmdale instantly. 
+                </p>
+                <div
+                  class="btn__group"
+                  data-aos="zoom-in-right"
+                  data-aos-duration="1000"
+                >
+                  <a href="#" class="btn my__btn__bg"> GET MY CARD NOW</a>
+                </div>
+                
+  
+  
+  
+              </div>
+            </div>
+  
+           
+  
+  
+          </div>
+        </div>
+        <div class="circle-clr-sm"></div>
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+        <div class="circle5"></div>
+      </section>
+    </div>
+ <ng-template #banner_area>
+    <section id="banner__area" >
+        <div class="banner__wrap">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 mx-auto">
+                <div class="banner__inner text-center">
+                  <h1>{{heading}}</h1>
+                    <nav class="banner-inner">
+                      <a href="" class="banner-item">Home</a>
+                      <span class="brd-separetor">-</span>
+                      <span class="banner-item active">{{heading}}</span>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section> 
+
+ </ng-template>
+    
