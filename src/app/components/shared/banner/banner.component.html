@@ -1,5 +1,4 @@
-
-<div *ngIf="heading=='Home';else banner_area">
+<div *ngIf="heading=='Home'">
     <section class="banner mb-0" >
         <div class="container-fluid">
           <div class="row banner-caption">
@@ -20,7 +19,7 @@
                   data-aos="zoom-in-right"
                   data-aos-duration="1000"
                 >
-                  <a href="#" class="btn my__btn__bg"> GET MY CARD NOW</a>
+                  <a routerLonk="\home" class="btn my__btn__bg"> GET MY CARD NOW</a>
                 </div>
                 
   
@@ -42,25 +41,11 @@
         <div class="circle5"></div>
       </section>
     </div>
- <ng-template #banner_area>
-    <section id="banner__area" >
-        <div class="banner__wrap">
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12 mx-auto">
-                <div class="banner__inner text-center">
-                  <h1>{{heading}}</h1>
-                    <nav class="banner-inner">
-                      <a href="" class="banner-item">Home</a>
-                      <span class="brd-separetor">-</span>
-                      <span class="banner-item active">{{heading}}</span>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      </section> 
 
- </ng-template>
+
+     
+
+    
+             
+    
     

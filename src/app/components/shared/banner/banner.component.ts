@@ -10,6 +10,7 @@ export class BannerComponent implements OnInit {
   title:string='Home';
   @Input() heading:string=""
   constructor(private titleService : Title) {
+    console.log(this.title);
    
    }
 

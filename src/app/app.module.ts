@@ -1,5 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+//tinymce module
+import { EditorModule } from "@tinymce/tinymce-angular";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +16,14 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { BlogComponent } from './components/pages/blog/blog.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { SinglePageComponent } from './components/pages/single-page/single-page.component';
+import { UpdateHomeContentComponent } from './components/pages/update-content/update-home-content/update-home-content.component';
+import { UpdateAboutContentComponent } from './components/pages/update-content/update-about-content/update-about-content.component';
+import { UpdateBlogConentComponent } from './components/pages/update-content/update-blog-conent/update-blog-conent.component';
+import { UpdateContactContentsComponent } from './components/pages/update-content/update-contact-contents/update-contact-contents.component';
+import { EditHomeContentComponent } from './components/pages/update-content/edit-home-content/edit-home-content.component';
+import { LoginComponent } from './components/pages/login/login.component';
+import { AdminComponent } from './components/pages/admin/admin.component';
+//contents update pages
 
 @NgModule({
   declarations: [
@@ -22,11 +35,21 @@ import { SinglePageComponent } from './components/pages/single-page/single-page.
     HomeComponent,
     BlogComponent,
     ContactComponent,
-    SinglePageComponent
+    SinglePageComponent,
+    UpdateHomeContentComponent,
+    UpdateAboutContentComponent,
+    UpdateBlogConentComponent,
+    UpdateContactContentsComponent,
+    EditHomeContentComponent,
+    LoginComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    EditorModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

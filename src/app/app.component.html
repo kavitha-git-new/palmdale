@@ -299,14 +299,14 @@
 </style>
 
 <!-- Toolbar -->
-<app-header ></app-header>
-<app-banner [heading]="title"></app-banner>
+<app-header [heading]="title"></app-header>
+<!-- <app-banner [heading]="title"></app-banner> -->
 <div class="" role="main">
-
+<!-- <app-side-bar [heading]="title"></app-side-bar> -->
   <router-outlet></router-outlet>
  
 </div>
-<app-footer></app-footer>
+<app-footer [heading]="title"></app-footer>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
