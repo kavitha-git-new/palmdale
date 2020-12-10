@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LoginService } from '../../services/login.service';
+import { ModalService } from '../../_modal';
 
 @Component({
   selector: 'app-header',
@@ -46,7 +47,9 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  logout(){
+  logOut(){
     this.loginService.onLogout();
+    
+
   }
 }

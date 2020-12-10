@@ -302,7 +302,11 @@
 <app-header [heading]="title"></app-header>
 <!-- <app-banner [heading]="title"></app-banner> -->
 <div class="" role="main">
-<!-- <app-side-bar [heading]="title"></app-side-bar> -->
+  <!-- app-side-bar -->
+  <div id="wrapper">
+<app-side-bar [heading]="title"></app-side-bar>
+</div>
+
   <router-outlet></router-outlet>
  
 </div>

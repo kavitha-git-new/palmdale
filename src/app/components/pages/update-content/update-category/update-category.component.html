@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Categories</h1>
+    <p class="mb-4">Categories is to group your posts systematically so that readers can easily find the content that interests them <a target="_blank"
+            routerLink="/blog" >see official website</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List of Categories</h6>
+        </div>
+        <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th width="5%">S.No</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th width="5%">S.No</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr *ngFor="let i=index ;let item of items| paginate: { id: 'list_items',
+                itemsPerPage: 10,
+                currentPage: page,
+                totalItems: itemsRecords }">
+                    <td>{{i+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                        <a class="link" (click)="onEdit(item.id)">
+                            <i class="fas fa-pen-alt"></i>
+                        </a>
+                        &nbsp;
+                        <a class="link" (click)="onEdit(item.id)">
+                            <i class="fas fa-trash"></i>
+                        </a>
+
+                    </td>
+                </tr>           
+            
+            </tbody>
+        </table>
+        <div>
+            <pagination-controls id="list_items" maxsize="5"    (pageChange)="page = $event"></pagination-controls>
+        </div>
+
+    </div> 
+    
+
+</div>

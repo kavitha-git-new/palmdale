@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -8,10 +9,15 @@ import { Title } from '@angular/platform-browser';
 })
 export class AdminComponent implements OnInit {
   title:string="";
-  constructor(private titleService:Title) { }
+  constructor(private titleService:Title , private router:Router) {
+    this.router.onSameUrlNavigation = "reload";
+    console.log("Reload");
+   }
   
   ngOnInit(): void {
     this.title=this.titleService.getTitle();
+    this.router.onSameUrlNavigation = "reload";
+
   }
 
   isTitle(ut:string|string[]):boolean {

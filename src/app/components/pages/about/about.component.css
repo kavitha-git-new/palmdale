@@ -272,4 +272,22 @@
       height: 36.1875rem;
     }
   }
+  .my__btn__bg {
+    font-weight: bolder;
+    color: #006ba6;
+    padding: 1.2rem 3rem;
+    border-radius: 5rem;
+    background: var(--whiteclr);
+    border: solid .2rem #006ba6;
+    font-size: 1.5rem;
+    letter-spacing: .5px;
+    -webkit-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease
+  }
   
+  a.btn.my__btn__bg:hover {
+    background: #006ba6;
+    color: var(--whiteclr);
+    border-color: var(--whiteclr)
+  }

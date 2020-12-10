@@ -28,4 +28,22 @@ export class FooterComponent implements OnInit {
       return 'relative';}
   }
 
+  isTitle(ut: string | string[]): boolean {
+    if (typeof ut == 'string') {
+      console.log((this.heading == ut));
+      return (this.heading == ut);
+    }
+    else {
+     
+      const match = ut.findIndex(e => e === this.heading);
+      if (match !== -1) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+  }
+
 }

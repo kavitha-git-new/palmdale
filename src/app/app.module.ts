@@ -2,9 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import {NgxPaginationModule} from 'ngx-pagination'
 //tinymce module
 import { EditorModule } from "@tinymce/tinymce-angular";
+
+import { ModalModule } from "./components/_modal";
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +26,11 @@ import { UpdateContactContentsComponent } from './components/pages/update-conten
 import { EditHomeContentComponent } from './components/pages/update-content/edit-home-content/edit-home-content.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { AdminComponent } from './components/pages/admin/admin.component';
+import { UpdateCategoryComponent } from './components/pages/update-content/update-category/update-category.component';
+import { SideBarComponent } from './components/shared/side-bar/side-bar.component';
+import { LoginService } from './components/services/login.service';
+import {AddElementService} from './components/services/add-element.service';
+import { UpdateTagComponent } from './components/pages/update-content/update-tag/update-tag.component'
 //contents update pages
 
 @NgModule({
@@ -43,15 +51,20 @@ import { AdminComponent } from './components/pages/admin/admin.component';
     EditHomeContentComponent,
     LoginComponent,
     AdminComponent,
+    UpdateCategoryComponent,
+    SideBarComponent,
+    UpdateTagComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     EditorModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule,
+    NgxPaginationModule
   ],
-  providers: [],
+  providers: [AddElementService,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

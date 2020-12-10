@@ -1,91 +1,79 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>Palmdale Alternative Medical Center</title>
-    <meta name="description" content="Medical Marijuana Clinic" />
-    <!-- favicon CSS -->
-    <link rel="shortcut icon" href="assets/img/jpg/favicon.png" type="image/x-icon" />
-    <link rel="preconnect" href="assets/css/font.css" />
-    <link
-    rel="stylesheet" rel="preload"
-    href="assets/css/bootstrap.min.css"
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
-  />
+  <meta name="description" content="Medical Marijuana Clinic" />
+  <!-- favicon CSS -->
+  <link rel="shortcut icon" href="assets/img/jpg/favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="assets/css/font.css" />
   <link rel="stylesheet" href="assets/css/bootstrap.css" />
-       <!--[if !IE]> -->
-    <link rel="stylesheet" href="assets/css/home.css" />
-    <!-- <![endif]-->
-    <noscript
-    ><link rel="stylesheet" href="assets/css/home.css"
-  /></noscript>
-  <link rel="stylesheet" href="assets/css/main.css" lazyload />
-  <noscript><link rel="stylesheet" href="assets/css/main.css" /></noscript>
 
-    <!-- Animation CSS -->
-    <link
-      rel="stylesheet" rel="preload"
-      href="assets/css/animation.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript
-      ><link rel="stylesheet" href="assets/css/animation.css"
-    /></noscript>
+  <!-- <link id="theme" rel="stylesheet" href="assets/css/main.css" /> -->
+  <!-- Animation CSS -->
 
+  <link rel="stylesheet" href="assets/css/animation.css">
+
+  <!-- <link rel="stylesheet" href="assets/css/blog.css" /> -->
+  <link rel="stylesheet" href="assets/css/responsive.css" media="all">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="assets/js/jquery.min.js"></script>
+  <!-- Custom fonts for this template-->
+  <link href="assets/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
-  rel="stylesheet" rel="preload"
-  href="assets/css/bootstrap.min.css"
-  />
-  <link
-  rel="stylesheet" rel="preload"
-  href="assets/css/about.css"
-  as="style"
-  onload="this.onload=null;this.rel='stylesheet'"
-/>
-<noscript><link rel="stylesheet" href="assets/css/about.css" /></noscript>
-<link
-rel="stylesheet" rel="preload"
-href="assets/css/blog.css"
-as="style"
-onload="this.onload=null;this.rel='stylesheet'"
-/>
-<noscript><link rel="stylesheet" href="assets/css/blog.css" /></noscript>
-<!-- <noscript><link rel="stylesheet" href="assets/css/about.css" /></noscript> -->
-<link rel="stylesheet" href="assets/css/responsive.css" media="all">
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
- <!-- jQuery library -->
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Custom styles for this template-->
+  <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+  <style>
+    @-ms-viewport {
+      width: device-width;
+    }
+  </style>
 
- <script src="assets/js/jquery.min.js" rel="noopener"></script>
 
- <!--custom js-->
- <link rel="preload" href="assets/js/custom.js" as="script"> 
- <!-- Latest compiled JavaScript -->
- <script async="true" src="assets/js/bootstrap.min.js"></script>
- <style>
-  @-ms-viewport {
-    width: device-width;
-  }
-</style>
-
-    
 </head>
-<body>
-    <app-root></app-root>
-  
-  
+
+<body id="page-top">
+  <app-root></app-root>
 </body>
+ <!-- Scroll to Top Button-->
+ <a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
 
-      <!--script src="assets/js/my.js"></script-->
+<!--script src="assets/js/my.js"></script-->
 
-  <script src="assets/js/custom.js"></script>
-  <script>
-    var usedLaterScript=document.createElement("script");usedLaterScript.src="assets/js/custom.js",document.body.appendChild(usedLaterScript);
-    </script>
-  <script src="assets/js/animation.js"></script>
+<!-- <script src="assets/js/custom.js"></script> -->
+<script src="assets/js/jquery.min.js" rel="noopener"></script>
+<script async="true" src="assets/js/bootstrap.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="assets/js/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+
+<script src="assets/js/sb-admin-2.min.js"></script>
+<link href="assets/js/custom.js" as="script">
+<script>
+  var usedLaterScript = document.createElement("script"); usedLaterScript.src = "assets/js/custom.js", document.body.appendChild(usedLaterScript);
+</script>
+<!-- Menu Toggle Script -->
+<script>
+  jQuery(document).ready(function($){
+    
+      $("#menu-toggle").click(function(e){
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+  });
+</script>
+
 </html>
