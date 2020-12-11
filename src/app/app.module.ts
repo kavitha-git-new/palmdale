@@ -28,10 +28,14 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { AdminComponent } from './components/pages/admin/admin.component';
 import { UpdateCategoryComponent } from './components/pages/update-content/update-category/update-category.component';
 import { SideBarComponent } from './components/shared/side-bar/side-bar.component';
-import { LoginService } from './components/services/login.service';
-import {AddElementService} from './components/services/add-element.service';
 import { UpdateTagComponent } from './components/pages/update-content/update-tag/update-tag.component'
 //contents update pages
+
+//services
+import { LoginService } from './components/services/login.service';
+import {AddElementService} from './components/services/add-element.service';
+import {DataService} from './components/services/data.service';
+import { UserComponent } from './components/pages/update-content/user/user.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,7 @@ import { UpdateTagComponent } from './components/pages/update-content/update-tag
     UpdateCategoryComponent,
     SideBarComponent,
     UpdateTagComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,7 @@ import { UpdateTagComponent } from './components/pages/update-content/update-tag
     ModalModule,
     NgxPaginationModule
   ],
-  providers: [AddElementService,LoginService],
+  providers: [AddElementService,LoginService,DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -27,36 +27,54 @@ export class Contact {
     email: string = "";
 }
 
-export class Tag{
-    id:number=0;
-    name:string='';
-    post_id:number=0;
-  //  description:string='';
-    }
+export class Tag {
+    id: number = 0;
+    name: string = '';
+    post_id: number = 0;
+    //  description:string='';
+}
 
-    export class Category{
-        id:number=0;
-        name:string='';
-        description:string='';
-    }
+export class Category {
+    id: number = 0;
+    name: string = '';
+    description: string = '';
+}
 
-    export function isEmailValid(email:string){
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
-        {
-          return (true)
+export function isEmailValid(email: string) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+        return (true)
+    }
+    alert("You have entered an invalid email address!")
+    return (false)
+}
+
+export function removeTheme() {
+    const mainCss = document.getElementById("theme")?.remove();
+}
+
+export function addTheme() {
+    const header = document.getElementsByTagName("header")
+    header.namedItem
+}
+
+export function allLetter(inputtxt: string) {
+
+    var letters = /^[A-Za-z]+$/;
+    if(inputtxt===''|| inputtxt===undefined){
+        //alert("Msg");
+        return false;
+    }
+    else{
+        if (inputtxt.match(letters)) {
+            return true;
         }
-          alert("You have entered an invalid email address!")
-          return (false)
-      }
+        else {
+           // alert("message");
+            return false;
+        }
+    }    
+   
+}
 
-      export function removeTheme(){
-          const mainCss= document.getElementById("theme")?.remove();
-      }
 
-      export function addTheme(){
-          const header= document.getElementsByTagName("header")
-          header.namedItem
-      }
-      
-      
 

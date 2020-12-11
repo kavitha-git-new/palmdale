@@ -8,6 +8,7 @@
     <div class="card">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">List of Categories</h6>
+            <button type="button" class="btn btn-primary" style="float: right;" (click)="onAdd('Save')">Add</button> &nbsp;
         </div>
         <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -38,7 +39,7 @@
                     <td>{{item.description}}</td>
                     <td>
                         <a class="link" (click)="onEdit(item.id)">
-                            <i class="fas fa-pen-alt"></i>
+                            <i class="fas fa-pencil-alt"></i>
                         </a>
                         &nbsp;
                         <a class="link" (click)="onEdit(item.id)">
@@ -57,4 +58,64 @@
     </div> 
     
 
+</div>
+<div id="updateDate">
+    <jw-modal id="exampleModal">
+        <div class="modal-body">
+                       
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-title">{{title}}</h4>
+                          <p class="card-category">{{titleDescription}}</p>
+                        </div>
+                        <div class="card-body">
+                          <form id="addUserForm">
+                            <div class="row" *ngIf="category.errMsg">
+                   
+                              <div class="col-md-6">
+                                <div class="alert alert-danger">
+                                  {{category.errMsg}}
+                                </div>
+                             
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div  [ngClass]="{'form-group': true, 'is-filled': true}">
+                                  <label for="tname" class="bmd-label-floating">Category Name</label>
+                                  <input type="text" name="tname" class="form-control" [(ngModel)]="category.name"/>
+                                </div>
+                              </div>
+                    
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <label for="tdescription">Description</label>
+                                <div class="form-group">
+                                  <label [ngClass]="{'form-group': true, 'is-filled': true}" for="tdescription"> Any specific description about the tag</label>
+                                  <textarea class="form-control" rows="4" name="tdescription" [(ngModel)]="category.description"></textarea>
+                                </div>
+                              </div>
+                         
+                            </div>
+                
+                           <div class="row">
+                              <div class="col-md-12">
+                             <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClose('exampleModal')">Cancel</button> &nbsp;
+                                <button type="button" class="btn btn-primary" (click)="saveData(category,btnName)">{{btnName}}</button>
+                              </div>
+                            </div>
+                                          
+                            <div class="clearfix"></div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                 
+                  </div>
+              
+        </div>
+      </jw-modal>
 </div>

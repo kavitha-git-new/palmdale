@@ -2542,7 +2542,7 @@ a.btn.my__btn__bg:hover {
   }
   
   .btn-primary:focus, .btn-primary.focus {
-	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+	box-shadow: 0 0 0 0.2rem rgba(42, 56, 71, 0.5);
   }
   
   .btn-primary.disabled, .btn-primary:disabled {
