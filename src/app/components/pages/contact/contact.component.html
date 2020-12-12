@@ -98,21 +98,26 @@
         </div>
         <div class="col-lg-12">  
           <div class="contact-form-wrap">
-            <form id="contact-form" action="" method="post" class="was-validated">
+            <form  class="was-validated">
               <div class="row">
+                <div class="col-12">
+                  <div class="alert alert-danger" *ngIf="errMsg">
+                    <h5>{{errMsg}}</h5>
+                </div>
+              </div>
                 <div class="col-6">
                     <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <label for="inputName">Your Name*</label>
-                        <input type="text" class="form-control is-invalid" id="inputName" placeholder="Your Name*" required>
+                                           <div class="form-group col-md-12">
+                        <label for="cname">Your Name*</label>
+                        <input type="text" class="form-control is-invalid" id="cname" name="cname" [(ngModel)]="cm.name" placeholder="Your Name*" required>
                       </div>
                       <div class="form-group col-md-12">
-                        <label for="inputEmail">Your Email*</label>
-                        <input type="email" class="form-control is-invalid" id="inputEmail" placeholder="Email" required>
+                        <label for="cemail">Your Email*</label>
+                        <input type="email" class="form-control is-invalid" id="cemail" name="cemail" [(ngModel)]="cm.email"  placeholder="Email" required>
                       </div>
                       <div class="form-group col-md-12">
-                        <label for="inputPhone">Your Phone Number</label>
-                        <input type="tel" class="form-control" id="inputPhone" placeholder="Your Phone Number">
+                        <label for="cphone">Your Phone Number</label>
+                        <input type="number" class="form-control" id="cphone" name="cphone" [(ngModel)]="cm.phone" placeholder="Your Phone Number">
                       </div>
                     </div>
 
@@ -120,13 +125,13 @@
                 <div class="col-6">
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                          <label for="inputMessage">Message*</label>
+                          <label for="cmessage">Message*</label>
 
-                          <textarea class="form-control is-invalid" id="inputMessage" placeholder="Message*" required></textarea>
+                          <textarea class="form-control is-invalid" id="cmessage" name="cmessage" [(ngModel)]="cm.message"  placeholder="Message*" required></textarea>
                         </div>
                         <div class="form-group col-md-12">
-                         
-                          <input type="submit" class="btn my__btn__bg" value="Submit" />
+                    
+                          <button class="btn my__btn__bg" (click)="onSubmit(cm)">Submit</button>
                         </div>
                     </div>
                 </div>

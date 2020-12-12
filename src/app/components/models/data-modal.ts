@@ -40,6 +40,14 @@ export class Category {
     description: string = '';
 }
 
+export class Contact_Message{
+    name:string="";
+    email:string="";
+    phone:number=0;
+    message:string="";
+
+}
+
 export function isEmailValid(email: string) {
     if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
         return (true)

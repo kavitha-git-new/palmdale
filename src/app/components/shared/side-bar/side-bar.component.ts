@@ -35,7 +35,7 @@ ngOnDestroy():void{
         return true;
       }
       else {
-       this.addElementService.createLink();
+     // this.addElementService.createLink();
         return false;
       }
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { isEmailValid } from "../../models/data-modal";
 import { LoginService } from "../../services/login.service";
@@ -7,7 +7,7 @@ import { LoginService } from "../../services/login.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
   user: any = { email:'',
 pwd:''};
   errMsg: string = "";
@@ -15,6 +15,9 @@ pwd:''};
 
   ngOnInit(): void {
     this.loginService.onLogout();
+  }
+  ngOnDestroy():void{
+    window.location.reload();
   }
 
   login(user: any) {

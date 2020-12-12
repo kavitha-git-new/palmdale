@@ -76,4 +76,9 @@ export class DataService {
     console.log(this.httpOptions);
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
   }
+
+  //contact message from contact page
+  sendMessage(params:any){
+    return this.http.get(environment.apiUrl,this.httpOptions)
+  }
 }

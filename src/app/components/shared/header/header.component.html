@@ -1,4 +1,4 @@
-<div id="header" *ngIf="isTitle(['Home', 'About','Blog','Contact','Login']); else dashboardHeader">
+<div id="header" *ngIf="isTitle(['Home', 'About','Blog','Contact','Login','Blog Details']); else dashboardHeader">
   <section id="top-bar">
     <div class="container-fluid">
       <div class="row">
@@ -49,7 +49,7 @@
       </div>
     </div>
   </section>
-  <header *ngIf="isTitle(['Home', 'About','Blog','Contact'])">
+  <header *ngIf="isTitle(['Home', 'About','Blog','Contact','Blog Details'])">
     <nav class="navbar navbar-expand-md navbar-dark" id="banner">
       <div class="container-fluid">
         <!-- Brand -->
@@ -57,7 +57,7 @@
           <picture>
             <source type="image/webp" data-srcset="assets/img/webp/logo.webp" />
             <source type="image/jpeg" data-srcset="assets/img/jpg/logo.png" />
-            <img data-src="assets/img/jpg/logo.png" class="lazyload" alt="logo" width="645" height="147" />
+            <img data-src="assets/img/jpg/logo.png"  class="lazyload" alt="logo" width="645" height="147" />
           </picture>
         </a>
         <!-- Toggler collapsibe Button -->

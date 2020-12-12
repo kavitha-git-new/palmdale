@@ -24,7 +24,7 @@ const routes: Routes = [
   {path:'about',component:AboutComponent, data:{title:'About' }},
   {path:'blog',component:BlogComponent, data:{title:'Blog' }},
   {path:'contact',component:ContactComponent, data:{title:'Contact' }},
-  {path:'single-page',component:SinglePageComponent, data:{title:'Single Page' }},
+  {path:'single-page',component:SinglePageComponent, data:{title:'Blog Details' }},
   {path:'login',component:LoginComponent, data:{title:'Login' }},
 
   //update-page-contents 

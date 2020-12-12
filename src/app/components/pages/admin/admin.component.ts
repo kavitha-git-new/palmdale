@@ -20,6 +20,11 @@ export class AdminComponent implements OnInit {
 
   }
 
+  ngOnDestry(){
+    window.location.reload();
+  }
+  
+
   isTitle(ut:string|string[]):boolean {
     if (typeof ut == 'string')
       return (this.title == ut);
