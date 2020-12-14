@@ -77,6 +77,32 @@ export class DataService {
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
   }
 
+ //Items
+ getItems() {
+  console.log("header");
+  console.log(this.httpOptions);
+  return this.http.get(environment.apiUrl, this.httpOptions)
+}
+getItem(id: number) {
+  console.log("header");
+  console.log(this.httpOptions);
+  return this.http.get(environment.apiUrl, this.httpOptions)
+}
+saveItem(params: any) {
+  console.log("header");
+  console.log(this.httpOptions);
+  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+}
+updateItem(params: any) {
+  console.log("header");
+  console.log(this.httpOptions);
+  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+}
+
+
+
+
+
   //contact message from contact page
   sendMessage(params:any){
     return this.http.get(environment.apiUrl,this.httpOptions)

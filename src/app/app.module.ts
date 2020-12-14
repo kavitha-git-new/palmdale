@@ -36,6 +36,7 @@ import { LoginService } from './components/services/login.service';
 import {AddElementService} from './components/services/add-element.service';
 import {DataService} from './components/services/data.service';
 import { UserComponent } from './components/pages/update-content/user/user.component';
+import { ItemComponent } from './components/pages/update-content/item/item.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { UserComponent } from './components/pages/update-content/user/user.compo
     SideBarComponent,
     UpdateTagComponent,
     UserComponent,
+    ItemComponent,
   ],
   imports: [
     BrowserModule,

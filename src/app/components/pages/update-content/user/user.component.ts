@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
   }
 
   onEdit(id: number) {
+    this.user.errMsg="";
     this.title="Edit";
     this.titleDescription="Edit details about the user to update.";
     this.btnName="Update"
@@ -65,7 +66,7 @@ export class UserComponent implements OnInit {
       user.errMsg = "";
     }
     if (user.mobile === '' || isNaN(user.mobile)) {
-      alert(parseInt(user.mobile));
+     // alert(parseInt(user.mobile));
       user.errMsg = "Please provide valid details."
       return false;
     }
@@ -102,7 +103,7 @@ export class UserComponent implements OnInit {
     else {
       user.errMsg = "";
     }
-    if (user.fname !== '' && user.lname !== '' && user.email !== '' && user.type !== '' && parseInt(user.mobile) && user.pwd === user.newpwd) {
+    if (user.fname !== '' && user.lname !== '' && user.email !== '' && user.type !== '' && parseInt(user.mobile) && user.pwd === user.newpwd  && confirm("Are you sure ? Do you want to save the details of "+user.name)===true) {
       if (btnName == 'Save' && this.btnName === 'Save') {
         this.dataService.saveUser(JSON.stringify(user));
 

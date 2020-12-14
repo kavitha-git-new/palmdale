@@ -1,12 +1,12 @@
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">User</h1>
-    <p class="mb-4">Users to access and update the content.&nbsp;</p>
+    <h1 class="h3 mb-2 text-gray-800">Item</h1>
+    <p class="mb-4">Item to be added in the post or blogs.&nbsp;</p>
 
     <!-- DataTales Example -->
     <div class="card">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">List of User</h6>
+            <h6 class="m-0 font-weight-bold text-primary">List of Items</h6>
             <button type="button" class="btn btn-primary" style="float: right;" (click)="onAdd('Save')">Add</button> &nbsp;
         </div>
         <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -72,75 +72,39 @@
                         </div>
                         <div class="card-body">
                           <form id="addUserForm">
-                            <div class="row" *ngIf="user.errMsg">
+                            <div class="row" *ngIf="item.errMsg">
                    
                               <div class="col-md-6">
                                 <div class="alert alert-danger">
-                                  {{user.errMsg}}
+                                  {{item.errMsg}}
                                 </div>
                              
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                 <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                  <label for="fname">First Name</label>
-                                  <input type="text" name="fname" class="form-control" [(ngModel)]="user.fname"/>
+                                  <label for="fname">Name</label>
+                                  <input type="text" name="name" class="form-control" [(ngModel)]="item.name"/>
                                 </div>
                               </div>
-                              <div class="col-md-6">
-                                <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                  <label for="lname">Last Name</label>
-                                  <input type="text" name="lname" class="form-control" [(ngModel)]="user.lname"/>
-                                </div>
-                              </div>
-                    
+                                          
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                   <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                    <label for="mobile">Mobile</label>
-                                    <input type="text" name="mobile" class="form-control" [(ngModel)]="user.mobile"/>
-                                  </div>
+                                    <label for="mobile">Description</label>
+                                    <textarea class="form-control" rows="4" name="tdescription" [(ngModel)]="item.description"></textarea>
                                 </div>
-                                <div class="col-md-4">
-                                  <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                    <label for="email">email</label>
-                                    <input type="text" name="email" class="form-control" [(ngModel)]="user.email"/>
-                                  </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                      <label for="type" class="bmd-label-floating">Role</label>
-                                      <select class="browser-default custom-select">
-                                        <option selected>--Select user Type---</option>
-                                        <option value="A">Administrator</option>
-                                        <option value="N">Normal</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                      
+                                              
                               </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                    <label for="fname">Password</label>
-                                    <input type="password" name="fname" class="form-control" [(ngModel)]="user.pwd"/>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                    <label for="lname">Confirm Password</label>
-                                    <input type="password" name="lname" class="form-control" [(ngModel)]="user.newpwd"/>
-                                  </div>
-                                </div>
-                      
-                              </div>
+                          
                 
                            <div class="row">
                               <div class="col-md-12">
                              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClose('exampleModal')">Cancel</button> &nbsp;
-                                <button type="button" class="btn btn-primary" (click)="saveData(user,btnName)">{{btnName}}</button>
+                                <button type="button" class="btn btn-primary" (click)="saveData(item,btnName)">{{btnName}}</button>
                               </div>
                             </div>
                                           

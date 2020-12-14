@@ -62,7 +62,7 @@ btnName:string="Save";
     else{
       category.errMsg=""; 
     }
-    if(category.name!=='' && category.description!==""){
+    if(category.name!=='' && category.description!=="" && confirm("Are you sure ? Do you want to save the details of "+category.name)===true){
         if(this.btnName==='Save' || btName==='Save')
         {
           //to save the detais

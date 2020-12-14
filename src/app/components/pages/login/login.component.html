@@ -12,22 +12,22 @@
                                         <h5>{{errMsg}}</h5>
                                     </div>
                                     <div class="form-group">
-                                        <label class="small mb-1" for="email"><h5>Email</h5></label>
+                                        <label class="small mb-1" for="email"><strong>Email</strong></label>
                                         <input class="form-control py-4" id="email" name="email" [(ngModel)]="user.email" type="email" placeholder="Enter email address" />
                                     </div>
                                     <div class="form-group">
-                                        <label class="small mb-1" for="password"><h5>Password</h5></label>
+                                        <label class="small mb-1" for="password"><strong>Password</strong></label>
                                         <input class="form-control py-4" id="password" name="password" type="password" [(ngModel)]="user.pwd" placeholder="Enter password" />
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
                                             <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                            <label class="custom-control-label" for="rememberPasswordCheck"><h5>Remember password</h5></label>
+                                            <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
                                         </div>
                                     </div>
                                       <div class="form-group align-items-center justify-content-between mt-4 mb-0">
                                         <!-- <a class="small" routerLink="/login">Forgot Password?</a> -->
-                                        <a class="btn btn-lg btn-primary" style="float: right;" (click)="login1(user)">Login</a>
+                                        <a class="btn btn-primary" style="float: right;" (click)="login1(user)">Login</a>
                                     </div>
                                 </form>
                             </div>

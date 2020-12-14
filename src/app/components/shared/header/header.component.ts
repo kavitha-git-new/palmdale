@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { AddElementService } from '../../services/add-element.service';
 import { LoginService } from '../../services/login.service';
 import { ModalService } from '../../_modal';
 
@@ -15,10 +16,11 @@ export class HeaderComponent implements OnInit {
   user: any = {};
 
   @Input() heading: string = ""
-  constructor(private titleService: Title, private loginService:LoginService) {
+  constructor(private titleService: Title, private loginService:LoginService,private addElementService:AddElementService) {
     if (sessionStorage.currentUser) {
 
     }
+  
 
   }
 
@@ -38,6 +40,10 @@ export class HeaderComponent implements OnInit {
      
       const match = ut.findIndex(e => e === this.heading);
       if (match !== -1) {
+        if(this.heading==='Login'){
+          console.log(this.heading);
+          this.addElementService.removeLink();
+        }
         return true;
       }
       else {

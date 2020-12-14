@@ -1,9 +1,9 @@
-<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser'])">
+<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser','CItem'])">
     <!-- <div id="wrapper"> -->
        <!-- Sidebar -->
        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
           <!-- Sidebar - Brand -->
-          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/cdashboard">
              <div class="sidebar-brand-icon">
                 <i class="fas fa-user-alt"></i>
              </div>
@@ -22,7 +22,7 @@
           <hr class="sidebar-divider">
           <!-- Heading -->
           <div class="sidebar-heading">
-             Interface
+             <!-- Interface -->
           </div>
           <!-- Nav Item - Pages Collapse Menu -->
           <li class="nav-item">
@@ -37,6 +37,7 @@
                    <a class="collapse-item" routerLink="/cuser">Users</a>
                    <a class="collapse-item" routerLink="/ccategory">Categories</a>
                    <a class="collapse-item" routerLink="/ctag">Tags</a>
+                   <a class="collapse-item" routerLink="/citem">Items</a>
                 </div>
              </div>
           </li>
@@ -62,7 +63,7 @@
           <hr class="sidebar-divider">
           <!-- Heading -->
           <div class="sidebar-heading">
-             Addons
+             <!-- Addons -->
           </div>
           <!-- Nav Item - Pages Collapse Menu -->
           <li class="nav-item">
@@ -84,15 +85,21 @@
                 </div>
              </div>
           </li>
+          <!-- Nav Item - Tables -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cdashboard">
+            <i class="fas fa-envelope fa-fw"></i>
+            <span>Messages</span></a>
+         </li>
           <!-- Nav Item - Charts -->
           <li class="nav-item">
-             <a class="nav-link" href="charts.html">
+             <a class="nav-link" routerLink="/cdashboard">                                                                                                                
              <i class="fas fa-fw fa-chart-area"></i>
              <span>Charts</span></a>
           </li>
           <!-- Nav Item - Tables -->
           <li class="nav-item">
-             <a class="nav-link" href="tables.html">
+             <a class="nav-link" routerLink="/cdashboard">
              <i class="fas fa-fw fa-table"></i>
              <span>Tables</span></a>
           </li>

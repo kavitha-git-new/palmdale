@@ -64,7 +64,7 @@ titleDescription:string="";
       tag.errMsg="";
     }
    
-      if(tag.name!=='' && tag.description!==""){
+      if(tag.name!=='' && tag.description!=="" && confirm("Are you sure ? Do you want to save the details of "+tag.name)===true){
         if(this.btnName==='Save' || btName==='Save')
         {
           this.dataService.saveTag(JSON.stringify(tag));

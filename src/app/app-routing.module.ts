@@ -17,6 +17,7 @@ import { AuthGuard } from "../app/components/services/auth.guard";
 import { UpdateCategoryComponent } from './components/pages/update-content/update-category/update-category.component';
 import { UpdateTagComponent } from './components/pages/update-content/update-tag/update-tag.component';
 import { UserComponent } from './components/pages/update-content/user/user.component';
+import { ItemComponent } from './components/pages/update-content/item/item.component';
 const routes: Routes = [
   { path:'', pathMatch: 'full' ,redirectTo:'/home'},
   {path:'',pathMatch:'full', component:HomeComponent, data:{title:'Home'} },
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path:'cuser',component:UserComponent, data:{title:'CUser' },canActivate:[AuthGuard]},
   {path:'ccategory',component:UpdateCategoryComponent, data:{title:'CCategory' },canActivate:[AuthGuard]},
   {path:'ctag',component:UpdateTagComponent, data:{title:'CTag' },canActivate:[AuthGuard]},
+  {path:'citem',component:ItemComponent, data:{title:'CItem' },canActivate:[AuthGuard]},
 
   {path:'chome',component:UpdateHomeContentComponent, data:{title:'CHome' },canActivate:[AuthGuard]},
   {path:'cabout',component:UpdateAboutContentComponent, data:{title:'CAbout' },canActivate:[AuthGuard]},
