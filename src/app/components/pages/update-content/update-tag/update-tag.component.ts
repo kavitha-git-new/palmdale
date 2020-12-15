@@ -35,6 +35,22 @@ titleDescription:string="";
     console.log(id);
   }
 
+  onDelete(id: number) {
+    console.log(id);
+    this.dataService.getBlog(id).subscribe(element => {
+      this.tag = element;
+    });
+
+    if (confirm("Are you sure? Do you want to delete the details about the user : " + this.tag.name) === true) {
+      this.dataService.deleteTag(id);
+      return true;
+
+    }
+    else {
+      return false;
+    }
+  }
+
   onAdd(btName:string){
     this.title="Add";
     this.titleDescription="Add details about the tags to save.";

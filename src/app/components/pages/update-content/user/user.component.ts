@@ -35,13 +35,29 @@ export class UserComponent implements OnInit {
     console.log(id);
   }
 
+  onDelete(id: number) {
+    console.log(id);
+    this.dataService.getBlog(id).subscribe(element => {
+      this.user = element;
+    });
+
+    if (confirm("Are you sure? Do you want to delete the details about the user : " + this.user.name) === true) {
+      this.dataService.deleteUser(id);
+      return true;
+
+    }
+    else {
+      return false;
+    }
+  }
+
   onAdd(btName: string) {
     this.title = "Add";
     this.titleDescription = "Add details about the user to save.";
     this.btnName = btName;
     this.user.id = 0;
-    this.user.name = '';
-    this.user.description = '';
+    this.user.fname = '';
+    this.user.lname = '';
     this.user.errMsg = '';
     this.modalService.open('exampleModal');
   }
@@ -50,67 +66,70 @@ export class UserComponent implements OnInit {
     this.modalService.close(id)
   }
 
-  saveData(user: any, btnName: string) {
-    if (user.fname === '' || allLetter(user.fname) === false || user.fname.length > 50) {
-      user.errMsg = "Please provide valid details."
+  saveData(btnName: string) {
+    console.log('user')
+    console.log(this.user);
+    console.log(parseInt(this.user.mobile));
+    if (this.user.fname === '' || allLetter(this.user.fname) === false || this.user.fname.length > 50) {
+      this.user.errMsg = "Please provide valid details."
       return false;
     }
     else {
-      user.errMsg = ""
+      this.user.errMsg = ""
     }
-    if (user.lname === '' || allLetter(user.lname) === false || user.lname.length > 50) {
-      user.errMsg = "Please provide valid details."
+    if (this.user.lname === '' || allLetter(this.user.lname) === false || this.user.lname.length > 50) {
+      this.user.errMsg = "Please provide valid details."
       return false;
     }
     else {
-      user.errMsg = "";
+      this.user.errMsg = "";
     }
-    if (user.mobile === '' || isNaN(user.mobile)) {
+    if (this.user.mobile === '' || isNaN(this.user.mobile)) {
      // alert(parseInt(user.mobile));
-      user.errMsg = "Please provide valid details."
+     this.user.errMsg = "Please provide valid details."
       return false;
     }
     else {
-      user.errMsg = "";
+      this.user.errMsg = "";
     }
 
-    if (user.email === '' || isEmailValid(user.email) === false || user.email.length > 50) {
-      user.errMsg = "Please provide valid details."
+    if (this.user.email === '' || isEmailValid(this.user.email) === false || this.user.email.length > 50) {
+      this.user.errMsg = "Please provide valid details."
       return false;
     }
     else {
-      user.errMsg = "";
+      this.user.errMsg = "";
     }
    
-    if (user.type === '' || allLetter(user.type) === false || user.type.length > 50 || user.type === 'N') {
-      user.errMsg = "Please provide valid details."
+    if (this.user.role === '' || allLetter(this.user.role) === false || this.user.role.length > 50 || this.user.role === 'N') {
+      this.user.errMsg = "Please provide valid details."
       return false;
     }
     else {
-      user.errMsg = "";
+      this.user.errMsg = "";
     }
    
 
-    if (user.pwd === '' || user.newpwd === '' || user.pwd.length > 50 || user.newpwd.length > 50) {
-      user.errMsg = "Please provide valid details."
+    if (this.user.pwd === '' || this.user.newpwd === '' || this.user.pwd.length > 50 || this.user.newpwd.length > 50) {
+      this.user.errMsg = "Please provide valid details."
       return false;
     }
-    else if (user.pwd !== user.newpwd) {
-      user.errMsg = "Please provide valid details."
+    if (this.user.pwd !== this.user.newpwd) {
+      this.user.errMsg = "Please provide valid details."
       alert("Password must match.");
       return false;
     }
     else {
-      user.errMsg = "";
+      this.user.errMsg = "";
     }
-    if (user.fname !== '' && user.lname !== '' && user.email !== '' && user.type !== '' && parseInt(user.mobile) && user.pwd === user.newpwd  && confirm("Are you sure ? Do you want to save the details of "+user.name)===true) {
+    if (this.user.fname !== '' && this.user.lname !== '' && this.user.email !== '' && this.user.role !== '' && parseInt(this.user.mobile) && this.user.pwd === this.user.newpwd  && confirm("Are you sure ? Do you want to save the details of "+this.user.name)===true) {
       if (btnName == 'Save' && this.btnName === 'Save') {
-        this.dataService.saveUser(JSON.stringify(user));
+        this.dataService.saveUser(JSON.stringify(this.user));
 
         return true;
       }
       else {
-        this.dataService.updateUser(JSON.stringify(user));
+        this.dataService.updateUser(JSON.stringify(this.user));
         return true;
       }
 

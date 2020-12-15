@@ -1,4 +1,4 @@
-<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser','CItem'])">
+<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser','CItem','CBlog'])">
     <!-- <div id="wrapper"> -->
        <!-- Sidebar -->
        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -36,8 +36,9 @@
                    <h6 class="collapse-header">Create:</h6>
                    <a class="collapse-item" routerLink="/cuser">Users</a>
                    <a class="collapse-item" routerLink="/ccategory">Categories</a>
-                   <a class="collapse-item" routerLink="/ctag">Tags</a>
-                   <a class="collapse-item" routerLink="/citem">Items</a>
+                   <a class="collapse-item" routerLink="/ctag"> Tags</a>
+                   <a class="collapse-item" routerLink="/citem"> Items</a>
+                   <a class="collapse-item" routerLink="/cblog"> Blogs</a>
                 </div>
              </div>
           </li>
