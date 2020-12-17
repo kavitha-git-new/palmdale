@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination'
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 //tinymce module
 import { EditorModule } from "@tinymce/tinymce-angular";
 
@@ -38,6 +39,7 @@ import {AddElementService} from './components/services/add-element.service';
 import {DataService} from './components/services/data.service';
 import { UserComponent } from './components/pages/update-content/user/user.component';
 import { ItemComponent } from './components/pages/update-content/item/item.component';
+import { MessageComponent } from './components/pages/update-content/message/message.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { ItemComponent } from './components/pages/update-content/item/item.compo
     UpdateTagComponent,
     UserComponent,
     ItemComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ import { ItemComponent } from './components/pages/update-content/item/item.compo
     EditorModule,
     HttpClientModule,
     ModalModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [AddElementService,LoginService,DataService],
   bootstrap: [AppComponent],

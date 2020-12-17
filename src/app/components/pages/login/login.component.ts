@@ -22,7 +22,7 @@ pwd:''};
 
   login(user: any) {
 
-    if (user.email !== '' || isEmailValid(user.email) === false || user.pwd !== '') {
+    if (user.email === '' || isEmailValid(user.email) === false || user.pwd === '') {
       this.errMsg = "Please provide valid credentials."
       return false;
     }
@@ -30,11 +30,25 @@ pwd:''};
       this.loginService.onLogin(JSON.stringify(user))
         .subscribe(user => {
           // alert(Object.keys(user).length);
+          // console.log(JSON.stringify(user))
+          // console.log(JSON.parse(JSON.stringify(user)).response.statuscode);
+          console.log(user)
           if (Object.keys(user).length !== 0) {
-            sessionStorage.setItem('currentUser', JSON.stringify(user));
-            this.router.navigate(['/cdashboard']);
-            this.errMsg = "";
-            return true;
+            if(JSON.parse(JSON.stringify(user)).response.statuscode===401){
+              this.errMsg = "Please provide a vaild credentails";
+            return false;
+            }
+            else if(JSON.parse(JSON.stringify(user)).response.statuscode===403){
+              this.errMsg = "User account deactivated";
+              return false;
+            }
+            else{
+              sessionStorage.setItem('currentUser', JSON.stringify(JSON.parse(JSON.stringify(user)).response));
+              this.router.navigate(['/cdashboard']);
+              this.errMsg = "";
+              return true;
+            }
+          
           }
           else {
             this.errMsg = "Please provide a vaild credentails";

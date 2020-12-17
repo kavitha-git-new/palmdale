@@ -43,7 +43,7 @@ export class Category {
 export class Contact_Message{
     name:string="";
     email:string="";
-    phone:number=0;
+    mobile:number=0;
     message:string="";
 
 }
@@ -67,7 +67,8 @@ export function addTheme() {
 
 export function allLetter(inputtxt: string) {
 
-    var letters = /^[A-Za-z]+$/;
+    //var letters = /^[A-Za-z]+$/;
+    var letters= /^[a-zA-Z\s]+$/;
     if(inputtxt===''|| inputtxt===undefined){
         //alert("Msg");
         return false;

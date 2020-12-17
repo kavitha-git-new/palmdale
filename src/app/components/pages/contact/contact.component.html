@@ -101,6 +101,13 @@
             <form  class="was-validated">
               <div class="row">
                 <div class="col-12">
+                  <div class="alert alert-success" *ngIf="succMsg">
+                    <h5>{{succMsg}}</h5>
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
                   <div class="alert alert-danger" *ngIf="errMsg">
                     <h5>{{errMsg}}</h5>
                 </div>
@@ -117,7 +124,7 @@
                       </div>
                       <div class="form-group col-md-12">
                         <label for="cphone">Your Phone Number</label>
-                        <input type="number" class="form-control" id="cphone" name="cphone" [(ngModel)]="cm.phone" placeholder="Your Phone Number">
+                        <input type="number" class="form-control" id="cphone" name="cphone" [(ngModel)]="cm.mobile" placeholder="Your Phone Number">
                       </div>
                     </div>
 
@@ -131,7 +138,7 @@
                         </div>
                         <div class="form-group col-md-12">
                     
-                          <button class="btn my__btn__bg" (click)="onSubmit(cm)">Submit</button>
+                          <button class="btn my__btn__bg" (click)="onSubmit()">Submit</button>
                         </div>
                     </div>
                 </div>

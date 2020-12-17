@@ -14,7 +14,7 @@
                 <tr>
                     <th width="5%">S.No</th>
                     <th>Name</th>
-                    <th>Description</th>
+                    <th>e-mail</th>
                     <th>Edit</th>
 
                 </tr>
@@ -29,19 +29,19 @@
                 </tr>
             </tfoot>
             <tbody>
-                <tr *ngFor="let i=index ;let item of items| paginate: { id: 'list_items',
+                <tr *ngFor="let i=index ;let user of users| paginate: { id: 'list_items',
                 itemsPerPage: 10,
                 currentPage: page,
                 totalItems: itemsRecords }">
-                    <td>{{i+1}}</td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.description}}</td>
+                    <td>{{user.serial_no}}</td>
+                    <td>{{user.fname + ' '+ user.lname | titlecase}}</td>
+                    <td>{{user.email}}</td>
                     <td>
-                        <a class="link" (click)="onEdit(item.id)">
+                        <a class="link" (click)="onEdit(user.id)">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         &nbsp;
-                        <a class="link" (click)="onDelete(item.id)">
+                        <a class="link" (click)="onDelete(user.id)">
                             <i class="fas fa-trash"></i>
                         </a>
 
@@ -72,11 +72,11 @@
                         </div>
                         <div class="card-body">
                           <form id="addUserForm">
-                            <div class="row" *ngIf="user.errMsg">
+                            <div class="row" *ngIf="errMsg">
                    
                               <div class="col-md-6">
                                 <div class="alert alert-danger">
-                                  {{user.errMsg}}
+                                  {{errMsg}}
                                 </div>
                              
                               </div>
@@ -114,8 +114,8 @@
                                       <label for="role" class="bmd-label-floating">Role</label>
                                       <select class="browser-default custom-select" name="role" [(ngModel)]="user.role" >
                                         <option selected>--Select user Type---</option>
-                                        <option value="A">Administrator</option>
-                                        <option value="N">Normal</option>
+                                        <option value="Admin">Administrator</option>
+                                        <option value="user">Normal</option>
                                       </select>
                                     </div>
                                   </div>

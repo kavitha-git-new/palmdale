@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class DataService {
     console.log(this.httpOptions);
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
   }
-  deleteTag(params:number){
+  deleteTag(params: number) {
     console.log("header");
     console.log(this.httpOptions);
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
@@ -45,7 +45,7 @@ export class DataService {
     return this.http.get(environment.apiUrl, this.httpOptions)
   }
   getCategory(id: number) {
-    this.httpOptions.headers.append('token','palmdale_api_key');
+    this.httpOptions.headers.append('token', 'palmdale_api_key');
     console.log("header");
     console.log(this.httpOptions);
     console.log(this.httpOptions.headers.getAll('token'))
@@ -54,7 +54,7 @@ export class DataService {
   saveCategory(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    this.httpOptions.headers.append('token','palmdale_api_key');
+    this.httpOptions.headers.append('token', 'palmdale_api_key');
     console.log(this.httpOptions.headers.getAll('token'))
     console.log(JSON.stringify(this.httpOptions.headers));
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
@@ -64,7 +64,7 @@ export class DataService {
     console.log(this.httpOptions);
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
   }
-  deleteCategory(params:number){
+  deleteCategory(params: number) {
     console.log("header");
     console.log(this.httpOptions);
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
@@ -72,91 +72,128 @@ export class DataService {
 
   //users
   getUsers() {
-    console.log("header");
-    console.log(this.httpOptions);
-    return this.http.get(environment.apiUrl, this.httpOptions)
+   // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
+    this.params={
+      "id":"all",
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }           
+    return this.http.post(environment.apiUrl + 'getUsers',JSON.stringify(this.params),this.httpOptions)
   }
   getUser(id: number) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.get(environment.apiUrl, this.httpOptions)
+    this.params={
+      "id":id,
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    console.log(JSON.stringify(this.params))
+    return this.http.post(environment.apiUrl+'getUsers',JSON.stringify(this.params), this.httpOptions)
   }
   saveUser(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params={
+      "token": JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    return this.http.post(environment.apiUrl+'createUser', JSON.stringify(params), this.httpOptions)
   }
   updateUser(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    return this.http.post(environment.apiUrl+'editUser', JSON.stringify(params), this.httpOptions)
   }
 
-  deleteUser(params:number){
+  deleteUser(params: number) {
     console.log("header");
     console.log(this.httpOptions);
     return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
   }
 
- //Items
-getItems() {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.get(environment.apiUrl, this.httpOptions)
-}
-getItem(id: number) {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.get(environment.apiUrl, this.httpOptions)
-}
-saveItem(params: any) {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
-}
-updateItem(params: any) {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
-}
-deleteItem(params:number){
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
-}
-
-//Blogs
-getBlogs() {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.get(environment.apiUrl, this.httpOptions)
-}
-
-getBlog(id: number) {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.get(environment.apiUrl, this.httpOptions)
-}
-
-saveBlog(params: any) {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
-}
-
-updateBlog(params: any) {
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
-}
-onDeleteBlog(params:number){
-  console.log("header");
-  console.log(this.httpOptions);
-  return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
-}
-
-//contact message from contact page
-sendMessage(params:any){
-    return this.http.get(environment.apiUrl,this.httpOptions)
+  //Items
+  getItems() {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.get(environment.apiUrl, this.httpOptions)
   }
+  getItem(id: number) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.get(environment.apiUrl, this.httpOptions)
+  }
+  saveItem(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+  }
+  updateItem(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+  }
+  deleteItem(params: number) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+  }
+
+  //Blogs
+  getBlogs() {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.get(environment.apiUrl, this.httpOptions)
+  }
+
+  getBlog(id: number) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.get(environment.apiUrl, this.httpOptions)
+  }
+
+  saveBlog(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+  }
+
+  updateBlog(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+  }
+  onDeleteBlog(params: number) {
+    console.log("header");
+    console.log(this.httpOptions);
+    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+  }
+
+ 
+
+  getMessages() {
+    this.params={
+      "id":"all",
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    } 
+    console.log(JSON.stringify(this.params))
+    return this.http.post(environment.apiUrl+'getContacts',JSON.stringify(this.params), this.httpOptions)
+  }
+
+  getMessage(id: number) {
+    return this.http.get(environment.apiUrl, this.httpOptions)
+  }
+
+  ////#For Wesite Purpose
+
+   //contact message from contact page
+   sendMessage(params: any) {
+    return this.http.post(environment.apiUrl+'contactus',JSON.parse(params), this.httpOptions)
+  }
+
+  //To get details of blog from db
+  getBlogsWb(){
+
+    return this.http.get(environment.apiUrl+'getBlogs', this.httpOptions)
+  }
+
+  
+
 }

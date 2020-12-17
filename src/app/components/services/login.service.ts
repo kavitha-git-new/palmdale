@@ -17,11 +17,11 @@ params:any={};
     console.log("params");
     console.log(user);
     this.params= JSON.parse(user)
-    return this.http.post(environment.apiUrl,JSON.stringify({
-    "token":"dashboar_api_key",
-    "action":"checkuser",
+    return this.http.post('https://www.omcvapes.com/palmdale_api/login ',JSON.stringify({
+   // "token":"dashboar_api_key",
+   // "action":"checkuser",
     "email":this.params.email,
-    "pwd":this.params.pwd
+    "password":this.params.pwd
 
 }),this.httpOptions);
     
