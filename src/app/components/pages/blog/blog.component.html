@@ -243,50 +243,15 @@
           </div>
         </div>
         <div class="row">
-          <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" *ngFor="let blog of blogs;let i =index">
             <div class="blog foo aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
               <div class="blog__thumb">
                 <a routerLink="/single-page">
 
                   <picture>
-                    <source type="image/webp" data-srcset="assets/img/webp/medical-marijuana-card-online-1.webp" />
-                    <source type="image/jpeg" data-srcset="assets/img/jpg/medical-marijuana-card-online-1.jpg" />
-                    <img data-src="assets/img/jpg/medical-marijuana-card-online-1.jpg" class="lazyload"
-                      alt="blog image" />
-                  </picture>
-
-                </a>
-                <div class="blog__hover__info">
-                  <ul class="blog__meta">
-                    <li>
-                      <span><img class="lazyload" data-src="assets/img/svg/cat.svg" alt="cat" width="20"
-                          height="20" /></span>
-                      <a routerLink="/blog">Medical Marijuana</a>
-                    </li>
-                    <li> <span><img class="lazyload" data-src="assets/img/svg/clock.svg" alt="date" width="20"
-                          height="20" /></span>24 Nov 2020</li>
-
-                  </ul>
-                </div>
-              </div>
-              <div class="blog__details">
-                <h2><a routerLink="/single-page">
-                    A Beginner’s Introduction to The Legal Rules of Medical Cannabis </a></h2>
-                <div class="blog__btn">
-                  <a routerLink="/single-page">READ MORE<i class="arrow-right"> &#x2192;</i></a>
-                </div>
-              </div>
-            </div>
-          </div>  -->
-          <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" *ngFor="let blog of blogs;let i =index">
-            <div class="blog foo aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-              <div class="blog__thumb">
-                <a routerLink="/single-page">
-
-                  <picture>
-                    <source type="image/webp" data-srcset="assets/img/webp/{{blog.images}}" />
-                    <source type="image/jpeg" data-srcset="assets/img/jpg/{{blog.images}}" />
-                    <img data-src="assets/img/jpg/{{blog.images}}" class="lazyload"
+                    <source type="image/webp" data-srcset="assets/img/webp/6-Tips-to-Enjoy-Your-Marijuana-Edibles-Safely.webp" />
+                    <source type="image/jpeg" data-srcset="assets/img/jpg/6-Tips-to-Enjoy-Your-Marijuana-Edibles-Safely.jpg" />
+                    <img data-src="assets/img/jpg/6-Tips-to-Enjoy-Your-Marijuana-Edibles-Safely.jpg" class="lazyload"
                       alt="blog image" />
                   </picture>
 
@@ -306,14 +271,17 @@
               </div>
               <div class="blog__details">
                 <h2><a routerLink="/single-page">
-                   {{blogs.title}} </a></h2>
+                   {{blog.title}} </a></h2>
                 <div class="blog__btn">
                   <a routerLink="/single-page">READ MORE<i class="arrow-right"> &#x2192;</i></a>
                 </div>
               </div>
             </div>
           </div>
-                 </div>
+                
+     
+        
+        </div>
 
       </div>
 
@@ -332,7 +300,7 @@
               <form>
                 <input id="s" class="search_input" type="text" name="s" maxlength="30" placeholder="Search...">
                 <button type="submit" class="submit button" name="submit"><i class="fa fa-search">
-                    <img class="lazyload" data-src="assets/img/svg/search.svg" alt="search" width="20" height="20" />
+                    <!-- <img class="lazyload" data-src="assets/img/svg/search.svg" alt="search" width="20" height="20" /> -->
                   </i></button>
               </form>
             </div>
@@ -352,6 +320,7 @@
               <li class="cat-item"><a routerLink="/blog">6 Tips to Enjoy Your Marijuana Edibles Safely</a></li>
               <li class="cat-item"><a routerLink="/blog">Struggling With Asthma? Medical Cannabis Can Help</a></li>
               <li class="cat-item"><a routerLink="/blog">The Pros And Cons of Smoking Medical Marijuana</a> </li>
+              <li class="cat-item" *ngFor="let b of blogs"><a routerLink="/blog">{{b.title}}</a> </li>
             </ul>
           </div>
           <!--categorybx-2-->
@@ -366,6 +335,7 @@
               <li class="cat-item"><a routerLink="/blog">Lifestyle</a> (2)</li>
               <li class="cat-item"><a routerLink="/blog">Nature</a> (4)</li>
               <li class="cat-item"><a routerLink="/blog">Travel</a> (2)</li>
+              <li class="cat-item" *ngFor="let c of category"><a routerLink="/blog">{{c.name}}</a> ({{1}})</li>
             </ul>
           </div>
           <!--categorybx-2-->

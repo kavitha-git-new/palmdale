@@ -26,6 +26,8 @@ export class BlogComponent implements OnInit {
   ngOnInit(): void {
     this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}` }));
     this.itemsRecords = this.items.length;
+    this.getCategories();
+    
   }
 
   onEdit(id: number) {
@@ -100,6 +102,37 @@ export class BlogComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  getCategories(){
+    this.dataService.getCategoriesWb().subscribe(element=>{
+      let b = element.valueOf()
+      this.categories=element.valueOf()
+       
+     if(this.categories['response']['data'])
+    { this.categories=this.categories['response']['data'].valueOf();
+      console.log('this.categories')
+      console.log(this.categories)
+      
+          
+      console.log(this.categories[0]);
+      console.log(typeof(this.categories))
+      }})
+  }
+
+  getTags() {
+
+    this.dataService.getTags().subscribe(element => {
+      this.tags = element.valueOf();
+
+      this.tags = this.tags['response'];
+
+      console.log(this.tags);
+      this.itemsRecords = this.tags.length;
+      console.log(typeof (this.tags))
+    });
+
+
   }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { element } from 'protractor';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
 import { allLetter, isEmailValid } from "../../../models/data-modal";
@@ -14,7 +15,7 @@ export class UserComponent implements OnInit {
   page: number = 1;
   btnName: string = "Save";
   user: any = {};
-
+  succMsg:string="";
   errMsg:string=""
   title: string = "";
   titleDescription: string = "";
@@ -39,7 +40,7 @@ export class UserComponent implements OnInit {
      { //this.user=element
       this.user= element.valueOf();
       
-      this.user= JSON.parse(JSON.stringify(this.user['response'][0]));
+     this.user= JSON.parse(JSON.stringify(this.user['response'][0]));
       console.log(this.user.id);
       console.log(typeof(this.user));
     
@@ -48,15 +49,26 @@ export class UserComponent implements OnInit {
     console.log(id);
   }
 
-  onDelete(id: number) {
+  onDelete(id: number,fname:string,lname:string) {
     console.log(id);
     this.dataService.getUser(id).subscribe(element => {
       this.user = element;
       console.log(this.users)
     });
 
-    if (confirm("Are you sure? Do you want to delete the details about the user : " + this.user.name) === true) {
-      this.dataService.deleteUser(id);
+    if (confirm("Are you sure? Do you want to delete the details about the user : " + fname+' '+lname) === true) {
+      this.dataService.deleteUser(id).subscribe(response=>{
+        if(JSON.parse(JSON.stringify(response)).response.message==="User Delete Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+
+          this.succMsg= this.user.fname+" "+this.user.lname+" details is deleted.";
+          this.users=[];
+          this.getUsers();
+          this.modalService.close("exampleModal")
+        }
+        else{
+         alert(JSON.parse(JSON.stringify(response)).response.message);
+        }
+      });
       return true;
 
     }
@@ -86,6 +98,7 @@ export class UserComponent implements OnInit {
     console.log('user')
     console.log(this.user);
     console.log(parseInt(this.user.mobile));
+
     if (this.user.fname === '' || allLetter(this.user.fname) === false || this.user.fname.length > 50) {
       this.errMsg = "Please provide valid details."
       return false;
@@ -126,11 +139,11 @@ export class UserComponent implements OnInit {
     }
    
 
-    if (this.user.pwd === '' || this.user.newpwd === '' || this.user.pwd.length > 50 || this.user.newpwd.length > 50) {
+    if (this.user.password === '' || this.user.newpwd === '' || this.user.password.length > 50 || this.user.newpwd.length > 50) {
       this.errMsg = "Please provide valid details."
       return false;
     }
-    if (this.user.pwd !== this.user.newpwd) {
+    if (this.user.password !== this.user.newpwd) {
       this.errMsg = "Please provide valid details."
       alert("Password must match.");
       return false;
@@ -138,14 +151,37 @@ export class UserComponent implements OnInit {
     else {
       this.errMsg = "";
     }
-    if (this.user.fname !== '' && this.user.lname !== '' && this.user.email !== '' && this.user.role !== '' && parseInt(this.user.mobile) && this.user.pwd === this.user.newpwd  && confirm("Are you sure ? Do you want to save the details of "+this.user.fname+' '+this.user.lname)===true) {
+    if (this.user.fname !== '' && this.user.lname !== '' && this.user.email !== '' && this.user.role !== '' && parseInt(this.user.mobile) && this.user.password === this.user.newpwd  && confirm("Are you sure ? Do you want to save the details of "+this.user.fname+' '+this.user.lname)===true) {
       if (btnName == 'Save' && this.btnName === 'Save') {
-        this.dataService.saveUser(JSON.stringify(this.user));
+        this.dataService.saveUser(JSON.stringify(this.user)).subscribe(response=>{
+          console.log(response);
+          if(JSON.parse(JSON.stringify(response)).response.message==="User Created Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+
+            this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
+            this.users=[];
+            this.getUsers();
+            this.modalService.close("exampleModal")
+          }
+          else{
+           alert(JSON.parse(JSON.stringify(response)).response.message);
+          }
+        });
         this.modalService.close("exampleModal")
         return true;
       }
       else {
-        this.dataService.updateUser(JSON.stringify(this.user));
+        this.dataService.updateUser(JSON.stringify(this.user)).subscribe(response=>{
+          if(JSON.parse(JSON.stringify(response)).response.message==="User Details Updated Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+            alert("updated")
+            this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
+            this.users=[];
+            this.getUsers();
+            this.modalService.close("exampleModal")
+          }
+          else{
+           alert(JSON.parse(JSON.stringify(response)).response.message);
+          }
+        });
         this.modalService.close("exampleModal")
         return true;
       }

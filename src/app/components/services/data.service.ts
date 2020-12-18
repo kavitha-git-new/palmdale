@@ -13,36 +13,62 @@ export class DataService {
 
   //Tags
   getTags() {
-    console.log("header");
-    console.log(this.httpOptions);
-    return this.http.get(environment.apiUrl, this.httpOptions)
+    this.params={
+      "id":"all",
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }   
+    console.log(JSON.parse(sessionStorage.currentUser)[0].token)        
+    return this.http.post(environment.apiUrl+'fetchTag',JSON.stringify(this.params), this.httpOptions)
   }
   getTag(id: number) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.get(environment.apiUrl, this.httpOptions)
+    this.params={
+      "id":id,
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }  
+    console.log(typeof(this.params))
+    return this.http.post(environment.apiUrl+'fetchTag',JSON.stringify(this.params), this.httpOptions)
   }
   saveTag(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params=JSON.parse(params);
+   
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token
+  
+    return this.http.post(environment.apiUrl+'createTag', JSON.stringify(this.params), this.httpOptions)
   }
   updateTag(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params=JSON.parse(params);
+   
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl + 'editTag', JSON.stringify(this.params), this.httpOptions)
   }
-  deleteTag(params: number) {
+  deleteTag(id: number) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params={
+      "id":id,
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    console.log(this.params);
+    return this.http.post(environment.apiUrl+'delTag', JSON.stringify(this.params), this.httpOptions)
   }
 
   //Categories
   getCategories() {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.get(environment.apiUrl, this.httpOptions)
+    this.params={
+      "id":"all",
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    console.log(this.params);
+    console.log(JSON.parse(sessionStorage.currentUser)[0].token)
+    return this.http.post(environment.apiUrl+'/fetchCat',JSON.stringify(this.params),this.httpOptions)
   }
   getCategory(id: number) {
     this.httpOptions.headers.append('token', 'palmdale_api_key');
@@ -92,21 +118,30 @@ export class DataService {
   saveUser(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    this.params={
-      "token": JSON.parse(sessionStorage.currentUser)[0].token
-    }
-    return this.http.post(environment.apiUrl+'createUser', JSON.stringify(params), this.httpOptions)
+    // this.params={
+    //   "token": JSON.parse(sessionStorage.currentUser)[0].token
+    // }
+    this.params=JSON.parse(params);
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token
+    console.log()
+    return this.http.post(environment.apiUrl+'createUser', JSON.stringify(this.params), this.httpOptions)
   }
   updateUser(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl+'editUser', JSON.stringify(params), this.httpOptions)
+    this.params=JSON.parse(params);
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl+'editUser', JSON.stringify(this.params), this.httpOptions)
   }
 
-  deleteUser(params: number) {
+  deleteUser(id: number) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params={
+      "id":id,
+    }
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl+'delUser', JSON.stringify(this.params), this.httpOptions)
   }
 
   //Items
@@ -193,7 +228,9 @@ export class DataService {
 
     return this.http.get(environment.apiUrl+'getBlogs', this.httpOptions)
   }
-
+  getCategoriesWb(){
+    return this.http.get(environment.apiUrl+'fetchCat', this.httpOptions)
+  }
   
 
 }

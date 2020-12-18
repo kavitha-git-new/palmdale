@@ -30,7 +30,7 @@
                 </tr>
             </tfoot>
             <tbody>
-                <tr *ngFor="let i=index ;let item of items| paginate: { id: 'list_items',
+                <tr *ngFor="let i=index ;let item of categories| paginate: { id: 'list_items',
                 itemsPerPage: 10,
                 currentPage: page,
                 totalItems: itemsRecords }">
@@ -42,7 +42,7 @@
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         &nbsp;
-                        <a class="link" (click)="onEdit(item.id)">
+                        <a class="link" (click)="onDelete(item.id)">
                             <i class="fas fa-trash"></i>
                         </a>
 

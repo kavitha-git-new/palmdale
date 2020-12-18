@@ -149,6 +149,7 @@
                         <option selected>--Select Category---</option>
                         <option value="Category1">Category1</option>
                         <option value="Category2">Category2</option>
+                        <option *ngFor="let category of categories" value="category.id">{{category.name}}</option>
                       </select>
                     </div>
                   </div>
@@ -161,6 +162,7 @@
                         <option selected>--Select Tag---</option>
                         <option value="Tag1">Tag</option>
                         <option value="Tag2">Tag</option>
+                        <option *ngFor="let tag of tags" value="tag.id">{{tag.name}}</option>
                       </select>
                     </div>
                   </div>

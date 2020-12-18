@@ -41,7 +41,7 @@
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         &nbsp;
-                        <a class="link" (click)="onDelete(user.id)">
+                        <a class="link" (click)="onDelete(user.id, user.fname ,user.lname)">
                             <i class="fas fa-trash"></i>
                         </a>
 
@@ -124,14 +124,14 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                    <label for="fname">Password</label>
-                                    <input type="password" name="fname" class="form-control" [(ngModel)]="user.pwd"/>
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" class="form-control" [(ngModel)]="user.password"/>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                    <label for="lname">Confirm Password</label>
-                                    <input type="password" name="lname" class="form-control" [(ngModel)]="user.newpwd"/>
+                                    <label for="password">Confirm Password</label>
+                                    <input type="password" name="cpassword" class="form-control" [(ngModel)]="user.newpwd"/>
                                   </div>
                                 </div>
                       

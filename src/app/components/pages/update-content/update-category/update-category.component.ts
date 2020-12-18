@@ -12,7 +12,7 @@ export class UpdateCategoryComponent implements OnInit {
 items:any=[];
 itemsRecords:number=0;
 page:number=1;
- 
+categories:any=[];
 category:any={};
 //categories detail
 title:string="Add";
@@ -21,8 +21,9 @@ btnName:string="Save";
   constructor(private modalService:ModalService, private dataService:DataService) { }
 
   ngOnInit(): void {
-    this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`}));
-    this.itemsRecords=this.items.length;
+    // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`}));
+    // this.itemsRecords=this.items.length;
+    this.getCategory();
   }
 
   onEdit(id:number){
@@ -105,6 +106,31 @@ btnName:string="Save";
 
   onClose(id:string){
     this.modalService.close(id)
+    }
+
+    getCategory() {
+
+    /*  this.dataService.getCategoriesWb().subscribe(element => {
+        this.categories = element.valueOf();
+  
+        this.categories = this.categories['response'];
+  
+        console.log(this.categories);
+        this.itemsRecords = this.categories.length;
+        console.log(typeof (this.categories))
+      });*/
+
+      this.dataService.getCategoriesWb().subscribe(element => {
+        this.categories = element.valueOf();
+  
+        this.categories = this.categories['response']['data'];
+  
+        console.log(this.categories);
+        this.itemsRecords = this.categories.length;
+        console.log(typeof (this.categories))
+      });
+  
+  
     }
 
 }
