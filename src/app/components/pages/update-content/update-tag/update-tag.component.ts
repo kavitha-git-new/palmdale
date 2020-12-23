@@ -108,7 +108,8 @@ export class UpdateTagComponent implements OnInit {
             if(JSON.parse(JSON.stringify(response)).response.message=="Tag Created Successfully."){
 
               this.succMsg= this.tag.name+" tag is saved";
-              this.tag=[];
+              this.tag={};
+              this.tags=[];
               this.getTags();
               this.modalService.close("exampleModal")
             }

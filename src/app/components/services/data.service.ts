@@ -68,32 +68,41 @@ export class DataService {
     }
     console.log(this.params);
     console.log(JSON.parse(sessionStorage.currentUser)[0].token)
-    return this.http.post(environment.apiUrl+'/fetchCat',JSON.stringify(this.params),this.httpOptions)
+    return this.http.post(environment.apiUrl+'getCategory',JSON.stringify(this.params),this.httpOptions)
   }
   getCategory(id: number) {
-    this.httpOptions.headers.append('token', 'palmdale_api_key');
+    
     console.log("header");
     console.log(this.httpOptions);
-    console.log(this.httpOptions.headers.getAll('token'))
-    return this.http.get(environment.apiUrl, this.httpOptions)
+    this.params={
+      "id":id,
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    return this.http.post(environment.apiUrl+'getCategory',JSON.stringify(this.params),this.httpOptions)
   }
   saveCategory(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    this.httpOptions.headers.append('token', 'palmdale_api_key');
-    console.log(this.httpOptions.headers.getAll('token'))
-    console.log(JSON.stringify(this.httpOptions.headers));
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params=JSON.parse(params);
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token;
+    return this.http.post(environment.apiUrl+'createCat', JSON.stringify(this.params), this.httpOptions)
   }
   updateCategory(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params=JSON.parse(params);
+   
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl+'editCategory', JSON.stringify(this.params), this.httpOptions)
   }
-  deleteCategory(params: number) {
+  deleteCategory(id: number) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params={
+      "id":id,
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    return this.http.post(environment.apiUrl+'delCat', JSON.stringify(this.params), this.httpOptions)
   }
 
   //users
@@ -181,13 +190,22 @@ export class DataService {
   getBlog(id: number) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.get(environment.apiUrl, this.httpOptions)
+    console.log(this.httpOptions);
+    this.params={
+      "id":id,
+      "token":JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    console.log(JSON.stringify(this.params));
+    return this.http.post(environment.apiUrl, JSON.stringify(this.params), this.httpOptions)
   }
 
   saveBlog(params: any) {
     console.log("header");
     console.log(this.httpOptions);
-    return this.http.post(environment.apiUrl, JSON.stringify(params), this.httpOptions)
+    this.params=JSON.parse(params);
+    this.params.token=JSON.parse(sessionStorage.currentUser)[0].token;
+    console.log(this.params);
+    return this.http.post(environment.apiUrl +'createBlog', JSON.stringify(this.params), this.httpOptions)
   }
 
   updateBlog(params: any) {
@@ -231,6 +249,29 @@ export class DataService {
   getCategoriesWb(){
     return this.http.get(environment.apiUrl+'fetchCat', this.httpOptions)
   }
-  
+
+  getTagsWb() {
+   
+    return this.http.get(environment.apiUrl+'FetchTags',this.httpOptions)
+  }
+
+  getBlogByCategory(id:number){
+    this.params={
+      "catId":id
+    }
+    console.log(JSON.stringify(this.params));
+
+    return this.http.post(environment.apiUrl+'getPostByCatId', JSON.stringify(this.params), this.httpOptions)
+  }
+  //getPostByTagId
+
+  getBlogByTag(id:number){
+    this.params={
+      "tagId":id
+    }
+    console.log(JSON.stringify(this.params));
+
+    return this.http.post(environment.apiUrl+'getPostByTagId', JSON.stringify(this.params), this.httpOptions)
+  }
 
 }

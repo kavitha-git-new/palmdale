@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule} from 'ngx-pagination'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -71,13 +72,15 @@ import { MessageComponent } from './components/pages/update-content/message/mess
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     EditorModule,
     HttpClientModule,
     ModalModule,
     NgxPaginationModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [AddElementService,LoginService,DataService],
   bootstrap: [AppComponent],

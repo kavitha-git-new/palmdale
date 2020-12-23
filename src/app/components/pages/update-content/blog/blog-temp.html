@@ -1,0 +1,94 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Blogs </h1>
+    <p class="mb-4">A blog is a discussion or informational website published on the World Wide Web consisting of
+      discrete, often informal diary-style text entries (posts).&nbsp;</p>
+  
+    <!-- DataTales Example -->
+    <div class="card">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List of Blogs</h6>
+        <button type="button" class="btn btn-primary" style="float: right;" (click)="onAdd('Save')">Add</button> &nbsp;
+      </div>
+      <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th width="5%">S.No</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Edit</th>
+  
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th width="5%">S.No</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Edit</th>
+  
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr *ngFor="let i=index ;let item of blogs| paginate: { id: 'list_items',
+                  itemsPerPage: 10,
+                  currentPage: page,
+                  totalItems: itemsRecords }">
+            <td class="text-right">{{item.serial_no}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.description}}</td>
+            <td class="text-center">
+              <a class="link" (click)="onEdit(item.id)">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+              &nbsp;
+              <a class="link" (click)="onDelete(item.id,item.title)">
+                <i class="fas fa-trash"></i>
+              </a>
+  
+            </td>
+          </tr>
+  
+        </tbody>
+      </table>
+      <div>
+        <pagination-controls id="list_items" maxsize="5" (pageChange)="page = $event"></pagination-controls>
+      </div>
+  
+    </div>
+  
+  
+  </div>
+
+  <div id="updateDate">
+    <jw-modal id="exampleModal">
+      <div class="modal-body">
+  
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">{{title}}</h4>
+                <p class="card-category">{{titleDescription}}</p>
+              </div>
+              <div class="card-body">
+                <form action="https://www.omcvapes.com/palmdale_api/createBlog" method="post" enctype="multipart/form-data" id="addBlog">
+
+                    <input type="hidden" name="token" id="token" > <br><br>
+                    <input type="text" name="title" placeholder="title"> <br><br>
+                    <input type="text" name="category" placeholder="category"> <br><br>
+                    <input type="text" name="description" placeholder="description"> <br><br>
+                    <input type="text" name="tag" placeholder="tags"> <br><br>
+                    <input type="file" name="images[]" multiple><br><br>
+                    <input type="submit">
+                   
+                  </form>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+      </div>
+    </jw-modal>
+  </div>

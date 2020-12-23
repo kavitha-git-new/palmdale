@@ -34,10 +34,10 @@
                 itemsPerPage: 10,
                 currentPage: page,
                 totalItems: itemsRecords }">
-                    <td>{{item.serial_no}}</td>
+                    <td class="text-right">{{item.serial_no}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.description}}</td>
-                    <td>
+                    <td class="text-center">
                         <a class="link" (click)="onEdit(item.id)">
                             <i class="fas fa-pencil-alt"></i>
                         </a>

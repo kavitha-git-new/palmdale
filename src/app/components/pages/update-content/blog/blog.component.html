@@ -30,19 +30,19 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr *ngFor="let i=index ;let item of items| paginate: { id: 'list_items',
+        <tr *ngFor="let i=index ;let item of blogs| paginate: { id: 'list_items',
                 itemsPerPage: 10,
                 currentPage: page,
                 totalItems: itemsRecords }">
-          <td>{{i+1}}</td>
-          <td>{{item.name}}</td>
+          <td class="text-right">{{item.serial_no}}</td>
+          <td>{{item.title}}</td>
           <td>{{item.description}}</td>
-          <td>
+          <td class="text-center">
             <a class="link" (click)="onEdit(item.id)">
               <i class="fas fa-pencil-alt"></i>
             </a>
             &nbsp;
-            <a class="link" (click)="onDelete(item.id)">
+            <a class="link" (click)="onDelete(item.id,item.title)">
               <i class="fas fa-trash"></i>
             </a>
 
@@ -72,145 +72,105 @@
               <p class="card-category">{{titleDescription}}</p>
             </div>
             <div class="card-body">
-              <form id="addUserForm">
-                <div class="row" *ngIf="blog.errMsg">
+            
+              <form class="form" #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate>
+              <div class=" form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="blog.title" name="name"
+                      #name="ngModel" required>
+                  <span class="text-danger"
+                      *ngIf="(name.touched || registerForm.submitted) && name.errors?.required">
+                      Name is required
+                  </span>
+              </div>
+              <div class="form-group">
+                                 
+                    <label for="gender" class="bmd-label-floating">Published : &nbsp;</label>
+                    <br>
 
-                  <div class="col-md-6">
-                    <div class="alert alert-danger">
-                      {{blog.errMsg}}
+                    <div class="form-check form-check-radio form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" id="inlineRadio2" value="T"
+                          [(ngModel)]="blog.isPublished"  [(ngModel)]="blog.isPublished" name="isPublished"
+                          #isPublished="ngModel" required isPublished/> Yes
+                        <span class="circle">
+                          <span class="check"></span>
+                        </span>
+                      </label>
                     </div>
-
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-5">
-                    <div [ngClass]="{'form-group': true, 'is-filled': true}">
-                      <label for="name">Name</label>
-                      <input type="text" name="name" class="form-control" [(ngModel)]="blog.name" />
+                    <div class="form-check form-check-radio form-check-inline disabled">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" id="inlineRadio3" value="F" [(ngModel)]="blog.isPublished" name="isPublished"  #isPublished="ngModel" required isPublished> No
+                        <span class="circle">
+                          <span class="check"></span>
+                        </span>
+                      </label>
                     </div>
+                    <span class="text-danger"
+                    *ngIf="(isPublished.touched || registerForm.submitted) && isPublished.errors?.required">
+                    Published is YES or NO required
+                </span>                  
+              </div>
+              <div class="form-group">
+                  <label>Publish Date</label>
+                  <input type="text" class="form-control" [(ngModel)]="blog.dtPublished" name="dtPublished" #dtPublished="ngModel" disabled>
+                       </div>
+              <div class="form-group">
+                  <label>Tags</label>
+                  <select class="form-control" name="btag" [(ngModel)]="blog.tag" multiple #btag="ngModel" required btag>
+                    <option selected>--Select Tag---</option>
+                    <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.name}}</option>
+                  </select>
+                  <span class="text-danger"
+                      *ngIf="(btag.touched || registerForm.submitted) && btag.errors?.required">
+                      Tag is required
+                  </span>
+                  
+              </div>
+              <div class="form-group">
+                  <label>Category</label>
+                  <select class="form-control" name="bcategory" [(ngModel)]="blog.category" multiple #bcategory="ngModel" required bcategory>
+                  <option selected>--Select Category---</option>
+                  <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
+                  <span class="text-danger"
+                      *ngIf="(bcategory.touched || registerForm.submitted) && bcategory.errors?.required">
+                      Category Password is required
+                  </span>
+                  
+              </div>
+              <div class="form-group">
+                <label>Image</label>
+                <div class="input-group mb-3">
+                  <div class="custom-file">
+                    <input type="file" class="form-control" id="imageUpload"  name="imageUpload" multiple (change)="onSelectFile($event)" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload/>
+                    <label class="custom-file-label" for="imageUpload"></label>
                   </div>
-                  <div class="col-md-2">
-                    <div class="form-group ">
-                      <label for="gender" class="bmd-label-floating">Published : &nbsp;</label>
-                      <br>
-
-                      <div class="form-check form-check-radio form-check-inline">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="radio" name="radio" id="inlineRadio2" value="T"
-                            [(ngModel)]="blog.isPublished" /> Yes
-                          <span class="circle">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                      <div class="form-check form-check-radio form-check-inline disabled">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" value="F"
-                            [(ngModel)]="blog.isPublished"> No
-                          <span class="circle">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <div [ngClass]="{'form-group': true, 'is-filled': true}">
-
-                      <label for="name">Published on Date</label>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar-alt"
-                              aria-hidden="true"></i>
-                          </span>
-                        </div>
-                        <input type="text"   class="form-control" placeholder="Published on Date" bsDatepicker name="dtPublished"/>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div [ngClass]="{'form-group': true, 'is-filled': true}">
-                      <label for="bitem" class="bmd-label-floating">Item</label>
-                      <select class="browser-default custom-select" name="bitem" [(ngModel)]="blog.item">
-                        <option selected>--Select Item---</option>
-                        <option value="Item1">Item1</option>
-                        <option value="Item12">Item12</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div [ngClass]="{'form-group': true, 'is-filled': true}">
-                      <label for="bcategory" class="bmd-label-floating">Category</label>
-                      <select class="browser-default custom-select" name="bcategory" [(ngModel)]="blog.category"
-                        multiple>
-                        <option selected>--Select Category---</option>
-                        <option value="Category1">Category1</option>
-                        <option value="Category2">Category2</option>
-                        <option *ngFor="let category of categories" value="category.id">{{category.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-
-
-                    <div [ngClass]="{'form-group': true, 'is-filled': true}">
-                      <label for="btag" class="bmd-label-floating">Tag</label>
-                      <select class="browser-default custom-select" name="btag" [(ngModel)]="blog.tag" multiple>
-                        <option selected>--Select Tag---</option>
-                        <option value="Tag1">Tag</option>
-                        <option value="Tag2">Tag</option>
-                        <option *ngFor="let tag of tags" value="tag.id">{{tag.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-
-
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div [ngClass]="{'form-group': true, 'is-filled': true}">
-                      <label for="imageUpload">Image</label>
-
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Upload</span>
-                          <!-- <span class="glyphicon glyphicon-envelope"></span>  -->
-
-                        </div>
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="imageUpload" name="imageUpload"
-                            [(ngModel)]="blog.image">
-                          <label class="custom-file-label" for="imageUpload">Choose file</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="tdescription">Description</label>
-                    <div class="form-group">
-                      <!-- <label [ngClass]="{'form-group': true, 'is-filled': true}" for="bdescription"> Any specific description about the tag</label> -->
-                      <textarea class="form-control" rows="4" name="bdescription"
-                        [(ngModel)]="blog.description"></textarea>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                   </div>
+                   <ul *ngFor="let img of blog.images;let p=index"><li>{{img.name}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
+                    <i class="fas fa-trash"></i>
+                  </a> </li></ul>
+                <span class="text-danger" *ngIf="(imageUpload.touched || registerForm.submitted) && imageUpload.errors?.required && blog.images.length===0">
+                    Image is required
+                </span>
+                
+            </div>
+            <div class=" form-group">
+              <label>Description</label>
+                <textarea class="form-control" rows="4" [(ngModel)]="blog.description" name="bdescription"
+                #bdescription="ngModel" required></textarea>
+           
+              <span class="text-danger"
+                  *ngIf="(bdescription.touched || registerForm.submitted) && bdescription.errors?.required">
+                  Description is required
+              </span>
+          </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
                       (click)="onClose('exampleModal')">Cancel</button> &nbsp;
-                    <button type="button" class="btn btn-primary" (click)="saveData(btnName)">{{btnName}}</button>
-                  </div>
-                </div>
-
-
-
-                <div class="clearfix"></div>
-              </form>
+                  <button type="submit" class="btn btn-success">Register</button>
+              </div>
+          </form>
             </div>
           </div>
         </div>
