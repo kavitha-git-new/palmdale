@@ -40,13 +40,13 @@
                     <td>{{i+1}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.email}}</td>
-                    <td> {{item.mobile}}</td>
+                    <td class="text-right"> {{item.mobile}}</td>
                     <td class="text-center">
-                        <a class="link" (click)="onView(item.id)">
+                        <a class="link" (click)="onView(item.id,item.name)">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>
                         &nbsp;
-                        <a class="link" (click)="onDelete(item.id)">
+                        <a class="link" (click)="onDelete(item.id,item.name)">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </a>
 

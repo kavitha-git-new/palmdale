@@ -19,13 +19,13 @@ export class MessageComponent implements OnInit {
   constructor(private modalService:ModalService, private dataService:DataService) { }
 
   ngOnInit(): void {
-    this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}` }));
-    this.itemsRecords = this.items.length;
+    // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}` }));
+    // this.itemsRecords = this.items.length;
 
     this.getMessages();
   }
 
-  onView(id: number) {
+  onView(id: number,name:string) {
     this.message.errMsg="";
     this.title="Edit";
     this.titleDescription="Edit details about the message to update.";
@@ -37,13 +37,13 @@ export class MessageComponent implements OnInit {
     console.log(id);
   }
 
-  onDelete(id: number) {
+  onDelete(id: number,name:string) {
     console.log(id);
     this.dataService.getMessage(id).subscribe(element => {
       this.message = element;
     });
 
-    if (confirm("Are you sure? Do you want to send message to : " + this.message.name) === true) {
+    if (confirm("Are you sure? Do you want to send message to : " + name) === true) {
     //  this.dataService.deletemessage(id);
       return true;
     }

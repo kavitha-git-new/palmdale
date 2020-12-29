@@ -56,24 +56,24 @@
                                       width="20"
                                       height="20"
                                     /></span>
-                                    <a href="#">Medical Marijuana</a></li>
+                                    <a> {{blog.category}}</a></li>
                                     <li> <span><img
                                       class="lazyload"
                                       data-src="assets/img/svg/clock.svg"
                                       alt="date"
                                       width="20"
                                       height="20"
-                                    /></span>24 Nov 2020</li>
+                                    /></span>{{getDate(blog.date_of_creation)}}</li>
                                     
                                 </ul>
                             </div>
                         </div>
                         <div class="blog__details">
-                            <h2 class="top__heading">A Beginner’s Introduction to The Legal Rules of Medical Cannabis</h2>
-                            <p>Who knew medical cannabis would become a much needed medical aid? People’s opinions are becoming more welcoming and the state governments are making cannabis access for patients easier and less complicated than ever. So, are you one of the thousand people who are all prepped up to get a <a href="https://palmdalealternativemedcenter.com/" target="_blank" rel="noopener noreferrer"><strong>medical marijuana card online</strong> </a>and be a part of the revolutionary age of cannabis? If yes, then I have something that is worth your time.</p>
+                            <h2 class="top__heading">{{blog.title}}</h2>
+                            <p>{{blog.description}}</p>
                             <p>Despite the legalization of medical cannabis, the states have certain rules to regulate the use of cannabis within their jurisdiction. This ensures order and also allows the government to give leverage to the medical marijuana patients as compared to recreational cannabis consumers.</p>
                             <p>So, before you go ahead and apply for your MMJ card, here are a few legal rules that you must remember to always be on the safe side.</p>
-                       
+                        
                             <h2>Qualifying Medical Conditions</h2>
                             <p>Since the legalization of medical cannabis, the states have set up their respective medical marijuana programs that governs the use of cannabis in their area. Now, as per the state marijuana laws, not everyone can call themselves a medical marijuana patient. Only a patient with a legit medical marijuana card is a registered medical cannabis patient.</p>
                             <p>Now, getting an MMJ card also requires passing certain qualifications. The most important of these is a list of health conditions and symptoms that makes a patient eligible for a medical card. In the state of California, the following medical conditions are eligible for a medical card.</p>
@@ -128,13 +128,13 @@
                     <form>
                       <input id="s" class="search_input" type="text" name="s" maxlength="30" placeholder="Search...">
                       <button type="submit" class="submit button" name="submit"><i class="fa fa-search">
-                        <img
+                        <!-- <img
                                       class="lazyload"
                                       data-src="assets/img/svg/search.svg"
                                       alt="search"
                                       width="20"
                                       height="20"
-                                    />
+                                    /> -->
                       </i></button>
                     </form>
                   </div>
@@ -147,11 +147,13 @@
                     <h3>RECENT POST</h3>
                   </div>
                   <ul>
-                      <li class="cat-item"><a href="#">A Beginner’s Introduction to The Legal Rules of Medical Cannabis</a></li>
-                      <li class="cat-item"><a href="#">How to Use Your Marijuana Card for Chronic Pain?</a></li>
-                      <li class="cat-item"><a href="#">6 Tips to Enjoy Your Marijuana Edibles Safely</a></li>
-                      <li class="cat-item"><a href="#">Struggling With Asthma? Medical Cannabis Can Help</a></li>
-                      <li class="cat-item"><a href="#">The Pros And Cons of Smoking Medical Marijuana</a> </li>
+                      <li class="cat-item"><a >A Beginner’s Introduction to The Legal Rules of Medical Cannabis</a></li>
+                      <li class="cat-item"><a >How to Use Your Marijuana Card for Chronic Pain?</a></li>
+                      <li class="cat-item"><a >6 Tips to Enjoy Your Marijuana Edibles Safely</a></li>
+                      <li class="cat-item"><a >Struggling With Asthma? Medical Cannabis Can Help</a></li>
+                      <li class="cat-item"><a >The Pros And Cons of Smoking Medical Marijuana</a> </li>
+                      <li class="cat-item" *ngFor="let b of blogs"><a (click)="onViewByBlog(b.id)">{{b.title}}</a> </li>
+
                     </ul>
                 </div> <!--categorybx-2-->
   
@@ -160,11 +162,13 @@
                         <h3>CATEGORIES</h3>
                       </div>
                       <ul>
-                          <li class="cat-item"><a href="#">Creative</a> (3)</li>
-                          <li class="cat-item"><a href="#">Fashion</a> (1)</li>
-                          <li class="cat-item"><a href="#">Lifestyle</a> (2)</li>
-                          <li class="cat-item"><a href="#">Nature</a> (4)</li>
-                          <li class="cat-item"><a href="#">Travel</a> (2)</li>
+                          <li class="cat-item"><a >Creative</a> (3)</li>
+                          <li class="cat-item"><a >Fashion</a> (1)</li>
+                          <li class="cat-item"><a >Lifestyle</a> (2)</li>
+                          <li class="cat-item"><a >Nature</a> (4)</li>
+                          <li class="cat-item"><a >Travel</a> (2)</li>
+                          <li class="cat-item" *ngFor="let c of category"><a (click)="onViewByCategory(c.id,c.name)">{{c.name}}</a> ({{1}})</li>
+
                         </ul>
                     </div> <!--categorybx-2-->
   
@@ -175,9 +179,11 @@
                           <h3>TAG</h3>
                         </div>
                         <div class="tagcloud">
-                           <a href="#">Beauty</a><a href="#">bicycle</a> <a href="#">health</a><a href="#">holidays</a><a href="#">inspiration</a> 
-                           <a href="#">Music</a><a href="#">auote</a> <a href="#">sunset</a><a href="#">swim</a><a href="#">time</a> 
-                           <a href="#">trendy</a><a href="#">weekend</a> <a href="#">women</a>
+                           <a >Beauty</a><a >bicycle</a> <a >health</a><a >holidays</a><a >inspiration</a> 
+                           <a >Music</a><a >auote</a> <a >sunset</a><a >swim</a><a >time</a> 
+                           <a >trendy</a><a >weekend</a> <a >women</a>
+                           <a *ngFor="let tag of tags" (click)="onViewBlogByTag(tag.id,tag.name)">{{tag.name}}</a>
+
                         </div>
                       </div> <!--tag box-->
   
@@ -190,11 +196,11 @@
           <div class="row mt-5">
             <div class="col-md-12">
                     <div class="category-btm">
-                      <a href="#" class="exp-term">420 evaluations</a>
-                      <a href="#" class="exp-term">Medical Cannabis</a>
-                      <a href="#" class="exp-term">Medical Marijuana</a>
-                      <a href="#" class="exp-term">medical marijuana card online</a>
-                      <a href="#" class="exp-term">MMJ Doctor</a>
+                      <a class="exp-term">420 evaluations</a>
+                      <a class="exp-term">Medical Cannabis</a>
+                      <a class="exp-term">Medical Marijuana</a>
+                      <a class="exp-term">medical marijuana card online</a>
+                      <a class="exp-term">MMJ Doctor</a>
                     </div>
                 </div>
           </div>

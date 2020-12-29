@@ -139,7 +139,7 @@ export class UserComponent implements OnInit {
     }
    
 
-    if (this.user.password === '' || this.user.newpwd === '' || this.user.password.length > 50 || this.user.newpwd.length > 50) {
+    if (this.user.password === '' || this.user.newpwd === '') {
       this.errMsg = "Please provide valid details."
       return false;
     }

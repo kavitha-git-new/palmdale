@@ -15,7 +15,7 @@
         <tr>
           <th width="5%">S.No</th>
           <th>Name</th>
-          <th>Description</th>
+          <th width="60%">Description</th>
           <th>Edit</th>
 
         </tr>
@@ -24,7 +24,7 @@
         <tr>
           <th width="5%">S.No</th>
           <th>Name</th>
-          <th>Description</th>
+          <th width="60%">Description</th>
           <th>Edit</th>
 
         </tr>
@@ -72,8 +72,15 @@
               <p class="card-category">{{titleDescription}}</p>
             </div>
             <div class="card-body">
+              <div class="row">
+                <div class="col-md-12" *ngIf="errMsg">
+                  <div class="alert alert-danger">
+                    {{errMsg}}
+                  </div>
+                </div>
+              </div>
             
-              <form class="form" #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate>
+              <form class="form" #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSaveData()" novalidate>
               <div class=" form-group">
                   <label>Name</label>
                   <input type="text" class="form-control" [(ngModel)]="blog.title" name="name"
@@ -118,8 +125,7 @@
               <div class="form-group">
                   <label>Tags</label>
                   <select class="form-control" name="btag" [(ngModel)]="blog.tag" multiple #btag="ngModel" required btag>
-                    <option selected>--Select Tag---</option>
-                    <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.name}}</option>
+                   <option *ngFor="let tag of tags" value="{{tag.name}}">{{tag.name}}</option>
                   </select>
                   <span class="text-danger"
                       *ngIf="(btag.touched || registerForm.submitted) && btag.errors?.required">
@@ -130,8 +136,8 @@
               <div class="form-group">
                   <label>Category</label>
                   <select class="form-control" name="bcategory" [(ngModel)]="blog.category" multiple #bcategory="ngModel" required bcategory>
-                  <option selected>--Select Category---</option>
-                  <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                 
+                  <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
                 </select>
                   <span class="text-danger"
                       *ngIf="(bcategory.touched || registerForm.submitted) && bcategory.errors?.required">
@@ -148,7 +154,7 @@
                   </div>
                    </div>
                    <ul *ngFor="let img of blog.images;let p=index"><li>{{img.name}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-trash">d</i>
                   </a> </li></ul>
                 <span class="text-danger" *ngIf="(imageUpload.touched || registerForm.submitted) && imageUpload.errors?.required && blog.images.length===0">
                     Image is required
@@ -168,7 +174,7 @@
               <div class="form-group">
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
                       (click)="onClose('exampleModal')">Cancel</button> &nbsp;
-                  <button type="submit" class="btn btn-success">Register</button>
+                  <button type="submit" class="btn btn-success">{{btnName}}</button>
               </div>
           </form>
             </div>

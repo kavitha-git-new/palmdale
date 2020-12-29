@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent, data: { title: 'About' } },
   { path: 'blog', component: BlogComponent, data: { title: 'Blog' } },
   { path: 'contact', component: ContactComponent, data: { title: 'Contact' } },
-  { path: 'single-page', component: SinglePageComponent, data: { title: 'Blog Details' } },
+  { path: 'single-page/:id', component: SinglePageComponent, data: { title: 'Blog Details' } },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
 
   // { path: '', pathMatch: 'full', component: HomeComponent, data: { title: 'Home' } },
@@ -54,7 +54,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

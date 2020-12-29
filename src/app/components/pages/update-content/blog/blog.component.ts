@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { RouteReuseStrategy } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
 import { environment } from "../../../../../environments/environment";
 @Component({
   selector: 'app-blog',
-  templateUrl: './blog-temp.html',
+  templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
@@ -80,7 +81,7 @@ export class BlogComponent implements OnInit {
     this.modalService.open('exampleModal');
   }
 
-  saveData(btnName: string) {
+  onSaveData() {
     alert("save date in Db.");
 
     console.log(this.blog);
@@ -100,14 +101,14 @@ export class BlogComponent implements OnInit {
     else{
       this.errMsg="";
     }
-    if(this.blog.dtPublished==='' || this.blog.dtPublished===null){
+   /* if(this.blog.dtPublished==='' || this.blog.dtPublished===null){
       alert("Date")
       this.errMsg="Please provide valid details.";
       return false;
     }
     else{
       this.errMsg="";
-    }
+    }*/
     if(this.blog.category==='' || this.blog.tag===''){
       alert("Category and Tag :"+this.blogs.category+" "+ this.blog.tag)
       this.errMsg="Please provide valid details.";
@@ -134,7 +135,7 @@ export class BlogComponent implements OnInit {
       this.errMsg="";
     }
     if(this.blog.title!==''&& this.blog.isPublished!==''&& this.blog.dtPublished && this.blog.tag.length>1 && this.blog.category.length>1&& this.blog.images.length>0 &&this.blog.description){
-      if(this.btnName==='Save' || btnName==='Save')
+      if(this.btnName==='Save')
       {
         alert("Save")
 
@@ -163,8 +164,9 @@ export class BlogComponent implements OnInit {
  console.log(params)
         this.http.post(environment.apiUrl+'createBlog',JSON.stringify(params),{headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(response=>{
           console.log(response);
-          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message) {
+          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message!=="Blog Created Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 500) {
             this.errMsg = "Please try again."
+            return false;
           }
           else{
           //  alert(JSON.parse(JSON.stringify(response)));
@@ -174,9 +176,11 @@ export class BlogComponent implements OnInit {
               //this.blog=[];
               this.getBlogs();
               this.modalService.close("exampleModal")
+                 return true;
             }
             else{
-              this.errMsg="Please try again."
+              this.errMsg = "Please try again."
+            return false;
             }
           }
       });
@@ -187,18 +191,21 @@ export class BlogComponent implements OnInit {
         {
           this.dataService.updateBlog(JSON.stringify(this.blog)).subscribe(response => {
           console.log(response);
-          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
+          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message!=="Blog Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 500 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
             this.errMsg = "Please try again."
+            return false;
           }
           else{
             if(JSON.parse(JSON.stringify(response)).response.message=="Blog Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
 
               this.blogs=[];
               this.getBlogs();
-              this.modalService.close("exampleModal")
+              this.modalService.close("exampleModal");
+              return true;
             }
             else{
-              this.errMsg="Please try again."
+              this.errMsg = "Please try again."
+               return false;
             }
           }
         })
@@ -207,8 +214,8 @@ export class BlogComponent implements OnInit {
       }
       alert("Data to save in Db.");      
  
-     this.modalService.close("exampleModal")
-       return true;
+    //  this.modalService.close("exampleModal")
+      return true;
     }
     else{
       this.errMsg="Please provide valid details.";
@@ -316,9 +323,10 @@ export class BlogComponent implements OnInit {
       console.log(this.blogs[0]);
       console.log(typeof(this.blogs))
       console.log(this.blogs[0].category)}
+      this.itemsRecords = this.blogs.length;
   });
-
-  this.itemsRecords = this.blogs.length;
+ 
+ 
 }
 
 onDeleteImg(name:string,p:number){

@@ -255,9 +255,10 @@ export class DataService {
     return this.http.get(environment.apiUrl+'FetchTags',this.httpOptions)
   }
 
-  getBlogByCategory(id:number){
+  getBlogByCategory(id:number,name:string){
     this.params={
-      "catId":id
+      "catId":id,
+      name:name      
     }
     console.log(JSON.stringify(this.params));
 
@@ -265,13 +266,18 @@ export class DataService {
   }
   //getPostByTagId
 
-  getBlogByTag(id:number){
+  getBlogByTag(id:number,name:string){
     this.params={
-      "tagId":id
+      "tagId":id,
+      name:name  
     }
     console.log(JSON.stringify(this.params));
 
     return this.http.post(environment.apiUrl+'getPostByTagId', JSON.stringify(this.params), this.httpOptions)
+  }
+
+  getSpecificBlog(id:number){
+    return this.http.get(environment.apiUrl+'getBlogByID?id='+id,this.httpOptions);
   }
 
 }
