@@ -178,14 +178,16 @@ export class UserComponent implements OnInit {
             this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
             this.users=[];
             this.getUsers();
-            this.modalService.close("exampleModal")
+            this.modalService.close("exampleModal");
+            return true;
           }
           else{
            alert(JSON.parse(JSON.stringify(response)).response.message);
+           this.errMsg="Please try again"
+           return false;
           }
         });
-        this.modalService.close("exampleModal")
-        return true;
+         return ;
       }
 
 
