@@ -16,7 +16,7 @@
           <th width="5%">S.No</th>
           <th>Name</th>
           <th width="60%">Description</th>
-          <th>Edit</th>
+          <th>Action</th>
 
         </tr>
       </thead>
@@ -25,7 +25,7 @@
           <th width="5%">S.No</th>
           <th>Name</th>
           <th width="60%">Description</th>
-          <th>Edit</th>
+          <th>Action</th>
 
         </tr>
       </tfoot>
@@ -80,7 +80,7 @@
                 </div>
               </div>
             
-              <form class="form" #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSaveData()" novalidate>
+              <form class="form" #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSaveData()" novalidate enctype="multipart/form-data">
               <div class=" form-group">
                   <label>Name</label>
                   <input type="text" class="form-control" [(ngModel)]="blog.title" name="name"
@@ -149,16 +149,22 @@
                 <label>Image</label>
                 <div class="input-group mb-3">
                   <div class="custom-file">
-                    <input type="file" class="form-control" id="imageUpload"  name="imageUpload" multiple (change)="onSelectFile($event)" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload/>
+                    <input type="file" class="form-control" id="imageUpload"  name="imageUpload" multiple (change)="onFileChange($event)" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload/>
                     <label class="custom-file-label" for="imageUpload"></label>
                   </div>
                    </div>
-                   <ul *ngFor="let img of blog.images;let p=index"><li>{{img.name}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
-                    <i class="fas fa-trash">d</i>
+                   <ul *ngFor="let img of theFiles;let p=index"><li>{{img.name}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
+                    <i class="fas fa-trash"></i>
                   </a> </li></ul>
                 <span class="text-danger" *ngIf="(imageUpload.touched || registerForm.submitted) && imageUpload.errors?.required && blog.images.length===0">
                     Image is required
                 </span>
+                <div *ngIf="messages.length > 0">
+                  <span *ngFor="let msg of messages">
+                      {{msg}}
+                      <br />
+                      </span>
+                  </div>
                 
             </div>
             <div class=" form-group">

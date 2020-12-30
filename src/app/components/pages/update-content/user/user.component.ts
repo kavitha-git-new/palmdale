@@ -187,7 +187,7 @@ export class UserComponent implements OnInit {
            return false;
           }
         });
-         return ;
+         return false;
       }
 
 
@@ -195,6 +195,7 @@ export class UserComponent implements OnInit {
     else {
       return false;
     }
+    return;
   }
 
   getUsers(){
