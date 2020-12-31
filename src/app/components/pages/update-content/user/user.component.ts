@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { element } from 'protractor';
+import { Router,RouterStateSnapshot } from '@angular/router';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
 import { allLetter, isEmailValid } from "../../../models/data-modal";
-
+import { checkToken } from "../../../models/data-modal";
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
   title: string = "";
   titleDescription: string = "";
   users:any =[]
-  constructor(private modalService: ModalService, private dataService: DataService) { 
+  constructor(private modalService: ModalService, private dataService: DataService, private router:Router) { 
    // this.getUsers();
   }
 
@@ -38,12 +38,21 @@ export class UserComponent implements OnInit {
     this.dataService.getUser(id).subscribe(element=>
       
      { //this.user=element
-      this.user= element.valueOf();
       
-     this.user= JSON.parse(JSON.stringify(this.user['response'][0]));
-      console.log(this.user.id);
-      console.log(typeof(this.user));
-    
+      this.user= element.valueOf();
+      if(this.user['response']['message'] && checkToken(this.user['response']['message'].toString())===false){
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']); 
+       
+      }
+      else{
+        this.user= JSON.parse(JSON.stringify(this.user['response'][0]));
+        console.log(this.user.id);
+        console.log(typeof(this.user));
+      }
+      
+     
+      
     });
     this.modalService.open('exampleModal');
     console.log(id);
@@ -58,16 +67,30 @@ export class UserComponent implements OnInit {
 
     if (confirm("Are you sure? Do you want to delete the details about the user : " + fname+' '+lname) === true) {
       this.dataService.deleteUser(id).subscribe(response=>{
-        if(JSON.parse(JSON.stringify(response)).response.message==="User Delete Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+        if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
-          this.succMsg= this.user.fname+" "+this.user.lname+" details is deleted.";
-          this.users=[];
-          this.getUsers();
-          this.modalService.close("exampleModal")
+          alert("Please login again. Your session has expired.");
+          this.router.navigate(['/login']); 
+          return false;
+
+         
         }
         else{
-         alert(JSON.parse(JSON.stringify(response)).response.message);
+          if(JSON.parse(JSON.stringify(response)).response.message==="User Delete Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+
+            this.succMsg= this.user.fname+" "+this.user.lname+" details is deleted.";
+            this.users=[];
+            this.getUsers();
+            this.modalService.close("exampleModal");
+            return true;
+          }
+          else{
+          // alert(JSON.parse(JSON.stringify(response)).response.message);
+          alert("Please try again.")
+           return false;
+          }
         }
+        
       });
       return true;
 
@@ -155,37 +178,59 @@ export class UserComponent implements OnInit {
       if (btnName == 'Save' && this.btnName === 'Save') {
         this.dataService.saveUser(JSON.stringify(this.user)).subscribe(response=>{
           console.log(response);
-          if(JSON.parse(JSON.stringify(response)).response.message==="User Created Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
-            this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
-            this.users=[];
-            this.getUsers();
-            this.modalService.close("exampleModal");
-            return true;
+            alert("Please login again. Your session has expired.");
+            this.router.navigate(['/login']); 
+            return false;
+           
           }
           else{
-           alert(JSON.parse(JSON.stringify(response)).response.message);
-           this.errMsg="Please try again"
-           return false;
+            if(JSON.parse(JSON.stringify(response)).response.message==="User Created Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+
+              this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
+              this.users=[];
+              this.getUsers();
+              this.modalService.close("exampleModal");
+              return true;
+            }
+            else{
+             alert(JSON.parse(JSON.stringify(response)).response.message);
+             this.errMsg="Please try again"
+             return false;
+            }
           }
+         
         });
        
       }
       else {
+        //for update
         this.dataService.updateUser(JSON.stringify(this.user)).subscribe(response=>{
-          if(JSON.parse(JSON.stringify(response)).response.message==="User Details Updated Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
-            alert("updated")
-            this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
-            this.users=[];
-            this.getUsers();
-            this.modalService.close("exampleModal");
-            return true;
+          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+
+            alert("Please login again.  Your session expired.");
+            this.router.navigate(['/login']); 
+            return false;
+           
           }
           else{
-           alert(JSON.parse(JSON.stringify(response)).response.message);
-           this.errMsg="Please try again"
-           return false;
+            if(JSON.parse(JSON.stringify(response)).response.message==="User Details Updated Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+              alert("updated")
+              this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
+              this.users=[];
+              this.getUsers();
+              this.modalService.close("exampleModal");
+              return true;
+            }
+            else{
+             alert(JSON.parse(JSON.stringify(response)).response.message);
+             this.errMsg="Please try again"
+             return false;
+            }
+
           }
+         
         });
          return false;
       }
@@ -202,12 +247,21 @@ export class UserComponent implements OnInit {
     this.dataService.getUsers().subscribe(element=>{
       
       this.users= element.valueOf();
-      
-       this.users= this.users['response'];
+      console.log(this.users['response']['message']);
+      if(this.users['response']['message'] && checkToken(this.users['response']['message'].toString())===false){
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']); 
+       
+      }
+      else{
+        this.users= this.users['response'];
      
-      console.log(this.users);
-      this.itemsRecords = this.users.length;
-      console.log(typeof(this.users))
+        console.log(this.users);
+        this.itemsRecords = this.users.length;
+        console.log(typeof(this.users))
+
+      }
+       
      // console.log(JSON.parse(JSON.stringify(element))['response']);
     });
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Contact_Message, isEmailValid, allLetter } from "../../models/data-modal";
+import { Contact_Message,Contact, isEmailValid, allLetter } from "../../models/data-modal";
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -11,6 +11,8 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   succMsg: string = ""
   errMsg: string = "";
+  contact :Array<Contact> = [];
+
   cm: Contact_Message = new Contact_Message();
   constructor(private dataService: DataService) { }
 

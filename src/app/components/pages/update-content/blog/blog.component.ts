@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
+import { checkToken } from "../../../models/data-modal";
 import { environment } from "../../../../../environments/environment";
 import { FileUpload } from "../../../models/file-upload";
 @Component({
@@ -31,7 +33,7 @@ export class BlogComponent implements OnInit {
   theFiles: any[] = [];
   messages: string[] = [];
   MAX_SIZE: number = 1048576;
-  constructor(private modalService: ModalService, private dataService: DataService, private http:HttpClient) { 
+  constructor(private modalService: ModalService, private dataService: DataService, private http:HttpClient, private router:Router) { 
    this.blog.images=[]
    const token=document.getElementById("token");
    token?.setAttribute('value',JSON.parse(sessionStorage.currentUser)[0].token)
@@ -46,6 +48,7 @@ export class BlogComponent implements OnInit {
     this.getTags();
    // this.bsConfig = Object.assign({}, { containerClass: 'blue' });
      this.blog.dtPublished= new Date();
+     
   }
 
   onEdit(id: number) {
@@ -58,10 +61,17 @@ export class BlogComponent implements OnInit {
     this.blog.id = id;
     this.dataService.getBlog(id).subscribe(element => {
       this.blog = element.valueOf();
-
-      this.blog = JSON.parse(JSON.stringify(this.blog['response'][0]));
-      console.log(this.blog.id);
-      console.log(typeof (this.blog));
+      if(this.blog['response']['message'] && checkToken(this.blog['response']['message'].toString())===false){
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']); 
+       
+      }
+      else{
+        this.blog = JSON.parse(JSON.stringify(this.blog['response'][0]));
+        console.log(this.blog.id);
+        console.log(typeof (this.blog));
+      }
+      
     });
     console.log(id);
 
@@ -73,12 +83,14 @@ export class BlogComponent implements OnInit {
     this.titleDescription = "Add details about the blog to save.";
     this.btnName = btName;
     this.blog.id = 0;
-    this.blog.name = '';
+    this.blog.title = '';
+    this.blog.isPublished='';
     this.blog.description = '';
-    this.blog.content = '';
-    this.errMsg = '';
+    this.blog.images = [];
     this.blog.category='';
     this.blog.tag='';
+    this.errMsg = '';
+   
 
     //to fill all the dropdowns
     
@@ -250,7 +262,7 @@ export class BlogComponent implements OnInit {
       this.dataService.onDeleteBlog(id).subscribe(response=>{
         console.log(response);
         if(JSON.parse(JSON.stringify(response)).response.message==="Blog Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
-
+          
          // this.succMsg= name+" tag is deleted.";
           this.blogs=[];
           this.getBlogs();
@@ -270,29 +282,45 @@ export class BlogComponent implements OnInit {
 
   getCategories(){
     this.dataService.getCategoriesWb().subscribe(element=>{
-      let b = element.valueOf()
-      this.categories=element.valueOf()
+      this.categories=element.valueOf();
+     // console.log(this.categories['response']['message'].toString());
+      if(this.categories['response']['message'] && checkToken(this.categories['response']['message'].toString())===false){
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']); 
        
-     if(this.categories['response']['data'])
-    { this.categories=this.categories['response']['data'].valueOf();
-      console.log('this.categories')
-      console.log(this.categories)
-      
+      }
+      else{
+        if(this.categories['response']['data'])
+        { this.categories=this.categories['response']['data'].valueOf();
+          console.log('this.categories')
+          console.log(this.categories)
           
-      console.log(this.categories[0]);
-      console.log(typeof(this.categories))
-      }})
+              
+          console.log(this.categories[0]);
+          console.log(typeof(this.categories))
+         
+          }
+         
+      }
+    })
   }
 
   getTags() {
 
     this.dataService.getTags().subscribe(element => {
       this.tags = element.valueOf();
+      if(this.tags['response']['message'] && checkToken(this.tags['response']['message'].toString())===false){
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']); 
+       
+      }
+      else{
+        this.tags = this.tags['response'];
 
-      this.tags = this.tags['response'];
-
-      console.log(this.tags);
-      console.log(typeof (this.tags))
+        console.log(this.tags);
+        console.log(typeof (this.tags))
+      }
+      
     });
   }
 
@@ -300,17 +328,24 @@ export class BlogComponent implements OnInit {
     this.dataService.getBlogsWb().subscribe(element=>{
       let b = element.valueOf()
       this.blogs=element.valueOf()
+      if(this.blogs['response']['message'] && checkToken(this.blogs['response']['message'].toString())===false){
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']); 
        
-     if(this.blogs['response']['data'])
-    { this.blogs=this.blogs['response']['data'].valueOf();
-      console.log('this.blogs')
-      console.log(this.blogs)
-      
+      }
+      else{
+        if(this.blogs['response']['data'])
+        { this.blogs=this.blogs['response']['data'].valueOf();
+          console.log('this.blogs')
+          console.log(this.blogs)
           
-      console.log(this.blogs[0]);
-      console.log(typeof(this.blogs))
-      console.log(this.blogs[0].category)}
-      this.itemsRecords = this.blogs.length;
+              
+          console.log(this.blogs[0]);
+          console.log(typeof(this.blogs))
+          console.log(this.blogs[0].category)}
+          this.itemsRecords = this.blogs.length; 
+      }
+  
   });
  
  
@@ -398,5 +433,11 @@ this.blog.images.push(file);
 
 
 }
+
+displatValue(e:any){ 
+  let temp = JSON.parse(e)
+  console.log(e)  ;
+  return temp;
+ }
 
 }

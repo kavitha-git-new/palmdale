@@ -14,10 +14,14 @@ export class HeaderComponent implements OnInit {
   title: string = 'Home';
 
   user: any = {};
-
+  userName:string="";
   @Input() heading: string = ""
   constructor(private titleService: Title, private loginService:LoginService,private addElementService:AddElementService) {
+   
     if (sessionStorage.currentUser) {
+      this.user=JSON.parse(sessionStorage.currentUser)[0];
+     console.log(this.user.fname);
+     this.userName=this.user.fname+' '+this.user.lname;
 
     }
   

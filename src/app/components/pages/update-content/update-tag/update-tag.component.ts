@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from "../../../_modal/modal.service";
-import { allLetter } from "../../../models/data-modal";
+import { checkToken } from "../../../models/data-modal";
 import { DataService } from "../../../services/data.service"
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-update-tag',
   templateUrl: './update-tag.component.html',
@@ -18,7 +19,7 @@ export class UpdateTagComponent implements OnInit {
   succMsg:string="";
   title: string = "";
   titleDescription: string = "";
-  constructor(private modalService: ModalService, private dataService: DataService) {
+  constructor(private modalService: ModalService, private dataService: DataService, private router :Router) {
     //  this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`}));
     // this.itemsRecords=this.items.length;
   }
@@ -34,10 +35,17 @@ export class UpdateTagComponent implements OnInit {
     this.tag.id = id;
     this.dataService.getTag(id).subscribe(element => {
       this.tag = element.valueOf();
-
-      this.tag = JSON.parse(JSON.stringify(this.tag['response'][0]));
-      console.log(this.tag.id);
-      console.log(typeof (this.tag));
+      if(this.tag['response']['message'] && checkToken(this.tag['response']['message'].toString())===false){
+        alert("Please login again.  Your session expired.");
+        this.router.navigate(['/login']); 
+      
+      }
+      else{
+        this.tag = JSON.parse(JSON.stringify(this.tag['response'][0]));
+        console.log(this.tag.id);
+        console.log(typeof (this.tag));
+      }
+     
     });
     this.modalService.open('exampleModal');
     console.log(id);
@@ -50,16 +58,28 @@ export class UpdateTagComponent implements OnInit {
     if (confirm("Are you sure? Do you want to delete the details about the tag : " + name) === true) {
       this.dataService.deleteTag(id).subscribe(response=>{
         console.log(response);
-        if(JSON.parse(JSON.stringify(response)).response.message==="Tag Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+        if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
-          this.succMsg= name+" tag is deleted.";
-          this.tag=[];
-          this.getTags();
-          this.modalService.close("exampleModal")
+          alert("Please login again.  Your session expired.");
+          this.router.navigate(['/login']); 
+          return false;
+         
         }
         else{
-         alert(JSON.parse(JSON.stringify(response)).response.message);
+          if(JSON.parse(JSON.stringify(response)).response.message==="Tag Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+
+            this.succMsg= name+" tag is deleted.";
+            this.tag=[];
+            this.getTags();
+            this.modalService.close("exampleModal");
+            return true;
+          }
+          else{
+           alert("Please try again.");
+           return false;
+          }
         }
+        
       });
       return true;
 
@@ -101,42 +121,68 @@ export class UpdateTagComponent implements OnInit {
       if (this.btnName === 'Save' || btName === 'Save') {
         this.dataService.saveTag(JSON.stringify(this.tag)).subscribe(response => {
           console.log(response);
-          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
-            this.errMsg = "Please try again."
+          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+
+            alert("Please login again.  Your session expired.");
+            this.router.navigate(['/login']); 
+            return false;
+           
           }
           else{
-            if(JSON.parse(JSON.stringify(response)).response.message=="Tag Created Successfully."){
-
-              this.succMsg= this.tag.name+" tag is saved";
-              this.tag={};
-              this.tags=[];
-              this.getTags();
-              this.modalService.close("exampleModal")
+            if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
+              this.errMsg = "Please try again."
+              return false;
             }
             else{
-              this.errMsg="Please try again."
+              if(JSON.parse(JSON.stringify(response)).response.message=="Tag Created Successfully."){
+  
+                this.succMsg= this.tag.name+" tag is saved";
+                this.tag={};
+                this.tags=[];
+                this.getTags();
+                this.modalService.close("exampleModal");
+                return true;
+              }
+              else{
+                this.errMsg="Please try again."
+                return false;
+              }
             }
           }
+          
         });
       }
       else {
         if (this.tag.id !== '') { this.dataService.updateTag(JSON.stringify(this.tag)).subscribe(response => {
           console.log(response);
-          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
-            this.errMsg = "Please try again."
+          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+
+            alert("Please login again.  Your session expired.");
+            this.router.navigate(['/login']); 
+            return false;
+           
           }
           else{
-            if(JSON.parse(JSON.stringify(response)).response.message=="Tag Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
-
-              this.succMsg= this.tag.name+" tag is saved";
-              this.tag=[];
-              this.getTags();
-              this.modalService.close("exampleModal")
+            if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
+              this.errMsg = "Please try again.";
+              return false;
             }
             else{
-              this.errMsg="Please try again."
+              if(JSON.parse(JSON.stringify(response)).response.message=="Tag Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
+  
+                this.succMsg= this.tag.name+" tag is saved";
+                this.tag=[];
+                this.getTags();
+                this.modalService.close("exampleModal");
+                return true;
+              }
+              else{
+                this.errMsg="Please try again.";
+                return false;
+              }
             }
           }
+         
         }) }
       }
       alert("Data to save in Db.");
@@ -161,12 +207,20 @@ export class UpdateTagComponent implements OnInit {
 
     this.dataService.getTags().subscribe(element => {
       this.tags = element.valueOf();
+      if(this.tags['response']['message'] && checkToken(this.tags['response']['message'].toString())===false){
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']); 
+       
+      }
+      else{
+        this.tags = this.tags['response'];
 
-      this.tags = this.tags['response'];
-
-      console.log(this.tags);
-      this.itemsRecords = this.tags.length;
-      console.log(typeof (this.tags))
+        console.log(this.tags);
+        this.itemsRecords = this.tags.length;
+        console.log(typeof (this.tags))
+        this.itemsRecords=this.tags.length;
+      }
+      
     });
 
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
-import {allLetter, Tag} from "../../../models/data-modal";
+import {allLetter, checkToken} from "../../../models/data-modal";
 
 @Component({
   selector: 'app-update-category',
@@ -9,7 +10,7 @@ import {allLetter, Tag} from "../../../models/data-modal";
   styleUrls: ['./update-category.component.css']
 })
 export class UpdateCategoryComponent implements OnInit {
-items:any=[];
+
 itemsRecords:number=0;
 page:number=1;
 categories:any=[];
@@ -19,11 +20,10 @@ title:string="Add";
 errMsg:string="";
 titleDescription:string="Add details about the categorys to save.";
 btnName:string="Save";
-  constructor(private modalService:ModalService, private dataService:DataService) { }
+  constructor(private modalService:ModalService, private dataService:DataService, private router:Router) { }
 
   ngOnInit(): void {
-    // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`}));
-    // this.itemsRecords=this.items.length;
+    
     this.getCategory();
   }
 
@@ -34,13 +34,21 @@ btnName:string="Save";
     this.category.id = id;
     this.dataService.getCategory(id).subscribe(element => {
       this.category = element.valueOf();
-
-      this.category = JSON.parse(JSON.stringify(this.category['response'][0]));
-      console.log(this.category.id);
-      console.log(typeof (this.category));
+      if(this.category['response']['message'] && checkToken(this.category['response']['message'].toString())===false){
+        alert("Please login again.  Your session expired.");
+        this.router.navigate(['/login']); 
+       
+      }
+      else{
+        this.category = JSON.parse(JSON.stringify(this.category['response'][0]));
+        console.log(this.category.id);
+        console.log(typeof (this.category));
+        this.modalService.open('exampleModal');
+        console.log(id);
+      }
+      
     });
-    this.modalService.open('exampleModal');
-    console.log(id);
+  
   }
 
   onDelete(id: number,name:string) {
@@ -49,17 +57,29 @@ btnName:string="Save";
 //delCat
     if (confirm("Are you sure? Do you want to delete the details about the category : " + name) === true) {
       this.dataService.deleteCategory(id).subscribe(response=>{
-        console.log(response);
+        if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+
+          alert("Please login again. Your session has expired.");
+          this.router.navigate(['/login']); 
+          return false;
+         
+        }
+        else{
+          console.log(response);
         if(JSON.parse(JSON.stringify(response)).response.message==="Category Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
 
          // this.succMsg= name+" tag is deleted.";
           this.categories=[];
           this.getCategory();
-          this.modalService.close("exampleModal")
+          this.modalService.close("exampleModal");
+          return true;
         }
         else{
-         alert(JSON.parse(JSON.stringify(response)).response.message);
+         alert("Please try again.");
+         return false;
         }
+        }
+        
       });
       return true;
 
@@ -167,12 +187,19 @@ btnName:string="Save";
 
       this.dataService.getCategories().subscribe(element => {
         this.categories = element.valueOf();
+        if(this.categories['response']['message'] && checkToken(this.categories['response']['message'].toString())===false){
+          alert("Please login again. Your session has expired.");
+          this.router.navigate(['/login']); 
+         
+        }
+        else{
+          this.categories = this.categories['response'];
   
-        this.categories = this.categories['response'];
-  
-        console.log(this.categories);
-        this.itemsRecords = this.categories.length;
-        console.log(typeof (this.categories))
+          console.log(this.categories);
+          this.itemsRecords = this.categories.length;
+          console.log(typeof (this.categories))
+        }
+        
       });
       
   

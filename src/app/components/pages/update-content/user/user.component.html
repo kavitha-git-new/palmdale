@@ -9,6 +9,9 @@
             <h6 class="m-0 font-weight-bold text-primary">List of User</h6>
             <button type="button" class="btn btn-primary" style="float: right;" (click)="onAdd('Save')">Add</button> &nbsp;
         </div>
+        <div>
+          <pagination-controls id="list_items" maxsize="5" (pageChange)="page = $event" style="padding: 10px;float: right;"></pagination-controls>
+        </div>
         <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -36,7 +39,7 @@
                     <td>{{user.serial_no}}</td>
                     <td>{{user.fname + ' '+ user.lname | titlecase}}</td>
                     <td>{{user.email}}</td>
-                    <td>
+                    <td class="text-center">
                         <a class="link" (click)="onEdit(user.id)">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
@@ -50,9 +53,9 @@
             
             </tbody>
         </table>
-        <div>
+        <!-- <div>
             <pagination-controls id="list_items" maxsize="5"    (pageChange)="page = $event"></pagination-controls>
-        </div>
+        </div> -->
 
     </div> 
     

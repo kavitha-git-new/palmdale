@@ -1,3 +1,4 @@
+
 export class Blog {
     heading: string = "";
     imageLink_wepp: string = "";
@@ -40,11 +41,11 @@ export class Category {
     description: string = '';
 }
 
-export class Contact_Message{
-    name:string="";
-    email:string="";
-    mobile:number=0;
-    message:string="";
+export class Contact_Message {
+    name: string = "";
+    email: string = "";
+    mobile: number = 0;
+    message: string = "";
 
 }
 
@@ -68,22 +69,32 @@ export function addTheme() {
 export function allLetter(inputtxt: string) {
 
     //var letters = /^[A-Za-z]+$/;
-    var letters= /^[a-zA-Z\s]+$/;
-    if(inputtxt===''|| inputtxt===undefined){
+    var letters = /^[a-zA-Z\s]+$/;
+    if (inputtxt === '' || inputtxt === undefined) {
         //alert("Msg");
         return false;
     }
-    else{
+    else {
         if (inputtxt.match(letters)) {
             return true;
         }
         else {
-           // alert("message");
+            // alert("message");
             return false;
         }
-    }    
-   
+    }
+
 }
+
+export function checkToken(token: string) {
+       console.log("Token check");
+        if (token === "Invalid Token") {
+            return false;
+        }
+        else {
+            return true;
+        }
+   }
 
 
 
