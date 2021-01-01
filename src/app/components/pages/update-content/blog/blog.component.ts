@@ -161,9 +161,18 @@ export class BlogComponent implements OnInit {
 
  params.token= JSON.parse(sessionStorage.currentUser)[0].token;
  console.log(params)
-        this.http.post(environment.apiUrl+'createBlog',JSON.stringify(params),{headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(response=>{
+ var formData = new FormData();
+        Object.keys(params).forEach((key) => {
+          if (key == 'images') {
+            formData.append(key, JSON.stringify(params[key][0]));
+          } else {
+            formData.append(key, params[key]);
+          }
+        });
+        this.http.post(environment.apiUrl+'createBlog',formData,{headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8'})}).subscribe(response=>{
       //  this.dataService.saveBlog(JSON.parse(this.blog)).subscribe(response=>{
           console.log(response);
+          console.log(typeof(response));
           if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message!=="Blog Created Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 500) {
             this.errMsg = "Please try again."
             return false;
