@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from "../../../_modal/modal.service";
-import { checkToken } from "../../../models/data-modal";
+import { checkToken, isEmpty } from "../../../models/data-modal";
 import { DataService } from "../../../services/data.service"
 import { Router } from "@angular/router";
 @Component({
@@ -120,8 +120,12 @@ export class UpdateTagComponent implements OnInit {
     if (this.tag.name !== '' && this.tag.description !== "" && confirm("Are you sure ? Do you want to save the details of " + this.tag.name) === true) {
       if (this.btnName === 'Save' || btName === 'Save') {
         this.dataService.saveTag(JSON.stringify(this.tag)).subscribe(response => {
-          console.log(response);
-          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+          if (isEmpty(response)){
+            this.errMsg = "Please try again."
+            return false;
+          } 
+          
+          else if(response.hasOwnProperty('response')===false ||JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
             alert("Please login again.  Your session expired.");
             this.router.navigate(['/login']); 
@@ -155,7 +159,16 @@ export class UpdateTagComponent implements OnInit {
       else {
         if (this.tag.id !== '') { this.dataService.updateTag(JSON.stringify(this.tag)).subscribe(response => {
           console.log(response);
-          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+          if (isEmpty(response)){
+            this.errMsg = "Please try again."
+            return false;
+          } 
+          
+          if(response.hasOwnProperty('response')===false){
+            this.errMsg = "Please try again."
+            return false;
+          }
+          if( JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
             alert("Please login again.  Your session expired.");
             this.router.navigate(['/login']); 
@@ -207,7 +220,13 @@ export class UpdateTagComponent implements OnInit {
 
     this.dataService.getTags().subscribe(element => {
       this.tags = element.valueOf();
-      if(this.tags['response']['message'] && checkToken(this.tags['response']['message'].toString())===false){
+      if (isEmpty(element)){
+        this.errMsg = "Please try again."
+        return false;
+      } 
+
+     
+      if(element.hasOwnProperty('response')===false || this.tags['response']['message'] && checkToken(this.tags['response']['message'].toString())===false){
         alert("Please login again. Your session has expired.");
         this.router.navigate(['/login']); 
        
@@ -220,7 +239,7 @@ export class UpdateTagComponent implements OnInit {
         console.log(typeof (this.tags))
         this.itemsRecords=this.tags.length;
       }
-      
+      return true;
     });
 
 

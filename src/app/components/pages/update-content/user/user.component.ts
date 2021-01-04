@@ -3,7 +3,7 @@ import { Router,RouterStateSnapshot } from '@angular/router';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
 import { allLetter, isEmailValid } from "../../../models/data-modal";
-import { checkToken } from "../../../models/data-modal";
+import { checkToken,isEmpty } from "../../../models/data-modal";
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -38,7 +38,11 @@ export class UserComponent implements OnInit {
     this.dataService.getUser(id).subscribe(element=>
       
      { //this.user=element
-      
+      if (isEmpty(element)){
+        this.errMsg = "Please try later."
+       alert(this.errMsg);
+       return false;
+      }
       this.user= element.valueOf();
       if(this.user['response']['message'] && checkToken(this.user['response']['message'].toString())===false){
         alert("Please login again. Your session has expired.");
@@ -49,10 +53,11 @@ export class UserComponent implements OnInit {
         this.user= JSON.parse(JSON.stringify(this.user['response'][0]));
         console.log(this.user.id);
         console.log(typeof(this.user));
+       
       }
       
      
-      
+      return true;   
     });
     this.modalService.open('exampleModal');
     console.log(id);
@@ -178,7 +183,12 @@ export class UserComponent implements OnInit {
       if (btnName == 'Save' && this.btnName === 'Save') {
         this.dataService.saveUser(JSON.stringify(this.user)).subscribe(response=>{
           console.log(response);
-          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+          if (isEmpty(response)){
+            this.errMsg = "Please try again."
+            return false;
+          } 
+
+          if(response.hasOwnProperty('response')===false || JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
             alert("Please login again. Your session has expired.");
             this.router.navigate(['/login']); 
@@ -207,7 +217,16 @@ export class UserComponent implements OnInit {
       else {
         //for update
         this.dataService.updateUser(JSON.stringify(this.user)).subscribe(response=>{
-          if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
+          if (isEmpty(response)){
+            this.errMsg = "Please try again."
+            return false;
+          } 
+
+          if(response.hasOwnProperty('response')===false){
+            this.errMsg = "Please try again."
+            return false;
+          }
+          if( JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
             alert("Please login again.  Your session expired.");
             this.router.navigate(['/login']); 

@@ -4,9 +4,10 @@ import { Router } from "@angular/router";
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
-import { checkToken } from "../../../models/data-modal";
+import { checkToken, isEmpty } from "../../../models/data-modal";
 import { environment } from "../../../../../environments/environment";
 import { FileUpload } from "../../../models/file-upload";
+
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
@@ -101,7 +102,7 @@ export class BlogComponent implements OnInit {
     alert("save date in Db.");
 
     console.log(this.blog);
-    this.uploadFile();
+    //this.uploadFile();
     if(this.blog.title==="" || this.blog.title===null){
       alert("name")
       this.errMsg="Please provide valid details.";
@@ -136,7 +137,8 @@ export class BlogComponent implements OnInit {
     }
     if(this.blog.images.length===0 || this.blog.images===null){
 
-      alert("Image")
+      alert("Image");
+      alert(this.blog.images.length);
       this.errMsg="Please provide valid details.";
       return false;
     }
@@ -157,28 +159,60 @@ export class BlogComponent implements OnInit {
         alert("Save")
 
     
+
+
  let params = this.blog;
 
+ console.log(this.blog);
+
+//  console.log('params');
+//  console.log(JSON.stringify(params));
+
+// let temp =[];
+// for(let i=0;i<this.blog.images.length;i++){
+//   console.log(this.blog.images[i]['fileName'])
+//   temp.push(this.blog.images[i]['fileName']);
+// }
+// this.blog.images=temp;
+console.log(this.urls);
  params.token= JSON.parse(sessionStorage.currentUser)[0].token;
  console.log(params)
+ params.urls=this.urls;
  var formData = new FormData();
         Object.keys(params).forEach((key) => {
-          if (key == 'images') {
-            formData.append(key, JSON.stringify(params[key][0]));
+          if (key === 'images') {
+              console.log(typeof(params[key][0]))
+              console.log(params[key].length);
+              for(let i=0;i<params[key].length;i++){
+                formData.append(key, JSON.stringify(params[key][i]));
+              }
+              
           } else {
             formData.append(key, params[key]);
           }
         });
-        this.http.post(environment.apiUrl+'createBlog',formData,{headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8'})}).subscribe(response=>{
-      //  this.dataService.saveBlog(JSON.parse(this.blog)).subscribe(response=>{
+        console.log(formData);
+        //http://localhost:1337/api/palmdale/createBlog
+      //  this.http.post(environment.apiUrl+'createBlog',formData,{headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8'})}).subscribe(response=>{
+//x-www-form-urlencoded
+
+        //this.http.post(environment.apiUrl+'createBlog',params,{headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(response=>{
+      this.dataService.saveBlog(JSON.stringify(params)).subscribe(response=>{
           console.log(response);
           console.log(typeof(response));
-          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message!=="Blog Created Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 500) {
+          if (isEmpty(response)){
+            this.errMsg = "Please try again."
+            return false;
+          } 
+          
+          else if(response.hasOwnProperty('response')===false || JSON.parse(JSON.stringify(response)).response.message!=="Blog Created Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 500 || JSON.parse(JSON.stringify(response))===null || JSON.parse(JSON.stringify(response)).response.statuscode === 403) {
+            
             this.errMsg = "Please try again."
             return false;
           }
           else{
           //  alert(JSON.parse(JSON.stringify(response)));
+          
             if(JSON.parse(JSON.stringify(response)).response.message=="Blog Created Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
 
             
@@ -195,11 +229,16 @@ export class BlogComponent implements OnInit {
       }
       else{
        
-        if(this.blog.id!=='')
+        if(this.blog.id!=='' && this.btnName=='Update')
         {
           this.dataService.updateBlog(JSON.stringify(this.blog)).subscribe(response => {
           console.log(response);
-          if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message!=="Blog Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 500 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
+          if (isEmpty(response)){
+            this.errMsg = "Please try again."
+            return false;
+          } 
+          
+          else if(response.hasOwnProperty('response')===false ||JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message!=="Blog Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 500 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
             this.errMsg = "Please try again."
             return false;
           }
@@ -236,7 +275,7 @@ export class BlogComponent implements OnInit {
   onSelectFile(event:any){
     const files = event.target.files;
     let isImage = true;
-    console.log(event.target.files)
+   // console.log(event.target.files)
     for (let i = 0; i < files.length; i++) {
       if (files.item(i).type.match('image.*')) {
         console.log(this.blog.images)
@@ -302,10 +341,10 @@ export class BlogComponent implements OnInit {
         if(this.categories['response']['data'])
         { this.categories=this.categories['response']['data'].valueOf();
           console.log('this.categories')
-          console.log(this.categories)
+        //  console.log(this.categories)
           
               
-          console.log(this.categories[0]);
+       //   console.log(this.categories[0]);
           console.log(typeof(this.categories))
          
           }
@@ -361,7 +400,8 @@ export class BlogComponent implements OnInit {
 }
 
 onDeleteImg(name:string,p:number){
-  this.theFiles= this.theFiles.filter((item:any, index:number )=> index !== p);  console.log(this.blog.images)
+  this.theFiles= this.theFiles.filter((item:any, index:number )=> index !== p);  
+  console.log(this.blog.images)
 }
 onSubmit() {
   alert('Form Submitted succesfully!!!\n Check the values in browser console.');
@@ -376,7 +416,7 @@ onSubmit() {
 }
 
 onFileChange(event:any) {
-  this.theFiles = [];
+
   
   // Any file(s) selected from the input?
   if (event.target.files && event.target.files.length > 0) {
@@ -393,10 +433,11 @@ onFileChange(event:any) {
       }
   }
   console.log("this.theFiles");
-  console.log(this.theFiles);
+  console.log(typeof(this.theFiles));
 }
 
 uploadFile(): void {
+  this.blog.images=[];
 for (let index = 0; index < this.theFiles.length; index++) {
     this.readAndUploadFile(this.theFiles[index]);
 }
@@ -425,7 +466,7 @@ reader.onload = () => {
    // file.fileAsBase64 = reader.result.toString();
    console.log(theFile);
    if(reader.result?.toString()!==undefined)
-  { file.fileAsBase64 = reader.result;
+  { file.fileAsBase64 = reader?.result;
      console.log("upload file fn middle")
   }
    
@@ -439,14 +480,32 @@ reader.onload = () => {
 // Read the file
 reader.readAsDataURL(theFile);
 this.blog.images.push(file);
-
+console.log(reader);
 
 }
 
 displatValue(e:any){ 
   let temp = JSON.parse(e)
-  console.log(e)  ;
+ // console.log(e)  ;
   return temp;
+ }
+
+ urls = new Array<string>();
+
+ detectFiles(event:any) {
+   this.urls = [];
+   this.blog.images=[];
+   let files = event.target.files;
+   if (files) {
+     for (let file of files) {
+       let reader = new FileReader();
+       reader.onload = (e: any) => {
+         this.urls.push(e.target.result);
+         this.blog.images.push(file.name)
+       }
+       reader.readAsDataURL(file);
+     }
+   }
  }
 
 }

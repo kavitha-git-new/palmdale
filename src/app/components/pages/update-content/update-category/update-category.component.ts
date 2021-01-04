@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
-import {allLetter, checkToken} from "../../../models/data-modal";
+import {allLetter, checkToken,isEmpty} from "../../../models/data-modal";
 
 @Component({
   selector: 'app-update-category',
@@ -123,6 +123,15 @@ btnName:string="Save";
           //to save the detais
           this.dataService.saveCategory(JSON.stringify(category)).subscribe(response => {
             console.log(response);
+            if (isEmpty(response)){
+              this.errMsg = "Please try again."
+              return false;
+            } 
+  
+            if(response.hasOwnProperty('response')===false){
+              this.errMsg = "Please try again."
+              return false;
+            }
             if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
               this.errMsg = "Please try again."
             }
@@ -139,6 +148,7 @@ btnName:string="Save";
                 this.errMsg="Please try again."
               }
             }
+            return true;
           });;
         }
         else{

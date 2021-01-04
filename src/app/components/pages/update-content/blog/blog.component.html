@@ -154,24 +154,28 @@
               </div>
               <div class="form-group">
                 <label>Image</label>
-                <div class="input-group mb-3">
-                  <div class="custom-file">
-                    <input type="file" class="form-control" id="imageUpload"  name="imageUpload" multiple (change)="onFileChange($event)" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload/>
-                    <label class="custom-file-label" for="imageUpload"></label>
-                  </div>
-                   </div>
-                   <ul *ngFor="let img of theFiles;let p=index"><li>{{img.name}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
+                <div>
+                  <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+              </div>
+              <input type="file" multiple (change)="detectFiles($event)" name="imageUpload" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload>
+                <!-- <div class="input-group mb-3"> -->
+                  <!-- <div class="custom-file"> -->
+                    <!-- <input type="file" class="form-control" id="imageUpload"  name="imageUpload" multiple (change)="onFileChange($event)" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload/> -->
+                    <!-- <label class="custom-file-label" for="imageUpload"></label> -->
+                  <!-- </div> -->
+                   <!-- </div> -->
+                   <!-- <ul *ngFor="let img of urls;let p=index"><li>{{img}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
                     <i class="fas fa-trash"></i>
-                  </a> </li></ul>
+                  </a> </li></ul> -->
                 <span class="text-danger" *ngIf="(imageUpload.touched || registerForm.submitted) && imageUpload.errors?.required && blog.images.length===0">
                     Image is required
                 </span>
-                <div *ngIf="messages.length > 0">
+                <!-- <div *ngIf="messages.length > 0">
                   <span *ngFor="let msg of messages">
                       {{msg}}
                       <br />
                       </span>
-                  </div>
+                  </div> -->
                 
             </div>
             <div class=" form-group">
