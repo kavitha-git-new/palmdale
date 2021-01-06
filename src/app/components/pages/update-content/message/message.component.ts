@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/components/services/data.service';
+import { ExcelFileService } from 'src/app/components/services/excel-file.service';
 import { ModalService } from 'src/app/components/_modal';
 
 @Component({
@@ -16,7 +17,7 @@ export class MessageComponent implements OnInit {
   messages:any=[];
   title: string = "";
   titleDescription: string = "";
-  constructor(private modalService:ModalService, private dataService:DataService) { }
+  constructor(private modalService:ModalService, private dataService:DataService, private excelService:ExcelFileService) { }
 
   ngOnInit(): void {
     // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}` }));
@@ -52,10 +53,7 @@ export class MessageComponent implements OnInit {
     }
   }
 
-  onDownload() {
-    //alert("Download started...");
-    console.log("download started...");
-  }
+ 
 
   onClose(id: string) {
     this.modalService.close(id)
@@ -77,5 +75,19 @@ export class MessageComponent implements OnInit {
      // console.log(JSON.parse(JSON.stringify(element))['response']);
     });
   }
+
+  onDownload() {
+    let new_list = this.messages.map(function(obj:any) {
+      return {
+        serial_no: obj.serial_no,
+        name: obj.name,
+        email: obj.email,
+        mobile: obj.mobile,
+        message: obj.message        
+      }
+    });
+    this.excelService.exportAsExcelFile(new_list, 'message_list');  
+
+  } 
 
 }
