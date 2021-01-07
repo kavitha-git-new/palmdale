@@ -19,7 +19,7 @@ export class BlogComponent implements OnInit {
   page: number = 1;
   btnName: string = "Save";
   blog: any = {};
-
+  
   tags: any = [];
   categories: any = [];
   blogs:any=[];
@@ -395,6 +395,8 @@ console.log(this.urls);
       }
   
   });
+ 
+ 
  
  
 }

@@ -212,6 +212,7 @@ export class BlogComponent implements OnInit, OnDestroy {
           console.log(this.blogs[0]);
           console.log(typeof (this.blogs))
           console.log(this.blogs[0].category)
+    
           this.itemsRecords=this.blogs.length;;
         }
       }
