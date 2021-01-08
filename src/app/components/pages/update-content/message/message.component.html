@@ -13,6 +13,9 @@
                 Download </button> &nbsp;
 
         </div>
+        <div>
+          <pagination-controls id="list_items" maxsize="5"  style="padding: 10px;float: right;"   (pageChange)="page = $event"></pagination-controls>
+      </div>
         <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -44,7 +47,7 @@
                     <td>{{item.email}}</td>
                     <td class="text-right"> {{item.mobile}}</td>
                     <td class="text-center">
-                        <a class="link" (click)="onView(item.id,item.name)">
+                        <a class="link" (click)="onView(item.id,item.name,item.email,item.mobile)">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>
                         &nbsp;
@@ -57,9 +60,7 @@
             
             </tbody>
         </table>
-        <div>
-            <pagination-controls id="list_items" maxsize="5"    (pageChange)="page = $event"></pagination-controls>
-        </div>
+        
 
     </div> 
     
@@ -69,74 +70,77 @@
 <div id="updateDate">
     <jw-modal id="exampleModal">
         <div class="modal-body">
-                   
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="card">
-                        <div class="card-header">
-                          <h4 class="card-title">{{title}}</h4>
-                          <p class="card-category">{{titleDescription}}</p>
-                        </div>
-                        <div class="card-body">
-                          <form id="addUserForm">
-                            <div class="row" *ngIf="message.errMsg">
-                   
-                              <div class="col-md-6">
-                                <div class="alert alert-danger">
-                                  {{message.errMsg}}
-                                </div>
-                             
+               <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 class="card-title">{{title}}</h4>
+                        <p class="card-category">{{titleDescription}}</p>
+                      </div>
+                      <div class="card-body">
+                        <form id="addUserForm">
+                          <div class="row" *ngIf="message.errMsg">
+                 
+                            <div class="col-md-6">
+                              <div class="alert alert-danger">
+                                {{message.errMsg}}
+                              </div>
+                           
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div  [ngClass]="{'form-group': true, 'is-filled': true}">
+                                <label for="fname">Sender's Name</label>
+                                <input type="text" name="fname" class="form-control" [(ngModel)]="message.name" disabled/>
                               </div>
                             </div>
-                            <div class="row">
-                              <div class="col-md-4">
-                                <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                  <label for="fname">Sender's Name</label>
-                                  <input type="text" name="fname" class="form-control" [(ngModel)]="message.name" disabled/>
-                                </div>
+                            <div class="col-md-4">
+                              <div  [ngClass]="{'form-group': true, 'is-filled': true}">
+                                <label for="fname">E-mail</label>
+                                <input type="text" name="fname" class="form-control" [(ngModel)]="message.email" disabled/>
                               </div>
-                              <div class="col-md-4">
-                                <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                  <label for="fname">E-mail</label>
-                                  <input type="text" name="fname" class="form-control" [(ngModel)]="message.email" disabled/>
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-                                  <label for="lname">Mobile</label>
-                                  <input type="text" name="lname" class="form-control" [(ngModel)]="message.mobile" disabled/>
-                                </div>
-                              </div>
-                             
-                    
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div  [ngClass]="{'form-group': true, 'is-filled': true}">
-
-                                    <label for="message">Message</label>
-                                    <div class="form-group">
-                                      <textarea class="form-control" rows="4" name="message" [(ngModel)]="message.content" disabled></textarea>
-                                    </div>
-                                    </div>
-                                  </div>
+                            <div class="col-md-4">
+                              <div  [ngClass]="{'form-group': true, 'is-filled': true}">
+                                <label for="lname">Mobile</label>
+                                <input type="text" name="lname" class="form-control" [(ngModel)]="message.mobile" disabled/>
+                              </div>
                             </div>
-                         
-                
-                           <div class="row">
+                           
+                  
+                          </div>
+                          <div class="row">
                               <div class="col-md-12">
-                          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClose('exampleModal')">Close</button> &nbsp;
-                                <!-- <button type="button" class="btn btn-primary" (click)="saveData(btnName)">{{btnName}}</button> -->
-                              </div>
+                                  <div  [ngClass]="{'form-group': true, 'is-filled': true}">
+
+                                  <label for="message">Message</label>
+                                  <div class="form-group">
+                                    <textarea class="form-control" rows="4" name="message" [(ngModel)]="message.content" disabled></textarea>
+                                  </div>
+                                  </div>
+                                </div>
+                          </div>
+                       
+              
+                         <div class="row">
+                            <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClose('exampleModal')">Close</button> &nbsp;
+                              <!-- <button type="button" class="btn btn-primary" (click)="saveData(btnName)">{{btnName}}</button> -->
                             </div>
-                                          
-                            <div class="clearfix"></div>
-                          </form>
-                        </div>
+                          </div>
+                                        
+                          <div class="clearfix"></div>
+                        </form>
                       </div>
                     </div>
-                 
                   </div>
+               
+                </div>
+
+               </div>
+                
               
         </div>
       </jw-modal>

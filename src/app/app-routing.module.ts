@@ -51,6 +51,7 @@ const routes: Routes = [
   { path: 'ccontact', component: UpdateContactContentsComponent, data: { title: 'CContact' }, canActivate: [AuthGuard] },
   { path: 'cmessage', component: MessageComponent, data: { title: 'CMessage' }, canActivate: [AuthGuard]},
   { path: '**', component: HomeComponent, data: { title: 'Home' } },
+  
 ];
 
 @NgModule({

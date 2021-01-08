@@ -47,6 +47,10 @@
                         <a class="link" (click)="onDelete(user.id, user.fname ,user.lname)">
                             <i class="fas fa-trash"></i>
                         </a>
+                        <!-- &nbsp;
+                        <a class="btn btn-success btn-circle">
+                          <i class="fas fa-check"></i>
+                      </a> -->
 
                     </td>
                 </tr>           
@@ -65,7 +69,8 @@
 <div id="updateDate">
     <jw-modal id="exampleModal">
         <div class="modal-body">
-                       
+          <div class="container">
+
                   <div class="row">
                     <div class="col-md-12">
                       <div class="card">
@@ -116,7 +121,7 @@
                                     <div  [ngClass]="{'form-group': true, 'is-filled': true}">
                                       <label for="role" class="bmd-label-floating">Role</label>
                                       <select class="browser-default custom-select" name="role" [(ngModel)]="user.role" >
-                                        <option selected>--Select user Type---</option>
+                                        <!-- <option selected>--Select user Type---</option> -->
                                         <option value="Admin">Administrator</option>
                                         <option value="user">Normal</option>
                                       </select>
@@ -143,7 +148,7 @@
                            <div class="row">
                               <div class="col-md-12">
                              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClose('exampleModal')">Cancel</button> &nbsp;
-                                <button type="button" class="btn btn-primary" (click)="saveData(btnName)">{{btnName}}</button>
+                                <button type="button" class="btn btn-success" (click)="saveData(btnName)">{{btnName}}</button>
                               </div>
                             </div>
                                           
@@ -154,7 +159,7 @@
                     </div>
                  
                   </div>
-              
+              </div>
         </div>
       </jw-modal>
 </div>

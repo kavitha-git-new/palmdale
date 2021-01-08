@@ -21,8 +21,8 @@ export class AuthGuard implements CanActivate {
        this.user= sessionStorage.getItem('currentUser');
       console.log(this.user)
       if (this.user!==null && this.user!=='' && (sessionStorage.currentUser)) {
-        console.log(JSON.parse(this.user)[0].id)
-        console.log(JSON.parse(sessionStorage.currentUser)[0].token);
+       // console.log(JSON.parse(this.user)[0].id)
+       // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
         return true;
         /*  this.dataService.getUser(JSON.parse(this.user)[0].id).subscribe(response=>{
             this.user= response.valueOf();

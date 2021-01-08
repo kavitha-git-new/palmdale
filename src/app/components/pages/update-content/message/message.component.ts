@@ -26,12 +26,15 @@ export class MessageComponent implements OnInit {
     this.getMessages();
   }
 
-  onView(id: number,name:string) {
+  onView(id: number,name:string, email:string, mobile:string) {
     this.message.errMsg="";
     this.title="Edit";
     this.titleDescription="Edit details about the message to update.";
     this.btnName="Update"
     this.message.id=id;
+    this.messages.name=name;
+    this.message.email=email;
+    this.message.mobile=mobile;
     this.dataService.getMessage(id).subscribe(element=>
      { this.message=element});
     this.modalService.open('exampleModal');

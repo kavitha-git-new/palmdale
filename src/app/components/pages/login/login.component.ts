@@ -72,7 +72,7 @@ pwd:''};
     }
     else {
       if (user.email === 'kavitha.jdm@gmail.com' && user.pwd == 'JDM@1234') {
-        sessionStorage.setItem('currentUser', JSON.stringify({id:1, role:'Admin',name:'Kavitha', email:'kavitha.jdm@gmail.com'}));
+        sessionStorage.setItem('currentUser', JSON.stringify({id:1, role:'Admin',fname:'Kavitha', lname:'UdayaKumar', email:'kavitha.jdm@gmail.com'}));
         console.log(sessionStorage.currentUser);
         this.router.navigate(['/cdashboard']);
         this.errMsg = "";

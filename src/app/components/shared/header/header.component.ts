@@ -14,17 +14,18 @@ export class HeaderComponent implements OnInit {
   title: string = 'Home';
 
   user: any = {};
-  userName:string="";
+  userName: string = "";
   @Input() heading: string = ""
-  constructor(private titleService: Title, private loginService:LoginService,private addElementService:AddElementService) {
-   
+  constructor(private titleService: Title, private loginService: LoginService, private addElementService: AddElementService) {
+
     if (sessionStorage.currentUser) {
-      this.user=JSON.parse(sessionStorage.currentUser)[0];
-     console.log(this.user.fname);
-     this.userName=this.user.fname+' '+this.user.lname;
+     if(JSON.parse(sessionStorage.currentUser)[0]){ this.user = JSON.parse(sessionStorage.currentUser)[0];}
+     else { this.user = JSON.parse(sessionStorage.currentUser)}
+      console.log(this.user.fname);
+      this.userName = this.user.fname + ' ' + this.user.lname;
 
     }
-  
+
 
   }
 
@@ -41,10 +42,10 @@ export class HeaderComponent implements OnInit {
       return (this.heading == ut);
     }
     else {
-     
+
       const match = ut.findIndex(e => e === this.heading);
       if (match !== -1) {
-        if(this.heading==='Login'){
+        if (this.heading === 'Login') {
           console.log(this.heading);
           this.addElementService.removeLink();
         }
@@ -57,9 +58,9 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  logOut(){
+  logOut() {
     this.loginService.onLogout();
-    
+
 
   }
 }

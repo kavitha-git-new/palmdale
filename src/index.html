@@ -51,10 +51,23 @@
   <i class="fas fa-angle-up"></i>
 </a>
 
-<!--script src="assets/js/my.js"></script-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/sb-admin-2.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+  
+  jQuery(document).ready(function($){
+      $("#sidebarToggleTop").click(function(e){
+        e.preventDefault();
+        $("#accordionSidebar").toggleClass("toggled");
+      });
 
-<!-- <script src="assets/js/custom.js"></script> -->
-<script src="assets/js/jquery.min.js" rel="noopener"></script>
+      $("#sidebarToggle").click(function(e){
+        e.preventDefault();
+        $("#accordionSidebar").toggleClass("toggled");
+      });
+  });
+</script>
 <script async="true" src="assets/js/bootstrap.min.js"></script>
 
 <!-- Core plugin JavaScript-->
@@ -63,25 +76,10 @@
 <!-- Custom scripts for all pages-->
 
 
-<!-- <script src="assets/js/custom.js"></script> -->
-<link href="assets/js/custom.js" as="script">
-<script>
-  var usedLaterScript = document.createElement("script"); usedLaterScript.src = "assets/js/custom.js", document.body.appendChild(usedLaterScript);
-</script>
+<link href="assets/js/custom.js" as="script"> 
+        <script>
+        var usedLaterScript=document.createElement("script");usedLaterScript.src="assets/js/custom.js",document.body.appendChild(usedLaterScript);
+        </script>
 
-<!-- Menu Toggle Script -->
-<script>
-  jQuery(document).ready(function($){
-   // alert("toggle");
-      $("#menu-toggle").click(function(e){
-        e.preventDefault();
-        alert("toggle");
-        $("#wrapper").toggleClass("toggled");
-      });
-  });
-</script>
-<!-- <script src="assets/js/jquery-3-5.min.js"></script> -->
-<script src="assets/js/sb-admin-2.min.js"></script>
-<!-- <script src="assets/js/sb-admin-2.js"></script> -->
 
 </html>
