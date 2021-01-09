@@ -28,8 +28,8 @@ export class MessageComponent implements OnInit {
 
   onView(id: number,name:string, email:string, mobile:string) {
     this.message.errMsg="";
-    this.title="Edit";
-    this.titleDescription="Edit details about the message to update.";
+    this.title="View Message";
+    this.titleDescription="View details about the message.";
     this.btnName="Update"
     this.message.id=id;
     this.messages.name=name;

@@ -43,6 +43,8 @@ import { DataService} from './components/services/data.service';
 import { UserComponent } from './components/pages/update-content/user/user.component';
 import { ItemComponent } from './components/pages/update-content/item/item.component';
 import { MessageComponent } from './components/pages/update-content/message/message.component';
+import { RouterModule } from '@angular/router';
+import { FilterPipe } from './components/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -68,10 +70,11 @@ import { MessageComponent } from './components/pages/update-content/message/mess
     UserComponent,
     ItemComponent,
     MessageComponent,
-    CBlog
+    CBlog,
+    FilterPipe
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
@@ -80,7 +83,8 @@ import { MessageComponent } from './components/pages/update-content/message/mess
     ModalModule,
     NgxPaginationModule,
     BsDatepickerModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [AddElementService,LoginService,DataService],
   bootstrap: [AppComponent],

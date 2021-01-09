@@ -19,7 +19,7 @@ export class BlogComponent implements OnInit {
   page: number = 1;
   btnName: string = "Save";
   blog: any = {};
-  
+  searchText:string="";
   tags: any = [];
   categories: any = [];
   blogs:any=[];
@@ -49,6 +49,8 @@ export class BlogComponent implements OnInit {
     this.getTags();
    // this.bsConfig = Object.assign({}, { containerClass: 'blue' });
      this.blog.dtPublished= new Date();
+     console.log('Blogs :')
+     console.log(this.blogs);
      
   }
 

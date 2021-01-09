@@ -19,7 +19,8 @@ export class UserComponent implements OnInit {
   errMsg:string=""
   title: string = "";
   titleDescription: string = "";
-  users:any =[]
+  users:any =[];
+  searchText:string="";
   constructor(private modalService: ModalService, private dataService: DataService, private router:Router) { 
    // this.getUsers();
   }
