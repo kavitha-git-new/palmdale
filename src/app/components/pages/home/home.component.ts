@@ -15,6 +15,38 @@ export class HomeComponent implements OnInit ,OnDestroy{
   maxDate=new Date();
   minDate=new Date();
   recent_blogs:any=[];
+  /*frequently asked questions array:*/
+  faq:any=[{
+    id:'1',
+    heading:'How to Get a Medical Marijuana Card in Palmdale? ',
+    content:'There’s scientific evidence that medical cannabis can help in treating a wide range of conditions. To buy medical cannabis legally from state-licensed dispensaries, you require a licensed medical doctor’s recommendation. We at <strong>Medical Cannabis Card Evaluations Palmdale</strong> allow patients to apply for medical marijuana evaluation Palmdale within minutes. Using our doctor signed MMJ card, you can visit any state-licensed dispensary, and buy marijuana products.'
+  },
+  {
+    id:'2',
+    heading:'Why Do I Need to Apply For Medical Marijuana Renewal?  ',
+    content:'In California, medical cannabis patients can possess and purchase marijuana for health benefits. The doctor-issued MMJ card is valid for 12 months, and if you want to continue medical cannabis treatment, you need to apply for MMJ renewal. The process is similar to that of applying for a new card. The doctor will analyze your condition and provide you renewed card, which is valid for another year.'
+  },
+  {
+    id:'3',
+    heading:'What’s The Complete Process to Get an MMJ Recommendation Letter? ',
+    content:'The process of getting a medical marijuana card is very simple, and it hardly takes 10 minutes. Just sign up for an account and fill all your medical details. After you click the submit button, a licensed doctor will contact you over a secure HIPAA-compliant platform. The doctor will examine your condition, check your medical history, and ask you a few questions. After you’re approved, you will receive your MMJ letter over the email instantly. Additionally, your official medical marijuana recommendation and hard-copy MMJ card will arrive via regular postal service.'
+  },
+  {
+    id:'4',
+    heading:'Where Can I Buy Medical Marijuana Products? ',
+    content:'In California, medical marijuana cardholders can buy cannabis products from state-licensed dispensaries. For medical users, there’s a wide range of options available in strains, oils, topicals, etc. It’s recommended to talk to a professional MMJ doctor Palmdale and get sound advice for what’s right for your condition.'
+  },
+  {
+    id:'5',
+    heading:'What Are The Major Requirements To Get a Medical Cannabis Card in Palmdale? ',
+    content:'To get medical marijuana evaluations Palmdale, you must be a resident of California. Moreover, you must be diagnosed by one of the state’s MMJ qualifying conditions. Your doctor will examine your condition carefully and may ask you to show medical history for verification purposes. After you’re approved, you will get your MMJ card.'
+  },
+  {
+    id:'6',
+    heading:'In California, Adult-Use Marijuana is Legal. Do I Still Need to Apply For a Medical Marijuana Card in Palmdale?',
+    content:'In California, marijuana is legal for both medical and recreational purposes. But, medical users enjoy many advantages over recreational users. These include—age relaxations, access to high-potency products & more dispensaries, and tax saving. Talk to our doctors to obtain a California medical marijuana card today.'
+  }
+]
 
   minIdx:number=0;
   constructor(private router:Router,private dataService:DataService) {

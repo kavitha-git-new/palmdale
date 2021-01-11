@@ -19,6 +19,8 @@ export class UpdateTagComponent implements OnInit {
   succMsg:string="";
   title: string = "";
   titleDescription: string = "";
+
+  searchText:string="";
   constructor(private modalService: ModalService, private dataService: DataService, private router :Router) {
     //  this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`}));
     // this.itemsRecords=this.items.length;

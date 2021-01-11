@@ -20,6 +20,7 @@ title:string="Add";
 errMsg:string="";
 titleDescription:string="Add details about the categorys to save.";
 btnName:string="Save";
+searchText:string="";
   constructor(private modalService:ModalService, private dataService:DataService, private router:Router) { }
 
   ngOnInit(): void {

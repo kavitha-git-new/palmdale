@@ -7,14 +7,25 @@
     <div class="card">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">List of Messages</h6>
-            <button  class="btn btn-primary" style="float: right;" (click)="onDownload()"> 
+            <button  class="btn btn-primary" style="float: right;" (click)="onDownload()" data-toggle="tooltip" data-placement="top" title="Download"> 
               <i class="fas fa-file-excel"></i>
               <!-- <i class="fas fa-file-csv"></i> -->
                 Download </button> &nbsp;
 
         </div>
-        <div>
+        <div class="row">
+          <div class="col-sm-12 col-md-6" > 
+
+         
+            <div id="dataTable_filter" class="form-inline" style="padding: 15px;float: left;" ><label>Search:&nbsp;
+           
+            <!-- Search for details -->
+    <input class="form-control" type="text" placeholder="Search for.."  [(ngModel)]="searchText" aria-label="Search">
+             </label></div>
+          </div>
+          <div class="col-sm-12 col-md-6" > 
           <pagination-controls id="list_items" maxsize="5"  style="padding: 10px;float: right;"   (pageChange)="page = $event"></pagination-controls>
+          </div>
       </div>
         <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -41,7 +52,7 @@
                 <tr *ngFor="let i=index ;let item of messages| paginate: { id: 'list_items',
                 itemsPerPage: 10,
                 currentPage: page,
-                totalItems: itemsRecords }">
+                totalItems: itemsRecords } | filter: searchText">
                         <td>{{i+1}}</td>
                     <td>{{item.name | titlecase}}</td>
                     <td>{{item.email}}</td>

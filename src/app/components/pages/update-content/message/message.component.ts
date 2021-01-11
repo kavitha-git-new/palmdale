@@ -16,6 +16,7 @@ export class MessageComponent implements OnInit {
   message: any = {};
   messages:any=[];
   title: string = "";
+  searchText:string="";
   titleDescription: string = "";
   constructor(private modalService:ModalService, private dataService:DataService, private excelService:ExcelFileService) { }
 
