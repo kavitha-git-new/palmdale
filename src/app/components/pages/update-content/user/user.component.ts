@@ -59,7 +59,13 @@ export class UserComponent implements OnInit {
       
      
       return true;   
-    });
+    },
+    error => {
+      // alert(error)
+       console.log( error);
+       this.errMsg = "Please try again."
+       return false;
+   });
     this.modalService.open('exampleModal');
     console.log(id);
   }
@@ -97,7 +103,12 @@ export class UserComponent implements OnInit {
           }
         }
         
-      });
+      }, error => {
+        // alert(error)
+         console.log( error);
+         this.errMsg = "Please try again."
+         return false;
+     });
       return true;
 
     }
@@ -212,7 +223,12 @@ export class UserComponent implements OnInit {
             }
           }
          
-        });
+        }, error => {
+          // alert(error)
+           console.log( error);
+           this.errMsg = "Please try again."
+           return false;
+       });
        
       }
       else {
@@ -251,7 +267,12 @@ export class UserComponent implements OnInit {
 
           }
          
-        });
+        }, error => {
+          // alert(error)
+           console.log( error);
+           this.errMsg = "Please try again."
+           return false;
+       });
          return false;
       }
 
@@ -283,7 +304,12 @@ export class UserComponent implements OnInit {
       }
        
      // console.log(JSON.parse(JSON.stringify(element))['response']);
-    });
+    }, error => {
+      // alert(error)
+       console.log( error);
+       this.errMsg = "Please try again."
+       return false;
+   });
   }
 
 }

@@ -326,7 +326,7 @@
               <div class="tab-content" id="faq-tab-content">
                   <div class="tab-pane show active" id="tab1" role="tabpanel" aria-labelledby="tab1">
                       <div class="accordion" id="accordion-tab-1">
-                          <div class="card">
+                          <!-- <div class="card">
                               <div class="card-header" id="accordion-tab-1-heading-1">
                                   <h3>
                                       <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#accordion-tab-1-content-1" aria-expanded="false" aria-controls="accordion-tab-1-content-1">How to Get a Medical Marijuana Card in Palmdale?
@@ -405,23 +405,24 @@
                                   <p>In California, marijuana is legal for both medical and recreational purposes. But, medical users enjoy many advantages over recreational users. These include—age relaxations, access to high-potency products & more dispensaries, and tax saving. Talk to our doctors to obtain a California medical marijuana card today.</p>
                               </div>
                           </div>
-                      </div>
-
-                      <!-- <div class="card" *ngFor="let item of faq; let i=index;">
+                      </div> -->
+<!-- Displayed FAQ from array using *ngFor-->
+                       <div class="card" *ngFor="let item of faq; let i=index;">
                         <div class="card-header" id="{{'accordion-tab-1-heading-'+(i+1)}}">
                             <h3>
-                                <button class="btn btn-link" type="button" data-toggle="collapse" [data-target]="{{'#accordion-tab-1-content-'+(i+1)}}" aria-expanded="false" aria-controls="{{'accordion-tab-1-content-'+(i+1)}}">{{item.heading}}
+                                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#accordion-tab-1-content-'+ (i+1)" aria-expanded="false" aria-controls="accordion-tab-1-content-(i+1)" [innerHTML]="item.heading">
+                                  <!-- {{item.heading}} -->
                                 </button>
                             </h3>
                         </div>
-                        <div class="collapse" id="{{'accordion-tab-1-content-'+(i+1)}}" aria-labelledby="{{'accordion-tab-1-heading-'+(i+1)}}" data-parent="#accordion-tab-1">
+                        <div class="collapse" [ngClass]="{show: (i+1)===1}" id="{{'accordion-tab-1-content-'+(i+1)}}" aria-labelledby="accordion-tab-1-heading-'+(i+1)" data-parent="#accordion-tab-1" >
                             <div class="card-body">
-                                <p>
-                                  {{item.content}}
+                                <p [innerHTML]="item.content">
+                                  <!-- {{item.content}} -->
                                 </p>
                             </div>
                         </div>
-                    </div>  -->
+                    </div>  
   
   
                       </div>

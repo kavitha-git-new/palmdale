@@ -92,140 +92,177 @@
 <div id="updateDate">
   <jw-modal id="exampleModal">
     <div class="modal-body">
-     <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">{{title}}</h4>
-              <p class="card-category">{{titleDescription}}</p>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12" *ngIf="errMsg">
-                  <div class="alert alert-danger">
-                    {{errMsg}}
-                  </div>
-                </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">{{title}}</h4>
+                <p class="card-category">{{titleDescription}}</p>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <form class="form" #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSaveData()" novalidate enctype="multipart/form-data">
-                    <div class=" form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" [(ngModel)]="blog.title" name="name"
-                            #name="ngModel" required>
-                        <span class="text-danger"
-                            *ngIf="(name.touched || registerForm.submitted) && name.errors?.required">
-                            Name is required
-                        </span>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12" *ngIf="errMsg">
+                    <div class="alert alert-danger">
+                      {{errMsg}}
                     </div>
-                    <div class="form-group">
-                                       
-                          <label for="gender" class="bmd-label-floating">Published : &nbsp;</label>
-                          <br>
-      
-                          <div class="form-check form-check-radio form-check-inline">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="radio" id="inlineRadio2" value="T"
-                                [(ngModel)]="blog.isPublished"  [(ngModel)]="blog.isPublished" name="isPublished"
-                                #isPublished="ngModel" required isPublished/> Yes
-                              <span class="circle">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                          <div class="form-check form-check-radio form-check-inline disabled">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="radio" id="inlineRadio3" value="F" [(ngModel)]="blog.isPublished" name="isPublished"  #isPublished="ngModel" required isPublished> No
-                              <span class="circle">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                          <span class="text-danger"
-                          *ngIf="(isPublished.touched || registerForm.submitted) && isPublished.errors?.required">
-                          Published is YES or NO required
-                      </span>                  
-                    </div>
-                    <div class="form-group">
-                        <label>Publish Date</label>
-                        <input type="text" class="form-control" [(ngModel)]="blog.dtPublished" name="dtPublished" #dtPublished="ngModel" disabled>
-                             </div>
-                    <div class="form-group">
-                        <label>Tags</label>
-                        <select class="form-control" name="btag" [(ngModel)]="blog.tag" multiple #btag="ngModel" required btag>
-                         <option *ngFor="let tag of tags" value="{{tag.name}}">{{tag.name}}</option>
-                        </select>
-                        <span class="text-danger"
-                            *ngIf="(btag.touched || registerForm.submitted) && btag.errors?.required">
-                            Tag is required
-                        </span>
-                        
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select class="form-control" name="bcategory" [(ngModel)]="blog.category" multiple #bcategory="ngModel" required bcategory>
-                       
-                        <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
-                      </select>
-                        <span class="text-danger"
-                            *ngIf="(bcategory.touched || registerForm.submitted) && bcategory.errors?.required">
-                            Category is required
-                        </span>
-                        
-                    </div>
-                    <div class="form-group">
-                      <label>Image</label>
-                      <div>
-                        <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
-                    </div>
-                    <input type="file" multiple (change)="detectFiles($event)" name="imageUpload" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload>
-                      <!-- <div class="input-group mb-3"> -->
-                        <!-- <div class="custom-file"> -->
-                          <!-- <input type="file" class="form-control" id="imageUpload"  name="imageUpload" multiple (change)="onFileChange($event)" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload/> -->
-                          <!-- <label class="custom-file-label" for="imageUpload"></label> -->
-                        <!-- </div> -->
-                         <!-- </div> -->
-                         <!-- <ul *ngFor="let img of urls;let p=index"><li>{{img}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
-                          <i class="fas fa-trash"></i>
-                        </a> </li></ul> -->
-                      <span class="text-danger" *ngIf="(imageUpload.touched || registerForm.submitted) && imageUpload.errors?.required && blog.images.length===0">
-                          Image is required
-                      </span>
-                      <!-- <div *ngIf="messages.length > 0">
-                        <span *ngFor="let msg of messages">
-                            {{msg}}
-                            <br />
-                            </span>
-                        </div> -->
-                      
                   </div>
-                  <div class=" form-group">
-                    <label>Description</label>
-                      <textarea class="form-control" rows="4" [(ngModel)]="blog.description" name="bdescription" spellcheck="true"
-                      #bdescription="ngModel" required></textarea>
-                 
-                    <span class="text-danger"
-                        *ngIf="(bdescription.touched || registerForm.submitted) && bdescription.errors?.required">
-                        Description is required
-                    </span>
                 </div>
-                    <div class="form-group">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            (click)="onClose('exampleModal')">Cancel</button> &nbsp;
-                        <button type="submit" class="btn btn-success">{{btnName}}</button>
+                <div class="row">
+                  <div class="col-md-12">
+                    <form class="form" #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSaveData()" novalidate enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-4">
+                                 <div class=" form-group">
+                          <label>Name</label>
+                          <input type="text" class="form-control" [(ngModel)]="blog.title" name="name"
+                              #name="ngModel" required>
+                          <span class="text-danger"
+                              *ngIf="(name.touched || registerForm.submitted) && name.errors?.required">
+                              Name is required
+                          </span>
+                      </div>
+                            </div>
+                            <div class="col-md-4">
+                                 <div class="form-group">
+                                         
+                            <label for="gender" class="bmd-label-floating">Published : &nbsp;</label>
+                            <br>
+        
+                            <div class="form-check form-check-radio form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" id="inlineRadio2" value="T"
+                                  [(ngModel)]="blog.isPublished"  [(ngModel)]="blog.isPublished" name="isPublished"
+                                  #isPublished="ngModel" required isPublished/> Yes
+                                <span class="circle">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                            <div class="form-check form-check-radio form-check-inline disabled">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" id="inlineRadio3" value="F" [(ngModel)]="blog.isPublished" name="isPublished"  #isPublished="ngModel" required isPublished> No
+                                <span class="circle">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                            <span class="text-danger"
+                            *ngIf="(isPublished.touched || registerForm.submitted) && isPublished.errors?.required">
+                            Published is YES or NO required
+                        </span>                  
+                      </div>
+                            </div>
+                            <div class="col-md-4">
+                                  <div class="form-group">
+                          <label>Publish Date</label>
+                          <input type="text" class="form-control"  value="{{blog.dtPublished | date}}" name="dtPublished"  disabled>
+                               </div>
+                            </div>
+                        </div>
+      
+                     <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                          <label>Tags</label>
+                          <select class="form-control" name="btag" [(ngModel)]="blog.tag" multiple #btag="ngModel" required btag>
+                           <option *ngFor="let tag of tags" value="{{tag.name}}">{{tag.name}}</option>
+                          </select>
+                          <span class="text-danger"
+                              *ngIf="(btag.touched || registerForm.submitted) && btag.errors?.required">
+                              Tag is required
+                          </span>
+                          
+                      </div>  
+                          </div>
+                          <div class="col-md-6">
+                                <div class="form-group">
+                          <label>Category</label>
+                          <select class="form-control" name="bcategory" [(ngModel)]="blog.category" multiple #bcategory="ngModel" required bcategory>
+                         
+                          <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+                        </select>
+                          <span class="text-danger"
+                              *ngIf="(bcategory.touched || registerForm.submitted) && bcategory.errors?.required">
+                              Category is required
+                          </span>
+                          
+                      </div> 
+                          </div>
+                     </div>
+                     
+                    
+                      <div class="row">
+                          <div class="col-md-12">
+                              
+                          </div>
+                     
+                      </div>
+                      <div class="row">
+                               <div class="col-md-12">
+                               <div class="form-group">
+                        <label>Image</label>
+                        <div>
+                          <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+                      </div>
+                      <input type="file" multiple (change)="detectFiles($event)" name="imageUpload" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload>
+                        <!-- <div class="input-group mb-3"> -->
+                          <!-- <div class="custom-file"> -->
+                            <!-- <input type="file" class="form-control" id="imageUpload"  name="imageUpload" multiple (change)="onFileChange($event)" [(ngModel)]="blog.image"  #imageUpload="ngModel" required imageUpload/> -->
+                            <!-- <label class="custom-file-label" for="imageUpload"></label> -->
+                          <!-- </div> -->
+                           <!-- </div> -->
+                           <!-- <ul *ngFor="let img of urls;let p=index"><li>{{img}}&nbsp;  <a class="link" (click)="onDeleteImg(img.name,p)">
+                            <i class="fas fa-trash"></i>
+                          </a> </li></ul> -->
+                        <span class="text-danger" *ngIf="(imageUpload.touched || registerForm.submitted) && imageUpload.errors?.required && blog.images.length===0">
+                            Image is required
+                        </span>
+                        <!-- <div *ngIf="messages.length > 0">
+                          <span *ngFor="let msg of messages">
+                              {{msg}}
+                              <br />
+                              </span>
+                          </div> -->
+                        
                     </div>
-                </form>
-                </div>
-                </div>
-              
+                          </div>
+                      </div>
+                   <div class="row">
+                       <div class="col-md-12">
+                               <div class=" form-group">
+                      <label>Description</label>
+                        <textarea class="form-control" rows="4" [(ngModel)]="blog.description" name="bdescription" spellcheck="true"
+                        #bdescription="ngModel" required></textarea>
+                   
+                      <span class="text-danger"
+                          *ngIf="(bdescription.touched || registerForm.submitted) && bdescription.errors?.required">
+                          Description is required
+                      </span>
+                  </div> 
+                       </div>
+                   </div>
+                     
+               <div class="row">
+                   <div class="col-md-12">
+                        <div class="form-group">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                              (click)="onClose('exampleModal')">Cancel</button> &nbsp;
+                          <button type="submit" class="btn btn-success">{{btnName}}</button>
+                      </div>
+                   </div>
+               </div>
+                     
+                  </form>
+                  </div>
+                  </div>
+                
+              </div>
             </div>
           </div>
+  
         </div>
-
       </div>
-    </div>
     </div>
   </jw-modal>
 </div>
