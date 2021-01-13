@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
-import { checkToken, isEmpty } from "../../../models/data-modal";
-
+import { checkToken,isEmpty} from '../../../models/data-modal'
 @Component({
-  selector: 'app-faq',
-  templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.css']
+  selector: 'app-packages',
+  templateUrl: './packages.component.html',
+  styleUrls: ['./packages.component.css']
 })
-export class FaqComponent implements OnInit {
-  faqs:any=[];
-  faq:any={};
+export class PackagesComponent implements OnInit {
+
+  packages:any=[];
+  package:any={};
   itemsRecords: number = 0;
   page: number = 1;
   btnName: string = "Save";
@@ -20,41 +20,43 @@ export class FaqComponent implements OnInit {
   title: string = "";
   titleDescription: string = "";
   searchText:string="";
-  constructor(private dataService:DataService, private router:Router, private modalService:ModalService) {
-     this.faqs = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`}));
-    this.itemsRecords=this.faqs.length;
-   }
+
+  constructor(private dataService:DataService, private router:Router, private modalService:ModalService) { 
+    this.packages = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`, amount :Math.floor((Math.random() * 80) + 50)}));
+    this.itemsRecords=this.packages.length;
+
+  }
 
   ngOnInit(): void {
-
-    this.getFAQs();
+   this.getPackages();
   }
+  
   onEdit(id: number, name:string, description:string) {
     this.title = "Edit";
-    this.titleDescription = "Edit details about the FAQs to update.";
+    this.titleDescription = "Edit details about the packages to update.";
     this.btnName = "Update"
-    this.faq.id = id;
-    this.faq.name=name;
-    this.faq.description=description;
-    this.dataService.getFAQ(id).subscribe(element => {
-      this.faq = element.valueOf();
-      if(this.faq['response']['message'] && checkToken(this.faq['response']['message'].toString())===false){
-        alert("Please login again.  Your session expired.");
-        this.router.navigate(['/login']); 
+    this.package.id = id;
+    this.package.name=name;
+    this.package.description=description;
+  //   this.dataService.getPackage(id).subscribe(element => {
+  //     this.package = element.valueOf();
+  //     if(this.package['response']['message'] && checkToken(this.package['response']['message'].toString())===false){
+  //       alert("Please login again.  Your session expired.");
+  //       this.router.navigate(['/login']); 
       
-      }
-      else{
-        this.faq = JSON.parse(JSON.stringify(this.faq['response'][0]));
-        console.log(this.faq.id);
-        console.log(typeof (this.faq));
-      }
+  //     }
+  //     else{
+  //       this.package = JSON.parse(JSON.stringify(this.package['response'][0]));
+  //       console.log(this.package.id);
+  //       console.log(typeof (this.package));
+  //     }
      
-    }, error => {
-      // alert(error)
-       console.log( error);
-       this.errMsg = "Please try again."
-       return false;
-   });
+  //   }, error => {
+     
+  //      console.log( error);
+  //      this.errMsg = "Please try again."
+  //      return false;
+  //  });
     this.modalService.open('exampleModal');
     console.log(id);
   }
@@ -64,7 +66,7 @@ export class FaqComponent implements OnInit {
     console.log(id)
 
     if (confirm("Are you sure? Do you want to delete the details about the FAQ : " + name) === true) {
-      this.dataService.deleteFAQ(id).subscribe(response=>{
+      this.dataService.deletePackage(id).subscribe(response=>{
         
         console.log(response);
         if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
@@ -78,8 +80,8 @@ export class FaqComponent implements OnInit {
           if(JSON.parse(JSON.stringify(response)).response.message==="FAQ Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
 
             this.succMsg= name+" tag is deleted.";
-            this.faq=[];
-            this.getFAQs();
+            this.package=[];
+            this.getPackages();
             this.modalService.close("exampleModal");
             return true;
           }
@@ -107,27 +109,27 @@ export class FaqComponent implements OnInit {
     this.title = "Add";
     this.titleDescription = "Add details about the FAQ to save.";
     this.btnName = btName;
-    this.faq.id = 0;
-    this.faq.name = '';
-    this.faq.description = '';
+    this.package.id = 0;
+    this.package.name = '';
+    this.package.description = '';
     this.errMsg = '';
     this.modalService.open('exampleModal');
   }
 
   saveData(btName: string) {
     this.errMsg = "";
-    if (this.faq.name === '' || this.faq.name.length > 50) {
+    if (this.package.name === '' || this.package.name.length > 50) {
       this.errMsg = "Please provide valid details."
       return false;
     }
     else {
       this.errMsg = "";
     }
-    if (this.faq.description === '') {
+    if (this.package.description === '') {
       this.errMsg = "Please provide valid details."
       return false;
     }
-    else if (this.faq.description !== '' && this.faq.description.toString().length>460) {
+    else if (this.package.description !== '' && this.package.description.toString().length>460) {
       this.errMsg = "Please provide less than 460 characters in Description."
       return false;
     }
@@ -136,9 +138,9 @@ export class FaqComponent implements OnInit {
     }
     
 
-    if (this.faq.name !== '' && this.faq.description !== "" && confirm("Are you sure ? Do you want to save the details of " + this.faq.name) === true) {
+    if (this.package.name !== '' && this.package.description !== "" && confirm("Are you sure ? Do you want to save the details of " + this.package.name) === true) {
       if (this.btnName === 'Save' || btName === 'Save') {
-        this.dataService.saveFAQ(JSON.stringify(this.faq)).subscribe(response => 
+        this.dataService.saveFAQ(JSON.stringify(this.package)).subscribe(response => 
           {
           alert(response);
           if (isEmpty(response)){
@@ -161,10 +163,10 @@ export class FaqComponent implements OnInit {
             else{
               if(JSON.parse(JSON.stringify(response)).response.message=="FAQ Created Successfully."){
   
-                this.succMsg= this.faq.name+" tag is saved";
-                this.faq={};
-                this.faqs=[];
-                this.getFAQs();
+                this.succMsg= this.package.name+" tag is saved";
+                this.package={};
+                this.package=[];
+                this.getPackages();
                 this.modalService.close("exampleModal");
                 return true;
               }
@@ -186,7 +188,7 @@ export class FaqComponent implements OnInit {
         
       }
       else {
-        if (this.faq.id !== '') { this.dataService.updateFAQ(JSON.stringify(this.faq)).subscribe(response => {
+        if (this.package.id !== '') { this.dataService.updateFAQ(JSON.stringify(this.package)).subscribe(response => {
           console.log(response);
           if (isEmpty(response)){
             this.errMsg = "Please try again."
@@ -210,11 +212,11 @@ export class FaqComponent implements OnInit {
               return false;
             }
             else{
-              if(JSON.parse(JSON.stringify(response)).response.message=="FAQ Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
+              if(JSON.parse(JSON.stringify(response)).response.message=="Tag Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
   
-                this.succMsg= this.faq.name+" FAQ is saved";
-                this.faqs=[];
-                this.getFAQs();
+                this.succMsg= this.package.name+" FAQ is saved";
+                this.packages=[];
+                this.getPackages();
                 this.modalService.close("exampleModal");
                 return true;
               }
@@ -249,8 +251,9 @@ export class FaqComponent implements OnInit {
   onClose(id: string) {
     this.modalService.close(id)
   }
-  getFAQs(){
-     
+  getPackages(){
+
   }
+
 
 }

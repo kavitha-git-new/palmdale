@@ -43,11 +43,12 @@
           </tr>
         </tfoot>
         <tbody>
-          <tr *ngFor="let i=index ;let item of faqs| paginate: { id: 'list_items',
+          <tr *ngFor="let i=index ;let item of faqs | filter: searchText | paginate: { id: 'list_items',
                   itemsPerPage: 10,
                   currentPage: page,
-                  totalItems: itemsRecords } | filter: searchText">
-            <td class="text-right">{{item.serial_no}}</td>
+                  totalItems: itemsRecords } ">
+            <!-- <td class="text-right">{{item.serial_no}}</td> -->
+            <td class="text-right">{{i+1}}</td>
             <td>{{item.name}}</td>
             <td>{{item.description}}</td>
             <td class="text-center">
@@ -96,19 +97,19 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div [ngClass]="{'form-group': true, 'is-filled': true}">
-                          <label for="tname" class="bmd-label-floating">Tile</label>
-                          <input type="text" name="tname" class="form-control" [(ngModel)]="faq.name" />
+                          <label for="fname" class="bmd-label-floating">Tile</label>
+                          <input type="text" name="fname" class="form-control" [(ngModel)]="faq.name" />
                         </div>
                       </div>
   
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <label for="tdescription">Description</label>
+                        <label for="fdescription">Description</label>
                         <div class="form-group">
-                          <label [ngClass]="{'form-group': true, 'is-filled': true}" for="tdescription"> Any specific
+                          <label [ngClass]="{'form-group': true, 'is-filled': true}" for="fdescription"> Any specific
                             description about the FAQ</label>
-                          <textarea class="form-control" rows="4" name="tdescription"
+                          <textarea class="form-control" rows="4" name="fdescription"
                             [(ngModel)]="faq.description"></textarea>
                         </div>
                       </div>

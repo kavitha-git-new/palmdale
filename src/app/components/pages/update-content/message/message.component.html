@@ -49,11 +49,11 @@
                 </tr>
             </tfoot>
             <tbody>
-                <tr *ngFor="let i=index ;let item of messages| paginate: { id: 'list_items',
+                <tr *ngFor="let i=index ;let item of messages | filter: searchText | paginate: { id: 'list_items',
                 itemsPerPage: 10,
                 currentPage: page,
-                totalItems: itemsRecords } | filter: searchText">
-                        <td>{{i+1}}</td>
+                totalItems: itemsRecords }">
+                        <td class="text-right">{{i+1}}</td>
                     <td>{{item.name | titlecase}}</td>
                     <td>{{item.email}}</td>
                     <td class="text-right"> {{item.mobile}}</td>

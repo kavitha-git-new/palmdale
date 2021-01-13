@@ -55,10 +55,10 @@
           </tr>
         </tfoot>
         <tbody>
-          <tr *ngFor="let i=index ;let item of blogs| paginate: { id: 'list_items',
+          <tr *ngFor="let i=index ;let item of blogs | filter: searchText | paginate: { id: 'list_items',
                   itemsPerPage: 10,
                   currentPage: page,
-                  totalItems: itemsRecords } | filter: searchText">
+                  totalItems: itemsRecords }">
             <td class="text-right">{{item.serial_no}}</td>
              <td>{{item.date_of_creation | date}}</td>
             <td>{{item.title}}</td>

@@ -1,4 +1,4 @@
-<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser','CItem','CBlog','CMessage','CFAQ'])">
+<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser','CItem','CBlog','CMessage','CFAQ','CPackage'])">
     <!-- <div id="wrapper"> -->
        <!-- Sidebar -->
        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -86,12 +86,28 @@
                 </div>
              </div>
           </li>
-          <!-- Nav Item - Tables -->
+          <!-- Nav Item - Messages -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/cmessage">
             <i class="fas fa-envelope fa-fw"></i>
             <span>Messages</span></a>
          </li>
+         <!-- Nav Item - FAQs -->
+         <li class="nav-item">
+            <a class="nav-link" routerLink="/cfaq">
+               <i class="fas fa-question"></i>
+           <span>Frequently Asked Questions</span></a>
+         </li>
+         <!-- Nav Item - packages -->
+         <li class="nav-item">
+            <a class="nav-link" routerLink="/cpackage">
+               <img src=""/>
+               <!-- <i class="fas fa-sack-dollar"></i> -->
+               <!-- <i class="fas fa-dollar-sign"></i> -->
+               
+            <span>Packages</span></a>
+         </li>
+   
           <!-- Nav Item - Charts -->
           <li class="nav-item">
              <a class="nav-link" routerLink="/cdashboard">                                                                                                                

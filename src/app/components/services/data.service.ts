@@ -229,6 +229,56 @@ export class DataService {
     return this.http.post(environment.apiUrl + 'delFAQ', JSON.stringify(this.params), this.httpOptions)
   }
 
+  // packages
+
+  getPackages() {
+    // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
+    this.params = {
+      "id": "all",
+      "token": JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    return this.http.post(environment.apiUrl + 'getFAQs', JSON.stringify(this.params), this.httpOptions)
+  }
+
+  getPackage(id:number){
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = {
+      "id": id,
+      "token": JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    console.log(JSON.stringify(this.params))
+    return this.http.post(environment.apiUrl + 'geFAQs', JSON.stringify(this.params), this.httpOptions)
+  }
+
+  savePackage(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = JSON.parse(params);
+
+    this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+
+    return this.http.post(environment.apiUrl + 'createFAQ', JSON.stringify(this.params), this.httpOptions)
+  }
+
+  updatePackage(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = JSON.parse(params);
+    this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl + 'editFAQ', JSON.stringify(this.params), this.httpOptions)
+  }
+
+  deletePackage(id: number) {
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = {
+      "id": id,
+    }
+    this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl + 'delFAQ', JSON.stringify(this.params), this.httpOptions)
+  }
+
   //Blogs
   getBlogs() {
     console.log("header");
