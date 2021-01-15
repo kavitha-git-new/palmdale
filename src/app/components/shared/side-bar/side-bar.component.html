@@ -1,4 +1,4 @@
-<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser','CItem','CBlog','CMessage','CFAQ','CPackage'])">
+<div *ngIf="isTitle(['Dashboard','CCategory', 'CTag','CUser','CItem','CBlog','CMessage','CFAQ','CPackage','CReview'])">
     <!-- <div id="wrapper"> -->
        <!-- Sidebar -->
        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -103,24 +103,20 @@
             <a class="nav-link" routerLink="/cpackage">
                <img src=""/>
                <!-- <i class="fas fa-sack-dollar"></i> -->
-               <!-- <i class="fas fa-dollar-sign"></i> -->
+               <i class="fas fa-dollar-sign"></i>
                
             <span>Packages</span></a>
          </li>
-   
-          <!-- Nav Item - Charts -->
-          <li class="nav-item">
-             <a class="nav-link" routerLink="/cdashboard">                                                                                                                
-             <i class="fas fa-fw fa-chart-area"></i>
-             <span>Charts</span></a>
-          </li>
-          <!-- Nav Item - Tables -->
-          <li class="nav-item">
-             <a class="nav-link" routerLink="/cdashboard">
-             <i class="fas fa-fw fa-table"></i>
-             <span>Tables</span></a>
-          </li>
-          <!-- Divider -->
+         <!-- Nav Item - reviews -->
+         <li class="nav-item">
+            <a class="nav-link" routerLink="/creview">
+               <img src=""/>
+              
+               <i class="fas fa-star" aria-hidden="true"></i>
+               
+            <span>Reviews</span></a>
+         </li>
+                   <!-- Divider -->
           <hr class="sidebar-divider d-none d-md-block">
           <!-- Sidebar Toggler (Sidebar) -->
           <div class="text-center d-none d-md-inline">

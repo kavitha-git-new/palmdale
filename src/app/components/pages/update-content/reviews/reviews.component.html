@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Reviews</h1>
+  <p class="mb-4">Reviews from the customers.&nbsp; <a target="_blank" routerLink="/blog">See official
+      website</a>.</p>
+
+  <!-- DataTales Example -->
+  <div class="card">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">List of Reviews</h6>
+      <button type="button" class="btn btn-primary" style="float: right;" (click)="onAdd('Save')">Add</button> &nbsp;
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <div id="dataTable_filter" class="form-inline" style="padding: 15px;float: left;"><label>Search:&nbsp;
+            <input class="form-control" type="text" placeholder="Search for.." [(ngModel)]="searchText"
+              aria-label="Search">
+          </label></div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <pagination-controls id="list_items" maxsize="5" (pageChange)="page = $event"
+          style="padding: 10px;float: right;"></pagination-controls>
+      </div>
+
+    </div>
+    <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th width="5%">S.No</th>
+          <th width="10%">Date</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th width="10%" >Ratings</th>
+          <th>Action</th>
+
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th width="5%">S.No</th>
+          <th width="10%">Date</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th width="10%">Ratings</th>
+          <th>Action</th>
+
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let i=index ;let item of reviews | filter: searchText | paginate: { id: 'list_items',
+                  itemsPerPage: 10,
+                  currentPage: page,
+                  totalItems: itemsRecords } ">
+          <!-- <td class="text-right">{{item.serial_no}}</td> -->
+          <td class="text-right">{{i+1}}</td>
+          <td class="text-center">{{item.date | date}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.comment}}</td>
+          <td class="text-center">{{item.ratings}}</td>
+          <td class="text-center">
+            <a class="link" (click)="onView(item.id, item.name, item.description)">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+            &nbsp;
+            <!-- <a class="link" (click)="onDelete(item.id,item.name)">
+              <i class="fas fa-trash"></i>
+            </a> -->
+
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+  </div>
+
+
+</div>
+<div id="updateData">
+  <jw-modal id="exampleModal">
+    <div class="modal-body">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">{{title}}</h4>
+                <p class="card-category">{{titleDescription}}</p>
+              </div>
+              <div class="card-body">
+                <form id="addUserForm">
+                  <div class="row" *ngIf="errMsg">
+
+                    <div class="col-md-12">
+                      <div class="alert alert-danger">
+                        {{errMsg}}
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div [ngClass]="{'form-group': true, 'is-filled': true}">
+                        <label for="rdate" >Date</label>
+                        <input type="text" name="rdate" class="form-control" [(ngModel)]="review.date" [disabled]="disName">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div [ngClass]="{'form-group': true, 'is-filled': true}">
+                        <label for="rname" >Name</label>
+                        <input type="text" name="rname" class="form-control" [(ngModel)]="review.author" [disabled]="disName">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div [ngClass]="{'form-group': true, 'is-filled': true}">
+                        <label for="rrating" >Ratings</label>
+                        <input type="text" name="rrating" class="form-control" [(ngModel)]="review.rating" [disabled]="disName">
+                      </div>
+                    </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="rcomment">Comments</label>
+                      <div class="form-group">
+                       <textarea class="form-control" rows="4" name="rcomment"
+                          [(ngModel)]="review.comment" spellcheck="true" [disabled]="disName"></textarea>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        (click)="onClose('exampleModal')">Cancel</button> &nbsp;
+                      <button type="button" class="btn btn-success" (click)="saveData(btnName)">{{btnName}}</button>
+                    </div>
+                  </div>
+
+                  <div class="clearfix"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </jw-modal>
+</div>

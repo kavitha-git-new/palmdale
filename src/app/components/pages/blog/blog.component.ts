@@ -24,14 +24,14 @@ export class BlogComponent implements OnInit, OnDestroy {
   //a=['sdfsd','sdfsdf']
   msg: string = "";
   constructor(private dataService: DataService, private router:Router) {
-    this.getBlogs();
-    this.getCategories();
-    this.getTags();
+   
   }
 
   ngOnInit(): void {
     //  this.getBlogs();
-
+    this.getBlogs();
+    this.getCategories();
+    this.getTags();
   }
 
   ngOnDestroy(): void {

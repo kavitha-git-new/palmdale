@@ -47,6 +47,7 @@ import { RouterModule } from '@angular/router';
 import { FilterPipe } from './components/pipes/filter.pipe';
 import { FaqComponent } from './components/pages/update-content/faq/faq.component';
 import { PackagesComponent } from './components/pages/update-content/packages/packages.component';
+import { ReviewsComponent } from './components/pages/update-content/reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { PackagesComponent } from './components/pages/update-content/packages/pa
     CBlog,
     FilterPipe,
     FaqComponent,
-    PackagesComponent
+    PackagesComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

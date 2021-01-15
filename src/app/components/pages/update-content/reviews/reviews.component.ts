@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/components/services/data.service';
 import { ModalService } from 'src/app/components/_modal';
-import { checkToken,isEmpty} from '../../../models/data-modal'
+import { checkToken, isEmpty, randomNumber } from "../../../models/data-modal";
 @Component({
-  selector: 'app-packages',
-  templateUrl: './packages.component.html',
-  styleUrls: ['./packages.component.css']
+  selector: 'app-reviews',
+  templateUrl: './reviews.component.html',
+  styleUrls: ['./reviews.component.css']
 })
-export class PackagesComponent implements OnInit {
-
-  packages:any=[];
-  package:any={};
+export class ReviewsComponent implements OnInit {
+  reviews:any=[];
+  review:any={};
   itemsRecords: number = 0;
   page: number = 1;
   btnName: string = "Save";
@@ -20,39 +19,38 @@ export class PackagesComponent implements OnInit {
   title: string = "";
   titleDescription: string = "";
   searchText:string="";
-
-  constructor(private dataService:DataService, private router:Router, private modalService:ModalService) { 
-    this.packages = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`, description: `Item ${i + 1}`, amount :Math.floor((Math.random() * 80) + 50)}));
-    this.itemsRecords=this.packages.length;
-
-  }
+  disName:boolean=false;
+  constructor(private dataService:DataService, private router:Router, private modalService:ModalService) { }
 
   ngOnInit(): void {
-   this.getPackages();
+    this.reviews = Array(150).fill(0).map((x, i) => ({ id: (i + 1), date: new Date(), name: `Item ${i + 1}`, comment: `Item ${i + 1}`, ratings: randomNumber(1,5)}));
+    this.itemsRecords=this.reviews.length;
   }
-  
-  onEdit(id: number, name:string, description:string) {
-    this.title = "Edit";
-    this.titleDescription = "Edit details about the packages to update.";
+
+  onView(id: number, name:string, comment:string) {
+    this.title = "View";
+    this.titleDescription = "View details about the review to publish.";
     this.btnName = "Update"
-    this.package.id = id;
-    this.package.name=name;
-    this.package.description=description;
-  //   this.dataService.getPackage(id).subscribe(element => {
-  //     this.package = element.valueOf();
-  //     if(this.package['response']['message'] && checkToken(this.package['response']['message'].toString())===false){
+    this.review.id = id;
+    this.review.name=name;
+    this.review.comment=comment;
+    this.disName=true;
+
+  //   this.dataService.getFAQ(id).subscribe(element => {
+  //     this.review = element.valueOf();
+  //     if(this.review['response']['message'] && checkToken(this.review['response']['message'].toString())===false){
   //       alert("Please login again.  Your session expired.");
   //       this.router.navigate(['/login']); 
       
   //     }
   //     else{
-  //       this.package = JSON.parse(JSON.stringify(this.package['response'][0]));
-  //       console.log(this.package.id);
-  //       console.log(typeof (this.package));
+  //       this.review = JSON.parse(JSON.stringify(this.review['response'][0]));
+  //       console.log(this.review.id);
+  //       console.log(typeof (this.review));
   //     }
      
   //   }, error => {
-     
+  //     // alert(error)
   //      console.log( error);
   //      this.errMsg = "Please try again."
   //      return false;
@@ -66,7 +64,7 @@ export class PackagesComponent implements OnInit {
     console.log(id)
 
     if (confirm("Are you sure? Do you want to delete the details about the FAQ : " + name) === true) {
-      this.dataService.deletePackage(id).subscribe(response=>{
+      this.dataService.deleteFAQ(id).subscribe(response=>{
         
         console.log(response);
         if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
@@ -80,8 +78,8 @@ export class PackagesComponent implements OnInit {
           if(JSON.parse(JSON.stringify(response)).response.message==="FAQ Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
 
             this.succMsg= name+" tag is deleted.";
-            this.package=[];
-            this.getPackages();
+            this.review=[];
+            this.getReviews();
             this.modalService.close("exampleModal");
             return true;
           }
@@ -107,29 +105,30 @@ export class PackagesComponent implements OnInit {
 
   onAdd(btName: string) {
     this.title = "Add";
-    this.titleDescription = "Add details about the FAQ to save.";
+    this.titleDescription = "Add details about the Review to save.";
     this.btnName = btName;
-    this.package.id = 0;
-    this.package.name = '';
-    this.package.description = '';
+    this.review.id = 0;
+    this.review.name = '';
+    this.review.description = '';
     this.errMsg = '';
     this.modalService.open('exampleModal');
+    this.disName=false;
   }
 
   saveData(btName: string) {
     this.errMsg = "";
-    if (this.package.name === '' || this.package.name.length > 35) {
+    if (this.review.name === '' || this.review.name.length > 50) {
       this.errMsg = "Please provide valid details."
       return false;
     }
     else {
       this.errMsg = "";
     }
-    if (this.package.description === '') {
+    if (this.review.description === '') {
       this.errMsg = "Please provide valid details."
       return false;
     }
-    else if (this.package.description !== '' && this.package.description.toString().length>460) {
+    else if (this.review.description !== '' && this.review.description.toString().length>460) {
       this.errMsg = "Please provide less than 460 characters in Description."
       return false;
     }
@@ -138,9 +137,9 @@ export class PackagesComponent implements OnInit {
     }
     
 
-    if (this.package.name !== '' && this.package.description !== "" && confirm("Are you sure ? Do you want to save the details of " + this.package.name) === true) {
+    if (this.review.name !== '' && this.review.description !== "" && confirm("Are you sure ? Do you want to save the details of " + this.review.name) === true) {
       if (this.btnName === 'Save' || btName === 'Save') {
-        this.dataService.saveFAQ(JSON.stringify(this.package)).subscribe(response => 
+        this.dataService.saveFAQ(JSON.stringify(this.review)).subscribe(response => 
           {
           alert(response);
           if (isEmpty(response)){
@@ -163,10 +162,10 @@ export class PackagesComponent implements OnInit {
             else{
               if(JSON.parse(JSON.stringify(response)).response.message=="FAQ Created Successfully."){
   
-                this.succMsg= this.package.name+" tag is saved";
-                this.package={};
-                this.package=[];
-                this.getPackages();
+                this.succMsg= this.review.name+" tag is saved";
+                this.review={};
+                this.reviews=[];
+                this.getReviews();
                 this.modalService.close("exampleModal");
                 return true;
               }
@@ -188,7 +187,7 @@ export class PackagesComponent implements OnInit {
         
       }
       else {
-        if (this.package.id !== '') { this.dataService.updateFAQ(JSON.stringify(this.package)).subscribe(response => {
+        if (this.review.id !== '') { this.dataService.updateFAQ(JSON.stringify(this.review)).subscribe(response => {
           console.log(response);
           if (isEmpty(response)){
             this.errMsg = "Please try again."
@@ -212,11 +211,11 @@ export class PackagesComponent implements OnInit {
               return false;
             }
             else{
-              if(JSON.parse(JSON.stringify(response)).response.message=="Tag Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
+              if(JSON.parse(JSON.stringify(response)).response.message=="FAQ Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
   
-                this.succMsg= this.package.name+" FAQ is saved";
-                this.packages=[];
-                this.getPackages();
+                this.succMsg= this.review.name+" FAQ is saved";
+                this.reviews=[];
+                this.getReviews();
                 this.modalService.close("exampleModal");
                 return true;
               }
@@ -251,9 +250,9 @@ export class PackagesComponent implements OnInit {
   onClose(id: string) {
     this.modalService.close(id)
   }
-  getPackages(){
 
+  getReviews(){
+    
   }
-
 
 }

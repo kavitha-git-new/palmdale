@@ -34,6 +34,7 @@
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"              
             ],
             "scripts": [ 
+             
               "node_modules/tinymce/tinymce.min.js",
               "node_modules/prismjs/prism.js"
              

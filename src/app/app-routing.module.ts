@@ -21,6 +21,7 @@ import { BlogComponent as CBlog } from './components/pages/update-content/blog/b
 import { MessageComponent } from './components/pages/update-content/message/message.component';
 import { FaqComponent } from './components/pages/update-content/faq/faq.component';
 import { PackagesComponent } from './components/pages/update-content/packages/packages.component';
+import { ReviewsComponent } from './components/pages/update-content/reviews/reviews.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent, data: { title: 'Home' } },
   { path: 'home', component: HomeComponent, data: { title: 'Home' } },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'cblog', component: CBlog, data: { title: 'CBlog' }, canActivate: [AuthGuard] },
   { path: 'cfaq', component: FaqComponent, data: { title: 'CFAQ' }, canActivate: [AuthGuard] },
   { path: 'cpackage', component: PackagesComponent, data: { title: 'CPackage' }, canActivate: [AuthGuard] },
+  { path: 'creview', component: ReviewsComponent, data: { title: 'CReview' }, canActivate: [AuthGuard] },
 
   { path: 'chome', component: UpdateHomeContentComponent, data: { title: 'CHome' }, canActivate: [AuthGuard] },
   { path: 'cabout', component: UpdateAboutContentComponent, data: { title: 'CAbout' }, canActivate: [AuthGuard] },
