@@ -31,7 +31,7 @@
             ],
             "styles": [
              
-              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"              
+                           
             ],
             "scripts": [ 
              
@@ -58,13 +58,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "15mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "100mb",
+                  "maximumError": "150mb"
                 }
               ]
             }
@@ -99,7 +99,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+            
             ],
             "scripts": []
           }

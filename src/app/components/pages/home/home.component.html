@@ -4,8 +4,7 @@
         <div class="row banner-caption">
           <div class="col-md-11 m-md-auto m-lg-0 col-lg-5">
             <div class="banner__content__wrapper">
-              <h1
-                class="slidea mt-2"
+              <h1     class="slidea mt-2"
                 data-aos="fade-up"
                 data-aos-duration="1000"
               >
@@ -61,7 +60,7 @@
                   <strong>Medical Cannabis Card Evaluations Palmdale</strong> is a reputed provider of medical marijuana evaluation in Palmdale. We have been providing MMJ evaluations for many years, and have served thousands of patients to obtain medical cannabis evaluations easily and quickly. Our MMJ doctors are certified by the Medical Board of California.
                 </p>
                 <div class="button-container">
-                  <a href="#" class="btn my__btn__bg"> Read More</a>
+                  <a routerLink="/about" class="btn my__btn__bg"> Read More</a>
                   
                 </div>
               </div>
@@ -410,12 +409,12 @@
                        <div class="card" *ngFor="let item of faq; let i=index;">
                         <div class="card-header" id="{{'accordion-tab-1-heading-'+(i+1)}}">
                             <h3>
-                                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#accordion-tab-1-content-'+ (i+1)" aria-expanded="false" aria-controls="accordion-tab-1-content-(i+1)" [innerHTML]="item.heading">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#accordion-tab-1-content-'+ (i+1)" aria-expanded="false" [attr.aria-controls]="'accordion-tab-1-content-'+(i+1)" [innerHTML]="item.heading">
                                   <!-- {{item.heading}} -->
                                 </button>
                             </h3>
                         </div>
-                        <div class="collapse" [ngClass]="{show: (i+1)===1}" id="{{'accordion-tab-1-content-'+(i+1)}}" aria-labelledby="accordion-tab-1-heading-'+(i+1)" data-parent="#accordion-tab-1" >
+                        <div class="collapse" [ngClass]="{show: (i+1)===1}" id="{{'accordion-tab-1-content-'+(i+1)}}" [attr.aria-labelledby]="'accordion-tab-1-heading-'+(i+1)" data-parent="#accordion-tab-1" >
                             <div class="card-body">
                                 <p [innerHTML]="item.content">
                                   <!-- {{item.content}} -->
@@ -562,13 +561,13 @@
                         </div>
                       </div>
                       <div class="pricing__inner pricing__hober__info">
-                        <h2><a href="#">MMJ CARD RENEWAL</a></h2>
+                        <h2><a >MMJ CARD RENEWAL</a></h2>
                         <p class="pb-2">Renew your card to use marijuana for medical purposes for another year.</p>
                       <div class="pricing__btn">
-                        <a class="btn my__btn__bg" href="#">RENEW MY CARD NOW</a>
+                        <a class="btn my__btn__bg" >RENEW MY CARD NOW</a>
                       </div>
                       <div class="pricing__icon">
-                        <a href="#">$45</a>
+                        <a >$45</a>
                       </div>
                       </div>
   

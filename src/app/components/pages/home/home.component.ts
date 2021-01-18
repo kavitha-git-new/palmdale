@@ -165,12 +165,14 @@ export class HomeComponent implements OnInit ,OnDestroy{
   }
 
   onReadMore(id:number){
-    this.router.navigateByUrl('singlepage/'+id).then(e => {
-      if (e) {
-        console.log("Navigation is successful!");
-      } else {
-        console.log("Navigation has failed!");
-      }
-    });
+    // this.router.navigateByUrl('singlepage/'+id).then(e => {
+    //   if (e) {
+    //     console.log("Navigation is successful!");
+    //   } else {
+    //     console.log("Navigation has failed!");
+    //   }
+    // });
+
+    this.router.navigateByUrl('blog');
   }
 }

@@ -9,7 +9,7 @@ export class AddElementService {
   createLink(){
     var linkTag = document.createElement ("link");
 		linkTag.rel = "stylesheet";
-    linkTag.href = "assets/css/main.css";
+    linkTag.href = "assets/css/main.min.css";
     linkTag.id="theme";
     console.log("Link");
     console.log(linkTag);
