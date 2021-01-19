@@ -26,7 +26,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" }
+              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" },
+              "src/manifest.webmanifest"
 
             ],
             "styles": [
@@ -42,6 +43,7 @@
           },
           "configurations": {
             "production": {
+              
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -66,7 +68,9 @@
                   "maximumWarning": "100mb",
                   "maximumError": "150mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -96,7 +100,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
             

@@ -1,17 +1,17 @@
 <IfModule mod_rewrite.c>
-	RewriteEngine On
+RewriteEngine On
 
- 	# -- REDIRECTION to https (optional):
-	# If you need this, uncomment the next two commands
-	# RewriteCond %{HTTPS} !on
-  	# RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L]
-	# --
+  # -- REDIRECTION to https (optional):
+# If you need this, uncomment the next two commands
+# RewriteCond %{HTTPS} !on
+  # RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L]
+# --
 
-	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
-	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 
-	RewriteRule ^.*$ - [NC,L]
-	RewriteRule ^(.*) index.html [NC,L]
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^(.*) index.html [NC,L]
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -56,4 +56,21 @@
     ExpiresByType application/javascript "access 1 month"
     ExpiresByType image/x-icon "access 6 month"
     ExpiresDefault "access 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+    <FilesMatch "\.(js|css|swf)$">
+        Header set Cache-Control "max-age=604800"
+    </FilesMatch>
+     <FilesMatch ".(js|css|xml|png|gz|html|woff2|slim.min.js)$">
+    Header append Vary: Accept-Encoding
+    
+  </FilesMatch>
+ 
+   <FilesMatch "\.(html?|txt|css|js|php|pl)$">
+    SetOutputFilter DEFLATE
+ </FilesMatch>
 </IfModule>

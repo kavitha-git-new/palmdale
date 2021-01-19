@@ -48,6 +48,9 @@ import { FilterPipe } from './components/pipes/filter.pipe';
 import { FaqComponent } from './components/pages/update-content/faq/faq.component';
 import { PackagesComponent } from './components/pages/update-content/packages/packages.component';
 import { ReviewsComponent } from './components/pages/update-content/reviews/reviews.component';
+import { ServiceWorkerModule, SwRegistrationOptions } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { registerLocaleData } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -90,7 +93,8 @@ import { ReviewsComponent } from './components/pages/update-content/reviews/revi
     NgxPaginationModule,
     BsDatepickerModule.forRoot(),
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy:'registerImmediately' })
   ],
   providers: [AddElementService,LoginService,DataService],
   bootstrap: [AppComponent],
