@@ -61,6 +61,10 @@ export function removeTheme() {
     const mainCss = document.getElementById("theme")?.remove();
 }
 
+export function removeThemeByID(themeID:string) {
+    const themeCss = document.getElementById(themeID)?.remove();
+}
+
 export function addTheme() {
     const header = document.getElementsByTagName("header")
     header.namedItem
@@ -107,6 +111,8 @@ export function isEmpty(obj :Object) {
 export function randomNumber(min:number, max:number) {
     return Math.floor(Math.random() * (max - min) + min);
   }
+  export const hdrChkUrl=['Home','About','Blog','Contact','Blog Details'];
+
 
 
 

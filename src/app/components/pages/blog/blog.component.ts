@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { element } from 'protractor';
+import { Title } from '@angular/platform-browser';
+import { Router,ActivatedRoute } from '@angular/router';
+import { element, error } from 'protractor';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -21,21 +22,35 @@ export class BlogComponent implements OnInit, OnDestroy {
   subHeading:string="BLOG - WE’RE HERE TO INDUCE A CHANGE";
   subheading1:string="Blogs";
   subheading2:string="News & Updates";
+  searchText:string="";
   //a=['sdfsd','sdfsdf']
   msg: string = "";
-  constructor(private dataService: DataService, private router:Router) {
+  constructor(private dataService: DataService, private router:Router, private titleService:Title,private actRoute: ActivatedRoute) {
    
   }
 
   ngOnInit(): void {
     //  this.getBlogs();
+    console.log(this.titleService.getTitle());
+    console.log(this.actRoute.url);
+    if(this.titleService.getTitle().toString()==='Blog Details'){
+      this.actRoute.paramMap.subscribe(params => {
+        this.blog.id = params.get('id');
+        // alert(this.blog.id);
+        
+      },(error:any)=>{
+        console.log(error);
+      });
+      this.onReadMore(this.blog.id);
+    }
+   
     this.getBlogs();
     this.getCategories();
     this.getTags();
   }
 
   ngOnDestroy(): void {
-    window.location.reload();
+   // window.location.reload();
   }
 
   getBlogs() {
@@ -226,8 +241,8 @@ export class BlogComponent implements OnInit, OnDestroy {
   }
 
   getArray(e:any){ 
-    let temp = JSON.parse(e)
-    console.log(e)  ;
+    let temp = JSON.parse(JSON.stringify(e))
+    //console.log(e)  ;
     return temp;
    }
    

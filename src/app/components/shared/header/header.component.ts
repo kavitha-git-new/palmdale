@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AddElementService } from '../../services/add-element.service';
 import { LoginService } from '../../services/login.service';
-import { ModalService } from '../../_modal';
+import { hdrChkUrl  } from "../../models/data-modal";
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,27 +14,26 @@ import { ModalService } from '../../_modal';
 export class HeaderComponent implements OnInit {
 
   title: string = 'Home';
-
+  cssUrl:string='';
   user: any = {};
   userName: string = "";
   @Input() heading: string = ""
-  constructor(private titleService: Title, private loginService: LoginService, private addElementService: AddElementService) {
+  constructor(private titleService: Title, private loginService: LoginService, private addElementService: AddElementService,public sanitizer:DomSanitizer, public router:Router) {
 
     if (sessionStorage.currentUser) {
      if(JSON.parse(sessionStorage.currentUser)[0]){ this.user = JSON.parse(sessionStorage.currentUser)[0];}
      else { this.user = JSON.parse(sessionStorage.currentUser)}
       console.log(this.user.fname);
       this.userName = this.user.fname + ' ' + this.user.lname;
-
     }
-
-
+    
   }
 
   ngOnInit(): void {
     this.title = this.titleService.getTitle();
     console.log(this.title)
     console.log(this.heading);
+   // this.appendTheme(this.title)
 
   }
 
@@ -58,9 +59,31 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  isWebsite(ut: string | string[]):boolean{
+    return true;
+  }
+
   logOut() {
     this.loginService.onLogout();
+  }
 
+  appendTheme(title:string){
+   // alert(title);
+    const found = hdrChkUrl.find((element:any) => element===title);
+   // alert(found);
+    
+    //alert(typeof(found));
+    if(found===undefined){
+     console.log("Unsuccessful");
 
+     console.table(hdrChkUrl);
+      
+      this.cssUrl='asset/main.min.css';
+    }
+    else{
+     // alert('Url Check succeed');
+      this.cssUrl='asset/sb-admin-2.min.css';
+    
+    }
   }
 }

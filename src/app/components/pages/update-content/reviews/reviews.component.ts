@@ -23,17 +23,19 @@ export class ReviewsComponent implements OnInit {
   constructor(private dataService:DataService, private router:Router, private modalService:ModalService) { }
 
   ngOnInit(): void {
-    this.reviews = Array(150).fill(0).map((x, i) => ({ id: (i + 1), date: new Date(), name: `Item ${i + 1}`, comment: `Item ${i + 1}`, ratings: randomNumber(1,5)}));
+    this.reviews = Array(150).fill(0).map((x, i) => ({ id: (i + 1), created_on: new Date(), name: `Item ${i + 1}`, comment: `Item ${i + 1}`, ratings: randomNumber(1,5)}));
     this.itemsRecords=this.reviews.length;
   }
 
-  onView(id: number, name:string, comment:string) {
+  onView(id: number, name:string, comment:string,dt:Date,ratings:number) {
     this.title = "View";
     this.titleDescription = "View details about the review to publish.";
     this.btnName = "Update"
     this.review.id = id;
+    this.review.created_on=new Date(dt).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});;
     this.review.name=name;
     this.review.comment=comment;
+    this.review.ratings=ratings;
     this.disName=true;
 
   //   this.dataService.getFAQ(id).subscribe(element => {

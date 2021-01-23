@@ -53,12 +53,12 @@
                   totalItems: itemsRecords } ">
           <!-- <td class="text-right">{{item.serial_no}}</td> -->
           <td class="text-right">{{i+1}}</td>
-          <td class="text-center">{{item.date | date}}</td>
+          <td class="text-center">{{item.created_on | date}}</td>
           <td>{{item.name}}</td>
           <td>{{item.comment}}</td>
           <td class="text-center">{{item.ratings}}</td>
           <td class="text-center">
-            <a class="link" (click)="onView(item.id, item.name, item.description)">
+            <a class="link" (click)="onView(item.id, item.name, item.comment,item.created_on,item.ratings)">
               <i class="fa fa-eye" aria-hidden="true"></i>
             </a>
             &nbsp;
@@ -104,19 +104,19 @@
                     <div class="col-md-4">
                       <div [ngClass]="{'form-group': true, 'is-filled': true}">
                         <label for="rdate" >Date</label>
-                        <input type="text" name="rdate" class="form-control" [(ngModel)]="review.date" [disabled]="disName">
+                        <input type="text" name="rdate" class="form-control" [(ngModel)]="review.created_on" [disabled]="disName">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div [ngClass]="{'form-group': true, 'is-filled': true}">
                         <label for="rname" >Name</label>
-                        <input type="text" name="rname" class="form-control" [(ngModel)]="review.author" [disabled]="disName">
+                        <input type="text" name="rname" class="form-control" [(ngModel)]="review.name" [disabled]="disName">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div [ngClass]="{'form-group': true, 'is-filled': true}">
                         <label for="rrating" >Ratings</label>
-                        <input type="text" name="rrating" class="form-control" [(ngModel)]="review.rating" [disabled]="disName">
+                        <input type="text" name="rrating" class="form-control" [(ngModel)]="review.ratings" [disabled]="disName">
                       </div>
                     </div>
                     </div>

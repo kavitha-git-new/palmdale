@@ -31,7 +31,8 @@ ngOnDestroy():void{
         console.log("Dashbaord");
        this.addElementService.removeLink();
        this.router.onSameUrlNavigation = "reload";
-       console.log("Reload");
+       //console.log("Reload");
+    //   alert('reload');
         return true;
       }
       else {

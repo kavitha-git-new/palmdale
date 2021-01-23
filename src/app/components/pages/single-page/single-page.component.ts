@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { error } from 'protractor';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -13,6 +14,17 @@ export class SinglePageComponent implements OnInit, OnDestroy {
   category: any = []
   tags: any = []
   msg: string = "";
+  itemsRecords: number = 0;
+  page: number = 1;
+  i: number = 0;
+  show:boolean=true;
+  heading:string="BLOG";
+  subHeading:string="BLOG - WE’RE HERE TO INDUCE A CHANGE";
+  subheading1:string="Blogs";
+  subheading2:string="News & Updates";
+  searchText:string="";
+
+
   constructor(private actRoute: ActivatedRoute, private dataService: DataService, private router: Router) {
     this.getBlogs();
     this.getCategories();
@@ -100,7 +112,7 @@ export class SinglePageComponent implements OnInit, OnDestroy {
 
   onViewByCategory(id: number, name: string) {
     this.msg = "";
-    this.dataService.getBlogByCategory(id,name).subscribe(element => {
+    this.dataService.getBlogByCategory(id,name).subscribe((element:any) => {
       this.blogs = []
       if (JSON.parse(JSON.stringify(element)).response.statuscode === 204 || JSON.parse(JSON.stringify(element)).response.statuscode !== 200) {
         this.msg = "No blogs found under " + name + " category"
@@ -128,6 +140,8 @@ export class SinglePageComponent implements OnInit, OnDestroy {
 
 
 
+    },(error:any)=>{
+      console.error(error);
     });
 
 
@@ -136,7 +150,7 @@ export class SinglePageComponent implements OnInit, OnDestroy {
   //onViewBlogByTag
   onViewBlogByTag(id: number, name: string) {
     this.msg = "";
-    this.dataService.getBlogByTag(id,name).subscribe(element => {
+    this.dataService.getBlogByTag(id,name).subscribe((element:any) => {
       this.blogs = []
       if (JSON.parse(JSON.stringify(element)).response.statuscode === 204 || JSON.parse(JSON.stringify(element)).response.statuscode !== 200) {
         this.msg = "No blogs found under " + name + " tag"
@@ -155,16 +169,19 @@ export class SinglePageComponent implements OnInit, OnDestroy {
 
           console.log(this.blogs[0]);
           console.log(typeof (this.blogs))
-          console.log(this.blogs[0].category)
+          console.log(this.blogs[0].category);
+          this.itemsRecords=this.blogs.length;;
         }
       }
 
 
 
 
+    },(error:any)=>{
+      console.error(error);
     });
 
-
+  console.log(this.msg);
   }
 
   getCategories() {
@@ -208,8 +225,18 @@ export class SinglePageComponent implements OnInit, OnDestroy {
 
   onViewByBlog(id: number) {
     this.getBlogDetails(id);
-    console.table(this.blog)
+    console.table(this.blog);
+
+    // this.router.navigateByUrl('single-page/'+id).then(e => {
+    //   if (e) {
+    //     console.log("Navigation is successful!");
+    //   } else {
+    //     console.log("Navigation has failed!");
+    //   }
+    // });
   }
+
+  
 
 
 }

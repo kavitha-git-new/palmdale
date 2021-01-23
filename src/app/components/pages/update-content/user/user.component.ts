@@ -252,7 +252,7 @@ export class UserComponent implements OnInit {
           }
           else{
             if(JSON.parse(JSON.stringify(response)).response.message==="User Details Updated Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
-              alert("updated")
+             // alert("updated")
               this.succMsg= this.user.fname+" "+this.user.lname+" is saved";
               this.users=[];
               this.getUsers();

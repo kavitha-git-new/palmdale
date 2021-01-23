@@ -22,9 +22,7 @@ import { BlogComponent } from './components/pages/blog/blog.component';
 
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { SinglePageComponent } from './components/pages/single-page/single-page.component';
-import { UpdateHomeContentComponent } from './components/pages/update-content/update-home-content/update-home-content.component';
-import { UpdateAboutContentComponent } from './components/pages/update-content/update-about-content/update-about-content.component';
-import { UpdateBlogConentComponent } from './components/pages/update-content/update-blog-conent/update-blog-conent.component';
+
 import { UpdateContactContentsComponent } from './components/pages/update-content/update-contact-contents/update-contact-contents.component';
 import { EditHomeContentComponent } from './components/pages/update-content/edit-home-content/edit-home-content.component';
 import { LoginComponent } from './components/pages/login/login.component';
@@ -63,9 +61,7 @@ import { registerLocaleData } from '@angular/common';
     BlogComponent,
     ContactComponent,
     SinglePageComponent,
-    UpdateHomeContentComponent,
-    UpdateAboutContentComponent,
-    UpdateBlogConentComponent,
+    
     UpdateContactContentsComponent,
     EditHomeContentComponent,
     LoginComponent,

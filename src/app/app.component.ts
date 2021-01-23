@@ -4,22 +4,26 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import * as AOS from 'aos';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
-  title = 'palmdale';
+
+  title:string = 'Home';
+  //cssUrl:string='';
+
   constructor(
     private activatedRoute: ActivatedRoute, 
     private router: Router, 
     private titleService: Title
+    
 ) { }
 
 ngOnInit() {
-
+  
 
   AOS.init({
     duration: 1200,
@@ -43,13 +47,22 @@ if (child.firstChild) {
 }
 return null;
 })).subscribe( (title: any) => {
-  console.log('Title')
-  console.log(title);
+  //console.log('Title')
+ // console.log(title);
 this.titleService.setTitle(title);
 this.title=this.titleService.getTitle();
 
+
 console.log(this.title);
+
+
+},(error:any)=>{
+console.error(error);
 });
+//this.appendTheme(this.title);
+
 }
+
+
 
 }

@@ -6,9 +6,8 @@ import { ContactComponent } from './components/pages/contact/contact.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { SinglePageComponent } from './components/pages/single-page/single-page.component';
-import { UpdateAboutContentComponent } from './components/pages/update-content/update-about-content/update-about-content.component';
 import { UpdateContactContentsComponent } from './components/pages/update-content/update-contact-contents/update-contact-contents.component';
-import { UpdateHomeContentComponent } from './components/pages/update-content/update-home-content/update-home-content.component';
+
 import { AdminComponent } from './components/pages/admin/admin.component';
 
 //services
@@ -29,7 +28,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent, data: { title: 'About' } },
   { path: 'blog', component: BlogComponent, data: { title: 'Blog' } },
   { path: 'contact', component: ContactComponent, data: { title: 'Contact' } },
-  { path: 'single-page/:id', component: SinglePageComponent, data: { title: 'Blog Details' } },
+  { path: 'single-page/:id', component: BlogComponent, data: { title: 'Blog Details' } },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
 
   // { path: '', pathMatch: 'full', component: HomeComponent, data: { title: 'Home' } },
@@ -52,8 +51,7 @@ const routes: Routes = [
   { path: 'cpackage', component: PackagesComponent, data: { title: 'CPackage' }, canActivate: [AuthGuard] },
   { path: 'creview', component: ReviewsComponent, data: { title: 'CReview' }, canActivate: [AuthGuard] },
 
-  { path: 'chome', component: UpdateHomeContentComponent, data: { title: 'CHome' }, canActivate: [AuthGuard] },
-  { path: 'cabout', component: UpdateAboutContentComponent, data: { title: 'CAbout' }, canActivate: [AuthGuard] },
+//  { path: 'cabout', component: UpdateAboutContentComponent, data: { title: 'CAbout' }, canActivate: [AuthGuard] },
   { path: 'ccontact', component: UpdateContactContentsComponent, data: { title: 'CContact' }, canActivate: [AuthGuard] },
   { path: 'cmessage', component: MessageComponent, data: { title: 'CMessage' }, canActivate: [AuthGuard]},
   { path: '**', component: HomeComponent, data: { title: 'Home' } },

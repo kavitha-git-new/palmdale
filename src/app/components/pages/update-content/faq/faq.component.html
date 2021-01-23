@@ -48,14 +48,14 @@
                   totalItems: itemsRecords } ">
             <!-- <td class="text-right">{{item.serial_no}}</td> -->
             <td class="text-right">{{i+1}}</td>
-            <td>{{item.name}}</td>
+            <td>{{item.title}}</td>
             <td>{{item.description}}</td>
             <td class="text-center">
-              <a class="link" (click)="onEdit(item.id, item.name, item.description)">
+              <a class="link" (click)="onEdit(item.id, item.title, item.description)">
                 <i class="fas fa-pencil-alt"></i>
               </a>
               &nbsp;
-              <a class="link" (click)="onDelete(item.id,item.name)">
+              <a class="link" (click)="onDelete(item.id,item.title)">
                 <i class="fas fa-trash"></i>
               </a>
   
@@ -97,7 +97,7 @@
                       <div class="col-md-12">
                         <div [ngClass]="{'form-group': true, 'is-filled': true}">
                           <label for="fname" class="bmd-label-floating">Tile</label>
-                          <input type="text" name="fname" class="form-control" [(ngModel)]="faq.name" />
+                          <input type="text" name="fname" class="form-control" [(ngModel)]="faq.title" />
                         </div>
                       </div>
   

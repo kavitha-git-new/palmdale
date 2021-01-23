@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
 
-    window.location.reload();
+   // window.location.reload();
   }
 
   onSubmit() {

@@ -1,5 +1,5 @@
 <div>
-  <section class="banner mb-0" >
+  <section class="banner mb-0 img-fluid" >
       <div class="container-fluid">
         <div class="row banner-caption">
           <div class="col-md-11 m-md-auto m-lg-0 col-lg-5">
@@ -20,10 +20,6 @@
               >
                 <a href="https://app.verifymc.com/index.php?widget_beta/questionnaire_video/da11e8cd1811acb79ccf0fd62cd58f86/" class="btn my__btn__bg"> GET MY CARD NOW</a>
               </div>
-              
-
-
-
             </div>
           </div>
 
@@ -166,10 +162,9 @@
                           <source type="image/png" data-srcset="assets/img/jpg/service-1.png" />
                           <img
                             data-src="assets/img/jpg/service-1.png"
-                            class="lazyload"
+                            class="lazyload img-fuild"
                             alt="logo"
-                            width="71"
-                            height="81"
+                            style="width: 71;height:81;"
                           />
                         </picture>
   
@@ -209,10 +204,9 @@
                           <source type="image/png" data-srcset="assets/img/jpg/service-1.png" />
                           <img
                             data-src="assets/img/jpg/service-1.png"
-                            class="lazyload"
+                            class="lazyload img-fuild"
                             alt="logo"
-                            width="71"
-                            height="81"
+                            style="width: 71;height:81;"
                           />
                         </picture>
   
@@ -238,10 +232,9 @@
                           <source type="image/png" data-srcset="assets/img/jpg/service-1.png" />
                           <img
                             data-src="assets/img/jpg/service-1.png"
-                            class="lazyload"
+                            class="lazyload img-fuild"
                             alt="logo"
-                            width="71"
-                            height="81"
+                            style="width: 71;height:81;"
                           />
                         </picture>
   
@@ -268,10 +261,9 @@
                           <source type="image/png" data-srcset="assets/img/jpg/service-1.png" />
                           <img
                             data-src="assets/img/jpg/service-1.png"
-                            class="lazyload"
+                            class="lazyload img-fuild"
                             alt="logo"
-                            width="71"
-                            height="81"
+                            style="width: 71;height:81;"
                           />
                         </picture>
   
@@ -406,17 +398,17 @@
                           </div>
                       </div> -->
 <!-- Displayed FAQ from array using *ngFor-->
-                       <div class="card" *ngFor="let item of faq; let i=index;">
+                       <div class="card" *ngFor="let item of faqs; let i=index;">
                         <div class="card-header" id="{{'accordion-tab-1-heading-'+(i+1)}}">
                             <h3>
-                                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#accordion-tab-1-content-'+ (i+1)" aria-expanded="false" [attr.aria-controls]="'accordion-tab-1-content-'+(i+1)" [innerHTML]="item.heading">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#accordion-tab-1-content-'+ (i+1)" aria-expanded="false" [attr.aria-controls]="'accordion-tab-1-content-'+(i+1)" [innerHTML]="item.title">
                                   <!-- {{item.heading}} -->
                                 </button>
                             </h3>
                         </div>
                         <div class="collapse" [ngClass]="{show: (i+1)===1}" id="{{'accordion-tab-1-content-'+(i+1)}}" [attr.aria-labelledby]="'accordion-tab-1-heading-'+(i+1)" data-parent="#accordion-tab-1" >
                             <div class="card-body">
-                                <p [innerHTML]="item.content">
+                                <p [innerHTML]="item.description">
                                   <!-- {{item.content}} -->
                                 </p>
                             </div>
@@ -800,7 +792,7 @@
                             <h2><a (click)="onReadMore(blog.id)">
                               {{blog.title}}        </a></h2>
                             <div class="blog__btn">
-                                <a routerLink="/blog">READ MORE<i class="arrow-right"> &#x2192;</i></a>
+                                <a (click)="onReadMore(blog.id)">READ MORE<i class="arrow-right"> &#x2192;</i></a>
                             </div>
                         </div>
                     </div>

@@ -344,7 +344,7 @@
                                 width="20"
                                 height="20"
                               /></span>
-                              <a> {{getArray(blog.category)}}</a></li>
+                              <a> {{blog.category}}</a></li>
                               <li> <span><img
                                 class="lazyload"
                                 data-src="assets/img/svg/clock.svg"
@@ -418,7 +418,7 @@
             </div>
             <div class="search">
               <form>
-                <input id="s" class="search_input" type="text" name="s" maxlength="30" placeholder="Search...">
+                <input id="s" class="search_input" type="text" name="search" maxlength="30" placeholder="Search..." [(ngModel)]="searchText">
                 <button type="submit" class="submit button" name="submit"><i class="fa fa-search">
                     <!-- <img class="lazyload" data-src="assets/img/svg/search.svg" alt="search" width="20" height="20" /> -->
                   </i></button>
@@ -440,7 +440,7 @@
               <li class="cat-item"><a routerLink="/blog">6 Tips to Enjoy Your Marijuana Edibles Safely</a></li>
               <li class="cat-item"><a routerLink="/blog">Struggling With Asthma? Medical Cannabis Can Help</a></li>
               <li class="cat-item"><a routerLink="/blog">The Pros And Cons of Smoking Medical Marijuana</a> </li>
-              <li class="cat-item" *ngFor="let b of blogs"><a (click)="onReadMore(b.id)">{{b.title}}</a> </li>
+              <li class="cat-item" *ngFor="let b of blogs | filter: searchText"><a (click)="onReadMore(b.id)">{{b.title}}</a> </li>
             </ul>
           </div>
           <!--categorybx-2-->
@@ -455,7 +455,7 @@
               <li class="cat-item"><a routerLink="/blog">Lifestyle</a> (2)</li>
               <li class="cat-item"><a routerLink="/blog">Nature</a> (4)</li>
               <li class="cat-item"><a routerLink="/blog">Travel</a> (2)</li>
-              <li class="cat-item" *ngFor="let c of category"><a (click)="onViewByCategory(c.id,c.name)">{{c.name}}</a> ({{1}})</li>
+              <li class="cat-item" *ngFor="let c of category | filter: searchText"><a (click)="onViewByCategory(c.id,c.name)">{{c.name}}</a> ({{1}})</li>
             </ul>
           </div>
           <!--categorybx-2-->
@@ -472,7 +472,7 @@
               <a routerLink="/blog">Music</a><a routerLink="/blog">auote</a> <a routerLink="/blog">sunset</a><a
                 routerLink="/blog">swim</a><a routerLink="/blog">time</a>
               <a routerLink="/blog">trendy</a><a routerLink="/blog">weekend</a> <a routerLink="/blog">women</a>
-              <a routerLink="/blog" *ngFor="let tag of tags" (click)="onViewBlogByTag(tag.id,tag.name)">{{tag.name}}</a>
+              <a routerLink="/blog" *ngFor="let tag of tags | filter: searchText" (click)="onViewBlogByTag(tag.id,tag.name)">{{tag.name}}</a>
             </div>
           </div>
           <!--tag box-->

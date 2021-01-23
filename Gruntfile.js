@@ -5,8 +5,8 @@ module.exports = function(grunt) {
       cssmin: {
         target: {
           src: [
-            'src/assets/fontawesome-free/css/all.min.css',
-            'src/assets/css/sb-admin-2.min.css',
+            'src/assets/css/single-blog.css',
+            'src/assets/css/blog.css'
             ],
           dest: 'src/assets/css/app.min.css'
       

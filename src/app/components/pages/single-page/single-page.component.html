@@ -126,7 +126,7 @@
                   </div>
                   <div class="search">
                     <form>
-                      <input id="s" class="search_input" type="text" name="s" maxlength="30" placeholder="Search...">
+                      <input id="s" class="search_input" type="text" name="serach" maxlength="30" placeholder="Search..." [(ngModel)]="searchText">
                       <button type="submit" class="submit button" name="submit"><i class="fa fa-search">
                         <!-- <img
                                       class="lazyload"
@@ -152,7 +152,7 @@
                       <li class="cat-item"><a >6 Tips to Enjoy Your Marijuana Edibles Safely</a></li>
                       <li class="cat-item"><a >Struggling With Asthma? Medical Cannabis Can Help</a></li>
                       <li class="cat-item"><a >The Pros And Cons of Smoking Medical Marijuana</a> </li>
-                      <li class="cat-item" *ngFor="let b of blogs"><a (click)="onViewByBlog(b.id)">{{b.title}}</a> </li>
+                      <li class="cat-item" *ngFor="let b of blogs | filter:searchText"><a (click)="onViewByBlog(b.id)">{{b.title}}</a> </li>
 
                     </ul>
                 </div> <!--categorybx-2-->
@@ -167,7 +167,7 @@
                           <li class="cat-item"><a >Lifestyle</a> (2)</li>
                           <li class="cat-item"><a >Nature</a> (4)</li>
                           <li class="cat-item"><a >Travel</a> (2)</li>
-                          <li class="cat-item" *ngFor="let c of category"><a (click)="onViewByCategory(c.id,c.name)">{{c.name}}</a> ({{1}})</li>
+                          <li class="cat-item" *ngFor="let c of category | filter:searchText"><a (click)="onViewByCategory(c.id,c.name)">{{c.name}}</a> ({{1}})</li>
 
                         </ul>
                     </div> <!--categorybx-2-->
@@ -182,7 +182,7 @@
                            <a >Beauty</a><a >bicycle</a> <a >health</a><a >holidays</a><a >inspiration</a> 
                            <a >Music</a><a >auote</a> <a >sunset</a><a >swim</a><a >time</a> 
                            <a >trendy</a><a >weekend</a> <a >women</a>
-                           <a *ngFor="let tag of tags" (click)="onViewBlogByTag(tag.id,tag.name)">{{tag.name}}</a>
+                           <a *ngFor="let tag of tags | filter:searchText" (click)="onViewBlogByTag(tag.id,tag.name)">{{tag.name}}</a>
 
                         </div>
                       </div> <!--tag box-->

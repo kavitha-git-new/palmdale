@@ -27,7 +27,7 @@ export class MessageComponent implements OnInit {
     this.getMessages();
   }
 
-  onView(id: number,name:string, email:string, mobile:string) {
+  onView(id: number,name:string, email:string, mobile:string,message:string,dt:Date) {
     this.message.errMsg="";
     this.title="View Message";
     this.titleDescription="View details about the message.";
@@ -36,6 +36,9 @@ export class MessageComponent implements OnInit {
     this.messages.name=name;
     this.message.email=email;
     this.message.mobile=mobile;
+    this.message.message=message;
+    console.log(new Date(dt).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}));
+    this.message.date=new Date(dt).toLocaleDateString('en-US',{day:'numeric',month:'long',year:'numeric'});
     this.dataService.getMessage(id).subscribe(element=>
      { this.message=element});
     this.modalService.open('exampleModal');

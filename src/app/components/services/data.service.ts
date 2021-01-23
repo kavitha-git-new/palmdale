@@ -185,9 +185,9 @@ export class DataService {
     // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
     this.params = {
       "id": "all",
-      "token": JSON.parse(sessionStorage.currentUser)[0].token
+    //  "token": JSON.parse(sessionStorage.currentUser)[0].token
     }
-    return this.http.post(environment.apiUrl + 'getFAQs', JSON.stringify(this.params), this.httpOptions)
+    return this.http.post(environment.apiUrl + 'getfaqs', JSON.stringify(this.params), this.httpOptions)
   }
 
   getFAQ(id:number){
@@ -195,10 +195,10 @@ export class DataService {
     console.log(this.httpOptions);
     this.params = {
       "id": id,
-      "token": JSON.parse(sessionStorage.currentUser)[0].token
+     // "token": JSON.parse(sessionStorage.currentUser)[0].token
     }
     console.log(JSON.stringify(this.params))
-    return this.http.post(environment.apiUrl + 'geFAQs', JSON.stringify(this.params), this.httpOptions)
+    return this.http.post(environment.apiUrl + 'getfaqs', JSON.stringify(this.params), this.httpOptions)
   }
 
   saveFAQ(params: any) {
@@ -208,7 +208,7 @@ export class DataService {
 
     this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
 
-    return this.http.post(environment.apiUrl + 'createFAQ', JSON.stringify(this.params), this.httpOptions)
+    return this.http.post(environment.apiUrl + 'createfaqs', JSON.stringify(this.params), this.httpOptions)
   }
 
   updateFAQ(params: any) {

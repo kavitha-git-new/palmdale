@@ -12,7 +12,7 @@ export class AboutComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
   }
   ngOnDestroy():void{
-    window.location.reload();  
+  //  window.location.reload();  
   }
 
 }
