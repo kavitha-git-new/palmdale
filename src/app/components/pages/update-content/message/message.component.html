@@ -65,11 +65,11 @@
           <td class="text-right"> {{item.mobile}}</td>
           <td class="text-center">
             <a class="link" (click)="onView(item.id,item.name,item.email,item.mobile,item.message, item.created_at)">
-              <i class="fa fa-eye" aria-hidden="true"></i>
+              <i class="fa fa-eye" aria-hidden="true" title="Edit"></i>
             </a>
             &nbsp;
             <a class="link" (click)="onDelete(item.id,item.name)">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <i class="fa fa-envelope" aria-hidden="true" alt="Send message or feedback to user." title="Delete"></i>
             </a>
 
           </td>

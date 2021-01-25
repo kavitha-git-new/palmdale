@@ -28,11 +28,11 @@ pwd:''};
     }
     else {
       this.loginService.onLogin(JSON.stringify(user))
-        .subscribe(user => {
+        .subscribe((user:any) => {
           // alert(Object.keys(user).length);
           // console.log(JSON.stringify(user))
           // console.log(JSON.parse(JSON.stringify(user)).response.statuscode);
-          console.log(user)
+        //  console.log(user)
           if (Object.keys(user).length !== 0) {
             if(JSON.parse(JSON.stringify(user)).response.statuscode===401){
               this.errMsg = "Please provide a vaild credentails";
@@ -55,6 +55,8 @@ pwd:''};
             return false;
           }
 
+        }, (error:any)=>{
+          console.error(error);
         })
 
     }

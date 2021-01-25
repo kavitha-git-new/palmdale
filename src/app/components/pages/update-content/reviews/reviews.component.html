@@ -29,7 +29,7 @@
           <th width="5%">S.No</th>
           <th width="10%">Date</th>
           <th>Name</th>
-          <th>Description</th>
+          <th>Comments</th>
           <th width="10%" >Ratings</th>
           <th>Action</th>
 
@@ -40,7 +40,7 @@
           <th width="5%">S.No</th>
           <th width="10%">Date</th>
           <th>Name</th>
-          <th>Description</th>
+          <th>Comments</th>
           <th width="10%">Ratings</th>
           <th>Action</th>
 
@@ -58,13 +58,13 @@
           <td>{{item.comment}}</td>
           <td class="text-center">{{item.ratings}}</td>
           <td class="text-center">
-            <a class="link" (click)="onView(item.id, item.name, item.comment,item.created_on,item.ratings)">
-              <i class="fa fa-eye" aria-hidden="true"></i>
+            <a class="link" (click)="onEdit(item.id, item.name, item.comment,item.created_on,item.ratings)">
+              <i class="fas fa-pencil-alt" title="Edit"></i>
             </a>
             &nbsp;
-            <!-- <a class="link" (click)="onDelete(item.id,item.name)">
+            <a class="link" (click)="onDelete(item.id,item.name)" title="Delete">
               <i class="fas fa-trash"></i>
-            </a> -->
+            </a>
 
           </td>
         </tr>
@@ -104,19 +104,19 @@
                     <div class="col-md-4">
                       <div [ngClass]="{'form-group': true, 'is-filled': true}">
                         <label for="rdate" >Date</label>
-                        <input type="text" name="rdate" class="form-control" [(ngModel)]="review.created_on" [disabled]="disName">
+                        <input type="text" name="rdate" class="form-control" [(ngModel)]="review.created_on" disabled>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div [ngClass]="{'form-group': true, 'is-filled': true}">
                         <label for="rname" >Name</label>
-                        <input type="text" name="rname" class="form-control" [(ngModel)]="review.name" [disabled]="disName">
+                        <input type="text" name="rname" class="form-control" [(ngModel)]="review.name" >
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div [ngClass]="{'form-group': true, 'is-filled': true}">
                         <label for="rrating" >Ratings</label>
-                        <input type="text" name="rrating" class="form-control" [(ngModel)]="review.ratings" [disabled]="disName">
+                        <input type="number" name="rrating" class="form-control" [(ngModel)]="review.ratings" min="1" max="5">
                       </div>
                     </div>
                     </div>
@@ -125,7 +125,7 @@
                       <label for="rcomment">Comments</label>
                       <div class="form-group">
                        <textarea class="form-control" rows="4" name="rcomment"
-                          [(ngModel)]="review.comment" spellcheck="true" [disabled]="disName"></textarea>
+                          [(ngModel)]="review.comment" spellcheck="true"></textarea>
                       </div>
                     </div>
 

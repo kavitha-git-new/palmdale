@@ -65,7 +65,7 @@ export class ContactComponent implements OnInit, OnDestroy {
      // alert("Request to send is going to start");
       this.errMsg = "";
       this.dataService.sendMessage(JSON.stringify(this.cm)).subscribe(
-        response => {
+        (response:any) => {
           //alert("response");
           console.log(response);
           if (JSON.parse(JSON.stringify(response)).response.statuscode === 200 && JSON.parse(JSON.stringify(response)).response.message === 'Request submitted Successfully.') {
@@ -81,8 +81,10 @@ export class ContactComponent implements OnInit, OnDestroy {
           }
 
 
-        }
-      )
+        },(error:any) => {
+          console.error(error);
+          return false;
+        })
       return true;
 
     }

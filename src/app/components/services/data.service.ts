@@ -229,6 +229,70 @@ export class DataService {
     return this.http.post(environment.apiUrl + 'delFAQ', JSON.stringify(this.params), this.httpOptions)
   }
 
+
+ //Reviews
+
+ getReviews() {
+  // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
+  this.params = {
+    "id": "all",
+  //  "token": JSON.parse(sessionStorage.currentUser)[0].token
+  }
+  return this.http.post(environment.apiUrl + 'getReviews', JSON.stringify(this.params), this.httpOptions)
+}
+
+getReview(id:number){
+  console.log("header");
+  console.log(this.httpOptions);
+  this.params = {
+    "id": id,
+   // "token": JSON.parse(sessionStorage.currentUser)[0].token
+  }
+  console.log(JSON.stringify(this.params))
+  return this.http.post(environment.apiUrl + 'getReview', JSON.stringify(this.params), this.httpOptions)
+}
+
+saveReview(params: any) {
+  console.log("header");
+  console.log(this.httpOptions);
+  this.params = JSON.parse(params);
+
+  this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+
+  return this.http.post(environment.apiUrl + 'creategetReview', JSON.stringify(this.params), this.httpOptions)
+}
+
+updateReview(params: any) {
+  console.log("header");
+  console.log(this.httpOptions);
+  this.params = JSON.parse(params);
+  this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+  return this.http.post(environment.apiUrl + 'editgetReviews', JSON.stringify(this.params), this.httpOptions)
+}
+
+deleteReview(id: number) {
+  console.log("header");
+  console.log(this.httpOptions);
+  this.params = {
+    "id": id,
+  }
+  this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+  return this.http.post(environment.apiUrl + 'delgetReview', JSON.stringify(this.params), this.httpOptions)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // packages
 
   getPackages() {

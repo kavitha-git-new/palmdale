@@ -250,7 +250,7 @@ export class FaqComponent implements OnInit {
     this.modalService.close(id)
   }
   getFAQs(){
-    this.dataService.getFAQs().subscribe(element=>{
+    this.dataService.getFAQs().subscribe((element:any)=>{
       
       this.faqs= element.valueOf();
       console.log(this.faqs['response']['message']);
@@ -276,7 +276,7 @@ export class FaqComponent implements OnInit {
       }
        
      // console.log(JSON.parse(JSON.stringify(element))['response']);
-    }, error => {
+    }, (error:any) => {
       // alert(error)
        console.log( error);
        this.errMsg = "Please try again."

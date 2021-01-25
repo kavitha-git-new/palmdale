@@ -32,7 +32,7 @@ export class BlogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //  this.getBlogs();
     console.log(this.titleService.getTitle());
-    console.log(this.actRoute.url);
+   // console.log(this.actRoute.url);
     if(this.titleService.getTitle().toString()==='Blog Details'){
       this.actRoute.paramMap.subscribe(params => {
         this.blog.id = params.get('id');
@@ -98,22 +98,24 @@ export class BlogComponent implements OnInit, OnDestroy {
   }
 
   getCategories() {
-    this.dataService.getCategoriesWb().subscribe(element => {
+    this.dataService.getCategoriesWb().subscribe((element:any) => {
     
       this.category = element.valueOf()
 
       if (this.category['response']['data']) {
         this.category = this.category['response']['data'].valueOf();
-        console.log('this.categories')
-        console.log(this.category)
-        console.log(this.category[0]);
-        console.log(typeof (this.category));
+        // console.log('this.categories')
+        // console.log(this.category)
+        // console.log(this.category[0]);
+        // console.log(typeof (this.category));
       }
+    },(error:any) => {
+      console.log(error);
     })
   }
 
   getTags(){
-    this.dataService.getTagsWb().subscribe(element => {
+    this.dataService.getTagsWb().subscribe((element:any) => {
      console.log(element)
       this.tags = element.valueOf()
  
@@ -122,17 +124,19 @@ export class BlogComponent implements OnInit, OnDestroy {
         console.log('this.tags')
         console.log(this.tags);
 
-        console.log(this.tags[0]);
-        console.log(typeof (this.tags))
+        // console.log(this.tags[0]);
+        // console.log(typeof (this.tags))
       }
       else if(this.tags['response']){
         this.tags = this.tags['response'].valueOf();
         console.log('this.tags')
         console.log(this.tags);
 
-        console.log(this.tags[0]);
-        console.log(typeof (this.tags))
+        // console.log(this.tags[0]);
+        // console.log(typeof (this.tags))
       }
+    },(error:any) => {
+      console.log(error);
     });
   }
 
@@ -144,7 +148,7 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.subheading1="Blog"
     this.subHeading="Blog Details"
     this.show=false;
-    this.dataService.getSpecificBlog(id).subscribe(element => {
+    this.dataService.getSpecificBlog(id).subscribe((element:any) => {
       this.blog = element.valueOf();
       console.log(this.blog);
       if (this.blog['response']['data']) { this.blog = JSON.parse(JSON.stringify(this.blog['response']['data'][0])); }
@@ -153,9 +157,11 @@ export class BlogComponent implements OnInit, OnDestroy {
           this.blog = JSON.parse(JSON.stringify(this.blog['response'][0]))
         }
       }
-      console.log(this.blog.id);
-      console.log(typeof (this.blog));
+      // console.log(this.blog.id);
+      // console.log(typeof (this.blog));
 
+    },(error:any) => {
+      console.log(error);
     });;
     
   }
@@ -168,7 +174,7 @@ export class BlogComponent implements OnInit, OnDestroy {
   onViewByCategory(id: number, name: string) {
     this.show=true;
     this.msg="";
-    this.dataService.getBlogByCategory(id,name).subscribe(element => {
+    this.dataService.getBlogByCategory(id,name).subscribe((element:any) => {
     this.blogs=[]
       if (JSON.parse(JSON.stringify(element)).response.statuscode === 204 || JSON.parse(JSON.stringify(element)).response.statuscode !== 200) {
         this.msg = "No blogs found under " + name + " category"
@@ -185,9 +191,9 @@ export class BlogComponent implements OnInit, OnDestroy {
           console.log('this.blogs')
           console.log(this.blogs)
 
-          console.log(this.blogs[0]);
-          console.log(typeof (this.blogs))
-          console.log(this.blogs[0].category)
+          // console.log(this.blogs[0]);
+          // console.log(typeof (this.blogs))
+          // console.log(this.blogs[0].category)
           this.itemsRecords=this.blogs.length;
 
 
@@ -197,6 +203,8 @@ export class BlogComponent implements OnInit, OnDestroy {
 
 
 
+    },(error:any) => {
+      console.log(error);
     });
 
 
@@ -206,7 +214,7 @@ export class BlogComponent implements OnInit, OnDestroy {
   onViewBlogByTag(id: number, name: string) {
     this.show=true;
     this.msg="";
-    this.dataService.getBlogByTag(id,name).subscribe(element => {
+    this.dataService.getBlogByTag(id,name).subscribe((element:any) => {
     this.blogs=[]
       if (JSON.parse(JSON.stringify(element)).response.statuscode === 204 || JSON.parse(JSON.stringify(element)).response.statuscode !== 200) {
         this.msg = "No blogs found under " + name + " tag";
@@ -224,9 +232,9 @@ export class BlogComponent implements OnInit, OnDestroy {
           console.log(this.blogs)
         
 
-          console.log(this.blogs[0]);
-          console.log(typeof (this.blogs))
-          console.log(this.blogs[0].category)
+          // console.log(this.blogs[0]);
+          // console.log(typeof (this.blogs))
+          // console.log(this.blogs[0].category)
     
           this.itemsRecords=this.blogs.length;;
         }
@@ -235,6 +243,8 @@ export class BlogComponent implements OnInit, OnDestroy {
 
 
 
+    },(error:any) => {
+      console.log(error);
     });
 
 

@@ -58,9 +58,26 @@ export class HeaderComponent implements OnInit {
     }
 
   }
-
+//not used any where.
   isWebsite(ut: string | string[]):boolean{
-    return true;
+    if (typeof ut == 'string') {
+      console.log((this.heading == ut));
+      return (this.heading == ut);
+    }
+    else {
+
+      const match = ut.findIndex(e => e === this.heading);
+      if (match !== -1) {
+        if (this.heading === 'Login') {
+          console.log(this.heading);
+          this.addElementService.removeThemeLink("theme2");
+        }
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
   }
 
   logOut() {

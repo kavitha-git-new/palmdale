@@ -25,11 +25,12 @@ export class ReviewsComponent implements OnInit {
   ngOnInit(): void {
     this.reviews = Array(150).fill(0).map((x, i) => ({ id: (i + 1), created_on: new Date(), name: `Item ${i + 1}`, comment: `Item ${i + 1}`, ratings: randomNumber(1,5)}));
     this.itemsRecords=this.reviews.length;
+    //this.getReviews();
   }
 
-  onView(id: number, name:string, comment:string,dt:Date,ratings:number) {
-    this.title = "View";
-    this.titleDescription = "View details about the review to publish.";
+  onEdit(id: number, name:string, comment:string,dt:Date,ratings:number) {
+    this.title = "Edit";
+    this.titleDescription = "Edit details about the review to publish.";
     this.btnName = "Update"
     this.review.id = id;
     this.review.created_on=new Date(dt).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});;
@@ -65,7 +66,7 @@ export class ReviewsComponent implements OnInit {
    
     console.log(id)
 
-    if (confirm("Are you sure? Do you want to delete the details about the FAQ : " + name) === true) {
+    if (confirm("Are you sure? Do you want to delete the details about the Review of : " + name) === true) {
       this.dataService.deleteFAQ(id).subscribe(response=>{
         
         console.log(response);
@@ -77,7 +78,7 @@ export class ReviewsComponent implements OnInit {
          
         }
         else{
-          if(JSON.parse(JSON.stringify(response)).response.message==="FAQ Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
+          if(JSON.parse(JSON.stringify(response)).response.message==="Review Deleted Successfully." && JSON.parse(JSON.stringify(response)).response.statuscode === 200){
 
             this.succMsg= name+" tag is deleted.";
             this.review=[];
@@ -111,7 +112,8 @@ export class ReviewsComponent implements OnInit {
     this.btnName = btName;
     this.review.id = 0;
     this.review.name = '';
-    this.review.description = '';
+    this.review.comment = '';
+    this.review.created_on= new Date().toLocaleDateString('en-US',{day:'numeric',month:'long',year:'numeric'});
     this.errMsg = '';
     this.modalService.open('exampleModal');
     this.disName=false;
@@ -119,19 +121,36 @@ export class ReviewsComponent implements OnInit {
 
   saveData(btName: string) {
     this.errMsg = "";
-    if (this.review.name === '' || this.review.name.length > 50) {
+    if (this.review.name === '' || this.review.name.toString().length > 40) {
+     // alert("Name");
       this.errMsg = "Please provide valid details."
       return false;
     }
     else {
       this.errMsg = "";
     }
-    if (this.review.description === '') {
+    if(this.review.ratings==='' || isNaN(this.review.ratings)===true){
+     // alert("ratings")
       this.errMsg = "Please provide valid details."
       return false;
     }
-    else if (this.review.description !== '' && this.review.description.toString().length>460) {
-      this.errMsg = "Please provide less than 460 characters in Description."
+    if(this.review.ratings !== ''&& this.review.ratings.toString()>5){
+     // alert("3");
+      this.errMsg = "Please provide the valid ratings and provide the ratings out of 5."
+      return false;
+    }
+    else{
+      this.errMsg = "";
+    }
+    
+    if (this.review.comment === '') {
+     // alert("1");
+      this.errMsg = "Please provide valid details."
+      return false;
+    }
+    else if (this.review.comment !== '' && this.review.comment.toString().length>400) {
+    //  alert("2");
+      this.errMsg = "Please provide less than 400 characters in Comments."
       return false;
     }
     else {
@@ -139,11 +158,11 @@ export class ReviewsComponent implements OnInit {
     }
     
 
-    if (this.review.name !== '' && this.review.description !== "" && confirm("Are you sure ? Do you want to save the details of " + this.review.name) === true) {
+    if (this.review.name !== '' && this.review.description !== "" && confirm("Are you sure ? Do you want to save the Review of  " + this.review.name) === true) {
       if (this.btnName === 'Save' || btName === 'Save') {
-        this.dataService.saveFAQ(JSON.stringify(this.review)).subscribe(response => 
+        this.dataService.saveReview(JSON.stringify(this.review)).subscribe(response => 
           {
-          alert(response);
+         // alert(response);
           if (isEmpty(response)){
             this.errMsg = "Please try again."
             return false;
@@ -162,7 +181,7 @@ export class ReviewsComponent implements OnInit {
               return false;
             }
             else{
-              if(JSON.parse(JSON.stringify(response)).response.message=="FAQ Created Successfully."){
+              if(JSON.parse(JSON.stringify(response)).response.message=="Review Created Successfully."){
   
                 this.succMsg= this.review.name+" tag is saved";
                 this.review={};
@@ -189,7 +208,7 @@ export class ReviewsComponent implements OnInit {
         
       }
       else {
-        if (this.review.id !== '') { this.dataService.updateFAQ(JSON.stringify(this.review)).subscribe(response => {
+        if (this.review.id !== '') { this.dataService.updateReview(JSON.stringify(this.review)).subscribe(response => {
           console.log(response);
           if (isEmpty(response)){
             this.errMsg = "Please try again."
@@ -213,9 +232,9 @@ export class ReviewsComponent implements OnInit {
               return false;
             }
             else{
-              if(JSON.parse(JSON.stringify(response)).response.message=="FAQ Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
+              if(JSON.parse(JSON.stringify(response)).response.message=="Review Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
   
-                this.succMsg= this.review.name+" FAQ is saved";
+                this.succMsg= this.review.name+"'s review is saved";
                 this.reviews=[];
                 this.getReviews();
                 this.modalService.close("exampleModal");
@@ -235,7 +254,7 @@ export class ReviewsComponent implements OnInit {
            return false;
        }) }
       }
-      alert("Data to save in Db.");
+     // alert("Data to save in Db.");
 
 
      
@@ -254,7 +273,33 @@ export class ReviewsComponent implements OnInit {
   }
 
   getReviews(){
-    
+    this.dataService.getReviews().subscribe(element => {
+      let b = element.valueOf()
+      this.reviews = element.valueOf()
+      if (this.reviews['response']['message'] && checkToken(this.reviews['response']['message'].toString()) === false) {
+        alert("Please login again. Your session has expired.");
+        this.router.navigate(['/login']);
+
+      }
+      else {
+        if (this.reviews['response']['data']) {
+          this.reviews = this.reviews['response']['data'].valueOf();
+          console.log('this.blogs')
+          console.log(this.reviews)
+
+
+          console.log(this.reviews[0]);
+          console.log(typeof (this.reviews))
+          console.log(this.reviews[0].category)
+        }
+        this.itemsRecords = this.reviews.length;
+      }
+
+    }, error => {
+      console.log(error);
+      alert("Please try again.");
+      return false;
+    });
   }
 
 }

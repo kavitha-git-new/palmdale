@@ -21,7 +21,7 @@ ngOnDestroy():void{
 }
   isTitle(ut: string | string[]): boolean {
     if (typeof ut == 'string') {
-      console.log((this.heading == ut));
+     // console.log((this.heading == ut));
       return (this.heading == ut);
     }
     else {
@@ -30,12 +30,17 @@ ngOnDestroy():void{
       if (match !== -1) {
         console.log("Dashbaord");
        this.addElementService.removeLink();
+     //  this.addElementService.createThemeLink("sb-admin-2.min.css")
        this.router.onSameUrlNavigation = "reload";
        //console.log("Reload");
     //   alert('reload');
         return true;
       }
       else {
+        console.log("check");
+       // this.addElementService.removeThemeLink("theme2");
+      //  this.addElementService.createThemeLink("main.min.css")
+       // this.router.onSameUrlNavigation = "reload";
      // this.addElementService.createLink();
         return false;
       }
