@@ -26,17 +26,17 @@ li.nav-item>a.active::before,li.nav-item>a:hover::before{height:1rem;left:1.9rem
 .banner::before{content:"";width:100%;height:100vh;position:absolute;border-radius:0;right:0;top:0;bottom:0;background:rgb(3 48 70 / 57%);z-index:1}
 section.banner{background-size:calc(var(--fullwdh) + 142%);background-position:-270px -1px;background-color:#063248;min-height:calc(var(--fullvh) + -30vh)}
 section.banner .container-fluid{position:relative;z-index:2}
-.banner__content__wrapper{width:calc(var(--fullwdh) - 0%);margin-top:12rem}
+.banner__content__wrapper{width:calc(var(--fullwdh) - 0%) !important;margin-top:12rem}
 .my__btn__bg,a.btn.my__btn{padding:1.4rem 2.5rem}
 section#why__us:after{width:80%;height:50rem}
-section#why__us{padding:15rem 0 5rem 0}
+section#why__us{padding:15rem 0 5rem 0 !important}
 section#why__us .pre_column-inner .spacer-30:first-child{display:none}
 section#why__us .content_box h3{font-size:1.9rem;font-weight:600}
 section#why__us .content_box p{line-height:2.6rem;font-size:1.6rem}
 section#why__us .content_box{text-align:center}
 .top__rating__box a img,section#why__us .top__rating__box img{width:115px}
 section#why__us .top__rating__box{position:unset;padding:6rem 4rem 2rem 4rem;text-align:center}
-section#why__us .col__left{margin-top:5rem}
+section#why__us .col__left{margin-top:5rem !important}
 .shape-top{height:7.6rem}
 section#section__two .content_box{margin-bottom:2rem}
 section#section__four{padding:5rem 0 5rem 0}
@@ -76,7 +76,7 @@ section#contact__map iframe{height:200px}
 }
 @media screen and (min-device-width:360px) and (max-device-width:374px) and (orientation:portrait){
 section.banner{min-height:calc(var(--fullvh) + -47vh)}
-.banner__content__wrapper{margin-top:14rem}
+.banner__content__wrapper{margin-top:14rem !important}
 }
 @media screen and (min-device-width:375px) and (max-device-width:413px) and (orientation:portrait){
 section.banner{min-height:calc(var(--fullvh) + -56vh)}

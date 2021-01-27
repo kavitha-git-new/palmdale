@@ -139,14 +139,15 @@ export class UserComponent implements OnInit {
     console.log(this.user);
     console.log(parseInt(this.user.mobile));
 
-    if (this.user.fname === '' || allLetter(this.user.fname) === false || this.user.fname.length > 45 || this.user.fname.length<3) {
+    if (this.user.fname === '' || allLetter(this.user.fname) === false || this.user.fname.length<3 || this.user.fname.length > 45 ) {
       this.errMsg = "Please provide valid details."
       return false;
     }
     else {
       this.errMsg = ""
     }
-    if (this.user.lname === '' || allLetter(this.user.lname) === false || this.user.lname.length > 45 || this.user.fname.length<3) {
+    if (this.user.lname === '' || allLetter(this.user.lname) === false || this.user.lname.length<3 || this.user.lname.length > 45 ) {
+      console.log("Please provide last name not less than 3 characters.")
       this.errMsg = "Please provide valid details."
       return false;
     }
@@ -220,8 +221,11 @@ export class UserComponent implements OnInit {
             // alert(JSON.parse(JSON.stringify(response)).response.message);
             //if(JSON.parse(JSON.stringify(response)).response.message.lname==="The lname must be at least 3 characters." || JSON.parse(JSON.stringify(response)).response.message.mobile)
             console.error(JSON.parse(JSON.stringify(response)).response.message);
-           // alert(JSON.parse(JSON.stringify(response)).response.message)
-             this.errMsg="Please provide the valid details."
+           //   alert(typeof(JSON.parse(JSON.stringify(response)).response.message))
+           if(isEmpty(JSON.parse(JSON.stringify(response)).response.message===false))
+             { console.log(Object.values(JSON.parse(JSON.stringify(response)).response.message))
+              this.errMsg=Object.values(JSON.parse(JSON.stringify(response)).response.message).toString()
+              this.errMsg="Please provide the valid details."+ this.errMsg;}
              return false;
             }
           }

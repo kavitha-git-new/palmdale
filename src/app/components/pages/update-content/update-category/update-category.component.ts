@@ -146,10 +146,18 @@ searchText:string="";
                 this.modalService.close("exampleModal")
               }
               else{
-                this.errMsg="Please try again."
+                if(isEmpty(JSON.parse(JSON.stringify(response)).response.message===false))
+             { console.log(Object.values(JSON.parse(JSON.stringify(response)).response.message))
+              this.errMsg=Object.values(JSON.parse(JSON.stringify(response)).response.message).toString()
+              this.errMsg="Please provide the valid details."+ this.errMsg;}
+             return false;
               }
             }
             return true;
+          }, (error:any)=>{
+            console.log( error);
+            this.errMsg = "Please try again."
+            return false;
           });;
         }
         else{
@@ -160,19 +168,29 @@ searchText:string="";
             console.log(response);
             if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
               this.errMsg = "Please try again."
+              return false;
             }
             else{
               if(JSON.parse(JSON.stringify(response)).response.message=="Category Updated Successfully." || JSON.parse(JSON.stringify(response)).response.statuscode === 200 ){
-  
-              //  this.succMsg= this.tag.name+" tag is saved";
+                //  this.succMsg= this.tag.name+" tag is saved";
                 this.category=[];
                 this.getCategory();
-                this.modalService.close("exampleModal")
+                this.modalService.close("exampleModal");   
+                return true;             
               }
               else{
-                this.errMsg="Please try again."
+                if(isEmpty(JSON.parse(JSON.stringify(response)).response.message===false))
+             { console.log(Object.values(JSON.parse(JSON.stringify(response)).response.message))
+              this.errMsg=Object.values(JSON.parse(JSON.stringify(response)).response.message).toString()
+              this.errMsg="Please provide the valid details."+ this.errMsg;}
+             return false;
               }
+             
             }
+          }, (error:any)=>{
+            console.log( error);
+            this.errMsg = "Please try again."
+            return false;
           })
           
           }

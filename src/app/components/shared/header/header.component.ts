@@ -28,12 +28,11 @@ export class HeaderComponent implements OnInit {
     }
     
   }
-
   ngOnInit(): void {
     this.title = this.titleService.getTitle();
     console.log(this.title)
     console.log(this.heading);
-   // this.appendTheme(this.title)
+  // this.appendTheme(this.heading)
 
   }
 
@@ -58,48 +57,20 @@ export class HeaderComponent implements OnInit {
     }
 
   }
-//not used any where.
-  isWebsite(ut: string | string[]):boolean{
-    if (typeof ut == 'string') {
-      console.log((this.heading == ut));
-      return (this.heading == ut);
-    }
-    else {
-
-      const match = ut.findIndex(e => e === this.heading);
-      if (match !== -1) {
-        if (this.heading === 'Login') {
-          console.log(this.heading);
-          this.addElementService.removeThemeLink("theme2");
-        }
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-  }
-
   logOut() {
     this.loginService.onLogout();
   }
-
   appendTheme(title:string){
-   // alert(title);
-    const found = hdrChkUrl.find((element:any) => element===title);
-   // alert(found);
-    
-    //alert(typeof(found));
+    alert(title);
+    const found = hdrChkUrl.find((element:any) => {element.toString()===title.toString();});
     if(found===undefined){
-     console.log("Unsuccessful");
-
-     console.table(hdrChkUrl);
-      
-      this.cssUrl='asset/main.min.css';
+     console.log("asset/main.min.css");
+     console.table(hdrChkUrl);      
+      this.cssUrl='assets/css/main.min.css';
     }
     else{
-     // alert('Url Check succeed');
-      this.cssUrl='asset/sb-admin-2.min.css';
+     alert('asset/sb-admin-2.min.css');
+      this.cssUrl='assets/css/sb-admin-2.min.css';
     
     }
   }

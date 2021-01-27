@@ -34,7 +34,7 @@
       <thead>
         <tr>
           <th width="5%">S.No</th>
-          <th>Sent on Date</th>
+          <th width="10%">Sent on Date</th>
           <th>Name</th>
           <th>E-mail</th>
           <th>Mobile #</th>
@@ -45,7 +45,7 @@
       <tfoot>
         <tr>
           <th width="5%">S.No</th>
-          <th>Sent on Date</th>
+          <th width="10%">Sent on Date</th>
           <th>Name</th>
           <th>E-mail</th>
           <th>Mobile #</th>
@@ -68,7 +68,7 @@
               <i class="fa fa-eye" aria-hidden="true" title="Edit"></i>
             </a>
             &nbsp;
-            <a class="link" (click)="onDelete(item.id,item.name)">
+            <a class="link" (click)="onMessage(item.id,item.name,item.email)">
               <i class="fa fa-envelope" aria-hidden="true" alt="Send message or feedback to user." title="Delete"></i>
             </a>
 

@@ -31,12 +31,13 @@ export class PackagesComponent implements OnInit {
    this.getPackages();
   }
   
-  onEdit(id: number, name:string, description:string) {
+  onEdit(id: number, name:string, description:string,amount:number) {
     this.title = "Edit";
     this.titleDescription = "Edit details about the packages to update.";
     this.btnName = "Update"
     this.package.id = id;
     this.package.name=name;
+    this.package.amount=amount;
     this.package.description=description;
   //   this.dataService.getPackage(id).subscribe(element => {
   //     this.package = element.valueOf();

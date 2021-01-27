@@ -185,17 +185,17 @@ export class DataService {
     // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
     this.params = {
       "id": "all",
-    //  "token": JSON.parse(sessionStorage.currentUser)[0].token
+      //  "token": JSON.parse(sessionStorage.currentUser)[0].token
     }
     return this.http.post(environment.apiUrl + 'getfaqs', JSON.stringify(this.params), this.httpOptions)
   }
 
-  getFAQ(id:number){
+  getFAQ(id: number) {
     console.log("header");
     console.log(this.httpOptions);
     this.params = {
       "id": id,
-     // "token": JSON.parse(sessionStorage.currentUser)[0].token
+      // "token": JSON.parse(sessionStorage.currentUser)[0].token
     }
     console.log(JSON.stringify(this.params))
     return this.http.post(environment.apiUrl + 'getfaqs', JSON.stringify(this.params), this.httpOptions)
@@ -230,55 +230,55 @@ export class DataService {
   }
 
 
- //Reviews
+  //Reviews
 
- getReviews() {
-  // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
-  this.params = {
-    "id": "all",
-  //  "token": JSON.parse(sessionStorage.currentUser)[0].token
+  getReviews() {
+    // console.log(JSON.parse(sessionStorage.currentUser)[0].token);
+    this.params = {
+      "id": "all",
+      //  "token": JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    return this.http.post(environment.apiUrl + 'getReviews', JSON.stringify(this.params), this.httpOptions)
   }
-  return this.http.post(environment.apiUrl + 'getReviews', JSON.stringify(this.params), this.httpOptions)
-}
 
-getReview(id:number){
-  console.log("header");
-  console.log(this.httpOptions);
-  this.params = {
-    "id": id,
-   // "token": JSON.parse(sessionStorage.currentUser)[0].token
+  getReview(id: number) {
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = {
+      "id": id,
+      // "token": JSON.parse(sessionStorage.currentUser)[0].token
+    }
+    console.log(JSON.stringify(this.params))
+    return this.http.post(environment.apiUrl + 'getReview', JSON.stringify(this.params), this.httpOptions)
   }
-  console.log(JSON.stringify(this.params))
-  return this.http.post(environment.apiUrl + 'getReview', JSON.stringify(this.params), this.httpOptions)
-}
 
-saveReview(params: any) {
-  console.log("header");
-  console.log(this.httpOptions);
-  this.params = JSON.parse(params);
+  saveReview(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = JSON.parse(params);
 
-  this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+    this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
 
-  return this.http.post(environment.apiUrl + 'creategetReview', JSON.stringify(this.params), this.httpOptions)
-}
-
-updateReview(params: any) {
-  console.log("header");
-  console.log(this.httpOptions);
-  this.params = JSON.parse(params);
-  this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
-  return this.http.post(environment.apiUrl + 'editgetReviews', JSON.stringify(this.params), this.httpOptions)
-}
-
-deleteReview(id: number) {
-  console.log("header");
-  console.log(this.httpOptions);
-  this.params = {
-    "id": id,
+    return this.http.post(environment.apiUrl + 'creategetReview', JSON.stringify(this.params), this.httpOptions)
   }
-  this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
-  return this.http.post(environment.apiUrl + 'delgetReview', JSON.stringify(this.params), this.httpOptions)
-}
+
+  updateReview(params: any) {
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = JSON.parse(params);
+    this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl + 'editgetReviews', JSON.stringify(this.params), this.httpOptions)
+  }
+
+  deleteReview(id: number) {
+    console.log("header");
+    console.log(this.httpOptions);
+    this.params = {
+      "id": id,
+    }
+    this.params.token = JSON.parse(sessionStorage.currentUser)[0].token
+    return this.http.post(environment.apiUrl + 'delgetReview', JSON.stringify(this.params), this.httpOptions)
+  }
 
 
 
@@ -304,7 +304,7 @@ deleteReview(id: number) {
     return this.http.post(environment.apiUrl + 'getFAQs', JSON.stringify(this.params), this.httpOptions)
   }
 
-  getPackage(id:number){
+  getPackage(id: number) {
     console.log("header");
     console.log(this.httpOptions);
     this.params = {
@@ -397,6 +397,13 @@ deleteReview(id: number) {
     return this.http.get(environment.apiUrl, this.httpOptions)
   }
 
+  sendMessageToClient(params: any) {
+    this.params = JSON.parse(params);
+    this.params.token = JSON.parse(sessionStorage.currentUser)[0].token;
+    console.log(this.params);
+    return this.http.post(environment.apiUrl + 'sendMsgToClnt', JSON.stringify(this.params), this.httpOptions)
+
+  }
   ////#For Wesite Purpose
 
   //contact message from contact page
@@ -420,8 +427,7 @@ deleteReview(id: number) {
 
   getBlogByCategory(id: number, name: string) {
     this.params = {
-      "catId": id,
-      name: name
+      "catId": name
     }
     console.log(JSON.stringify(this.params));
 
@@ -431,8 +437,7 @@ deleteReview(id: number) {
 
   getBlogByTag(id: number, name: string) {
     this.params = {
-      "tagId": id,
-      name: name
+      "tagId": name
     }
     console.log(JSON.stringify(this.params));
 

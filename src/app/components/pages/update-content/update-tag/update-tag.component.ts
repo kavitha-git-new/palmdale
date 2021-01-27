@@ -58,7 +58,7 @@ export class UpdateTagComponent implements OnInit {
     console.log(id)
 
     if (confirm("Are you sure? Do you want to delete the details about the tag : " + name) === true) {
-      this.dataService.deleteTag(id).subscribe(response=>{
+      this.dataService.deleteTag(id).subscribe((response:any)=>{
         console.log(response);
         if(JSON.parse(JSON.stringify(response)).response.message && checkToken(JSON.parse(JSON.stringify(response)).response.message.toString())===false){
 
@@ -82,6 +82,10 @@ export class UpdateTagComponent implements OnInit {
           }
         }
         
+      },(error:any)=>{
+        console.log( error);
+        this.errMsg = "Please try again."
+        return false;
       });
       return true;
 
@@ -121,7 +125,7 @@ export class UpdateTagComponent implements OnInit {
 
     if (this.tag.name !== '' && this.tag.description !== "" && confirm("Are you sure ? Do you want to save the details of " + this.tag.name) === true) {
       if (this.btnName === 'Save' || btName === 'Save') {
-        this.dataService.saveTag(JSON.stringify(this.tag)).subscribe(response => {
+        this.dataService.saveTag(JSON.stringify(this.tag)).subscribe((response:any) => {
           if (isEmpty(response)){
             this.errMsg = "Please try again."
             return false;
@@ -150,13 +154,20 @@ export class UpdateTagComponent implements OnInit {
                 return true;
               }
               else{
-                this.errMsg="Please try again."
-                return false;
+                if(isEmpty(JSON.parse(JSON.stringify(response)).response.message===false))
+             { console.log(Object.values(JSON.parse(JSON.stringify(response)).response.message))
+              this.errMsg=Object.values(JSON.parse(JSON.stringify(response)).response.message).toString()
+              this.errMsg="Please provide the valid details."+ this.errMsg;}
+             return false;
               }
             }
           }
           
-        });
+        },(error:any)=>{
+            console.log( error);
+            this.errMsg = "Please try again."
+            return false;
+          });
       }
       else {
         if (this.tag.id !== '') { this.dataService.updateTag(JSON.stringify(this.tag)).subscribe(response => {
@@ -178,8 +189,8 @@ export class UpdateTagComponent implements OnInit {
            
           }
           else{
-            if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 || JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
-              this.errMsg = "Please try again.";
+            if (JSON.parse(JSON.stringify(response)).response.statuscode === 403 && JSON.parse(JSON.stringify(response)).response.message.name === 'The name has already been taken.') {
+              this.errMsg = "Please provide valid details. The name has already been taken.";
               return false;
             }
             else{
@@ -192,17 +203,21 @@ export class UpdateTagComponent implements OnInit {
                 return true;
               }
               else{
-                this.errMsg="Please try again.";
+                if(isEmpty(JSON.parse(JSON.stringify(response)).response.message===false))
+                { console.log(Object.values(JSON.parse(JSON.stringify(response)).response.message))
+                 this.errMsg=Object.values(JSON.parse(JSON.stringify(response)).response.message).toString()
+                 this.errMsg="Please provide the valid details."+ this.errMsg;}
                 return false;
               }
             }
           }
          
+        },(error:any)=>{
+          console.log( error);
+          this.errMsg = "Please try again."
+          return false;
         }) }
-      }
-      alert("Data to save in Db.");
-
-
+      }   // alert("Data to save in Db.");
      
       return true;
     }

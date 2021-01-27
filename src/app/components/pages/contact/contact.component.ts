@@ -26,6 +26,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.succMsg="";
 
     console.log(JSON.stringify(this.cm));
     

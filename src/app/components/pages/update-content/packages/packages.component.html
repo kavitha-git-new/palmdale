@@ -55,7 +55,7 @@
                     <td>{{item.description}}</td>
                     <td class="text-right">{{item.amount | currency:'USD'}}</td>
                     <td class="text-center">
-                        <a class="link" (click)="onEdit(item.id, item.name, item.description)">
+                        <a class="link" (click)="onEdit(item.id, item.name, item.description,item.amount)">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         &nbsp;

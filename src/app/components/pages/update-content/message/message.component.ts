@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { error } from 'protractor';
 import { DataService } from 'src/app/components/services/data.service';
 import { ExcelFileService } from 'src/app/components/services/excel-file.service';
 import { ModalService } from 'src/app/components/_modal';
@@ -45,14 +46,23 @@ export class MessageComponent implements OnInit {
     console.log(id);
   }
 
-  onDelete(id: number,name:string) {
+  onMessage(id: number,name:string,email:string) {
     console.log(id);
     this.dataService.getMessage(id).subscribe(element => {
       this.message = element;
     });
 
     if (confirm("Are you sure? Do you want to send message to : " + name) === true) {
-    //  this.dataService.deletemessage(id);
+    //  send message to client:
+    this.dataService.sendMessageToClient(JSON.stringify({id:id,name:name,email:email})).subscribe((response:any)=>{
+      console.log("Response for sending msg.");
+      console.log(response);
+    },(error:any)=>{
+      console.error(error);
+      alert("Please try again.");
+      return false;
+    });
+    
       return true;
     }
     else {

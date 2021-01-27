@@ -19,8 +19,21 @@ module.exports = function(grunt) {
           },
           options: {
             type: 'html',
-            preserveServerScript: true
+            preserveServerScript: true,
+            removeComments: true,
+           collapseWhitespace: true
           }
+        }
+      },
+      htmlmin: {                                     // Task
+        dist: {                                      // Target
+          options: {                                 // Target options
+            removeComments: true,
+            collapseWhitespace: true
+          },
+          files: {                                   // Dictionary of files
+            'dist/index.html': 'dist/palmdale/browser/index.html'   // 'destination': 'source'
+                    }
         }
       }
     //   cssmin: {
@@ -67,12 +80,12 @@ module.exports = function(grunt) {
     // Default task
   //  grunt.registerTask('css', ['cssmin']);
     grunt.registerTask('css', ['cssmin']);
-    grunt.registerTask('html',['htmlcompressor']);
+    grunt.registerTask('html',['htmlmin']);
     grunt.registerTask('terser',['terser']);
     grunt.registerTask('concat',['concat'])
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-terser');
-    grunt.loadNpmTasks('grunt-htmlcompressor');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
 
 
